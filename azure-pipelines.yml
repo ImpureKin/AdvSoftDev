@@ -10,10 +10,10 @@ variables:
 
   # Azure Resource Manager connection created during pipeline creation
   # Web app name
-  webAppName: 'javawebapp0001'
+  webAppName: 'BudgetBuddy'
 
   # Environment name
-  environmentName: 'javawebapp0001'
+  environmentName: 'WebApp'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -58,7 +58,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: javawebapp0001'
+            displayName: 'Azure Web App Deploy: BudgetBuddy'
             inputs:
               appType: webAppLinux
               appName: $(webAppName)
