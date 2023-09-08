@@ -22,7 +22,7 @@ steps:
 
 - script:
   ls
-  dispalyName: 'Running ls command'
+  displayName: 'Running ls command'
 
 - publish: $(System.DefaultWorkingDirectory)/bin/WebApp
   artifact: WebApp
