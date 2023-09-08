@@ -19,3 +19,6 @@ steps:
     echo This is the third step.
     echo This is the fourth step.
   displayName: 'Run a multi-line script'
+
+- publish: $(System.DefaultWorkingDirectory)/bin/WebApp
+  artifact: WebApp
