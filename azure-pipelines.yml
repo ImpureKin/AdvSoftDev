@@ -25,11 +25,13 @@ steps:
   inputs:
     command: 'build'
     arguments: '--no-restore --configuration Release'
+    projects: '/projectbuddy'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
   inputs:
     command: 'publish'
+    projects: '/projectbuddy'
     publishWebProjects: false
     arguments: '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
     zipAfterPublish: true
