@@ -20,12 +20,21 @@ steps:
     echo This is the fourth step.
   displayName: 'Run a multi-line script'
 
-- script: dir
-  displayName: 'Run DIR'
+- task: DotNetCoreCLI@2
+  displayName: 'Build the project - Release'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration Release'
+    projects: '**/*.csproj'
 
-- script: |
-    $folderPath = $(System.DefaultWorkingDirectory)/bin/WebApp
-    if (!(Test-Path $folderPath -PathType Container)) {New-Item -ItemType Directory -Force -Path $folderPath}
+- task: DotNetCoreCLI@2
+  displayName: 'Publish the project - Release'
+  inputs:
+    command: 'publish'
+    projects: '**/*.csproj'
+    publishWebProjects: false
+    arguments: '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
+    zipAfterPublish: true
 
 - publish: $(System.DefaultWorkingDirectory)/bin/WebApp
   artifact: WebApp
