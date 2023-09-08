@@ -9,6 +9,8 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: '8fd34d3e-ce69-4c13-9dfc-43f61b20298a'
+
   # Web app name
   webAppName: 'BudgetBuddy'
 
@@ -60,6 +62,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure Web App Deploy: BudgetBuddy'
             inputs:
+              azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
