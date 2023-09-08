@@ -20,9 +20,8 @@ steps:
     echo This is the fourth step.
   displayName: 'Run a multi-line script'
 
-- script:
-  ls
-  displayName: 'Running ls command'
+- script: ll
+  displayName: 'Run a multi-line script'
 
 - publish: $(System.DefaultWorkingDirectory)/bin/WebApp
   artifact: WebApp
