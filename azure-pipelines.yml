@@ -12,7 +12,7 @@ variables:
   azureSubscription: 'e9e47cd8-2e9a-4e76-a984-6c6aca775ffd'
 
   # Web app name
-  webAppName: 'BudgetBuddy'
+  webAppName: 'BudgetBuddyUTS'
 
   # Environment name
   environmentName: 'BudgetBuddy'
