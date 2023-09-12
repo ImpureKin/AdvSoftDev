@@ -15,7 +15,7 @@ variables:
   webAppName: 'BudgetBuddy'
 
   # Environment name
-  environmentName: 'WebApp'
+  environmentName: 'BudgetBuddy'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
