@@ -9,7 +9,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '238db26a-40e0-4387-b32e-c7bd2d814c07'
+  azureSubscription: '2d016092-0360-44c6-8e5f-97e1b84ba6b1'
 
   # Web app name
   webAppName: 'BudgetBuddy'
