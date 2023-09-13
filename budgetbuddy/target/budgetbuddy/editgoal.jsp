@@ -7,8 +7,9 @@
 <body>
     <a href="index.jsp">Home</a>
     <a href="savinggoals.jsp">Trends</a>
-    <h1>Trends</h1>
+    <h1>Edit Saving Goal</h1>
     
+     <!-- Form to edit a goal -->
     <form action="" method="post">
     <label for="goalName"> Goal Name: </label>
     <input type="text" id="goalName" value="Computer"><br>
@@ -23,10 +24,10 @@
 
         <input type="submit" value="Save Changes">
     </form>
-
-  
+    
     <button onclick="goBack()">Back</button>
 
+     <!-- Script that sends a user back -->
     <script>
         function goBack() {
             window.history.back();

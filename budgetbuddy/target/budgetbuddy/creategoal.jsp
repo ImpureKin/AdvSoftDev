@@ -10,6 +10,7 @@
 <a href="index.jsp">Home</a>
 <a href="trends.jsp">Trends</a>
 
+ <!-- Adding a saving goal-->
 <form action="" method="post">
         Goal Name: <input type="text" name="goalName" required><br>
         Goal Description: <input type="text" name="goalDescriptin" reuqired><br>
@@ -19,6 +20,7 @@
         <input type="button" value="Back" onclick="history.back()">
     </form>
 
+    <!-- Dating for the goal to be stored -->
      <script>
         var currentDate = new Date();
         var formattedDate = currentDate.toISOString().slice(0,10);
