@@ -16,15 +16,22 @@
 
      <!-- Add Money to a saving goal avaliable -->
     <h2>Add Money to Goal</h2>
-    <form action="AddMoneyToGoalServlet" method="post">
+    <form action="" method="post">
         <label for="goalId">Select Goal:</label>
         <select id="goalId" name="goalId">
-            <c:forEach var="goal" items="${savingGoals}">
-                <option value="${goal.id}"><c:out value="${goal.name}" /></option>
-            </c:forEach>
+        <c:choose>
+            <c:when test="${not empty savingGoals}">
+                <c:forEach var="goal" items="${savingGoals}">
+                    <option value="${goal.id}"><c:out value="${goal.name}" /></option>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <option value="" disabled>No goals available</option>
+            </c:otherwise>
+        </c:choose>
         </select><br>
         <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount" required><br>
+        <input type="number" id="amount" name="amount" disabled required><br>
         <input type="submit" value="Add Money">
     </form>
    <br>
@@ -44,5 +51,20 @@
     
      <!-- Link to create a Goal -->
     <a href="creategoal.jsp">Create Goal</a>
+
+    <!-- Script to enable and disable adding money to a goal -->
+    <script>
+    function validateForm() {
+        var selectGoal = document.getElementById('goalId');
+        var amountField = document.getElementById('amount');
+        if (selectGoal.value === '') {
+            alert('No goals available. Please add money to savings directly.');
+            return false; 
+        }else {
+            amountField.disabled = false; 
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

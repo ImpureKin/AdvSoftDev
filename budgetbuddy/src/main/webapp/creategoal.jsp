@@ -5,10 +5,11 @@
 <title>Create Saving Goal Page </title>
 </head>
 <body>
-    <h1> Create Saving goals </h1>
-    
+ 
 <a href="index.jsp">Home</a>
 <a href="trends.jsp">Trends</a>
+
+<h1> Create Saving goals </h1>
 
  <!-- Adding a saving goal-->
 <form action="" method="post">
@@ -17,7 +18,7 @@
         Goal Amount: <input type="number" name="goalAmount" required><br>
         <input type="hidden" name="dateCreated" value=""><br>
         <input type="submit" value="Create Goal">
-        <input type="button" value="Back" onclick="history.back()">
+        <a href="savinggoals.jsp">Cancel</a>
     </form>
 
     <!-- Dating for the goal to be stored -->

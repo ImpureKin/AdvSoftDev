@@ -24,16 +24,11 @@
 
      <!-- links to either allow the user to edit or remove a goal -->
     <a href="editgoal.jsp">Edit Goal</a> 
-    <a href="#" onclick="confirmDelete()">Delete Goal</a><br>
-    
-    <button onclick="goBack()">Back</button>
+    <a href="#" onclick="confirmDelete()">Delete Goal</a>
+    <a href="savinggoals.jsp">Cancel</a>
 
      <!-- Script that will allow the users to go back and message to confirm a delete -->
     <script>
-        function goBack() {
-            window.history.back();
-        }
-
         function confirmDelete() {
             var confirmDelete = confirm("Are you sure you want to delete this goal?");
             if (confirmDelete) {

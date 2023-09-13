@@ -23,16 +23,9 @@
     <input type="hidden" name="date_created" value="2023-09-05">
 
         <input type="submit" value="Save Changes">
+        <input type="reset" value="Reset">
+        <a href="detailgoal.jsp">Cancel</a>
     </form>
-    
-    <button onclick="goBack()">Back</button>
-
-     <!-- Script that sends a user back -->
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 
 </body>
 </html>
