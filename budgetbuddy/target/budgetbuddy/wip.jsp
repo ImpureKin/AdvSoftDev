@@ -48,29 +48,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
           transform: translate(-50%, -50%);
         }
         </style>
-        <title>BudgetBuddy Homepage</title>
+        <title>BudgetBuddy - WIP Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <div class="topnav">
+            <a href="wip.jsp">Expenses</a>
+            <a href="wip.jsp">Deductions</a>
+            <a href="wip.jsp">Savings & Goals</a>
+            <a href="wip.jsp">Income</a>
+            <a href="welcome_page.jsp">Home</a>
+            <a href="wip.jsp">Tips & Knowledge</a>
+            <a href="wip.jsp">Bill Reminders</a>
+            <a href="wip.jsp">Financial Support</a>
+            <a href="index.jsp">Logout</a>
+        </div>
     <div class="container">
         <div class="titlecenter">
-              <h1>Welcome to BudgetBuddy!</h1><br><br><br><br><br>
-        </div>
-        <div class="textcenter">
-            <form action="login_check.jsp" method="post">
-                <label for="email">Email:</label><br><br>
-                <input type="email" id="email" name="email" required><br><br>
-                <label for="password">Password:</label><br><br>
-                <input type="password" id="password" name="password" required><br><br><br>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <div class="notecenter">
-            <h3>Don't have an account yet?</h3>
-        </div>
-        <div class="buttoncenter">
-            <button type="button" style="height:40px;width:100px" onClick="location.href='register.jsp'">Register</button><br><br><br><br><br><br><br><br>
+              <h1>This page is a WIP! Coming Soon...</h1><br><br><br><br><br>
         </div>
     </div>
     </body>

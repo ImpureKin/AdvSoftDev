@@ -35,7 +35,7 @@
         }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>IoTBay Register</title>
+        <title>BudgetBuddy Register</title>
     </head>
     <body>
         <div class="container">

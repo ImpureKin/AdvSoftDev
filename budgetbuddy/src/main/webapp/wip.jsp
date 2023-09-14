@@ -1,11 +1,8 @@
-<%-- 
-    Document   : Welcome Page
-    Created on : 28 Mar 2023, 6:38:18 pm
-    Author     : John
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
 <html>
     <head>
         <style>
@@ -25,15 +22,31 @@
         }
         
         .textcenter {
-          height: 80px;
           margin: 0;
           position: absolute;
-          top: 30%;
+          top: 50%;
           left: 50%;
           -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
         }
-
+        
+        .notecenter {
+          margin: 0;
+          position: absolute;
+          top: 70%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+        
+        .buttoncenter {
+          margin: 0;
+          position: absolute;
+          top: 90%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
         .center {
                 text-align: center;
             }
@@ -51,8 +64,9 @@
           padding: 10px 15px;
         }
         </style>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>BudgetBuddy Welcome</title>
+        <title>BudgetBuddy - WIP Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class="topnav">
@@ -66,20 +80,10 @@
             <a href="wip.jsp">Financial Support</a>
             <a href="index.jsp">Logout</a>
         </div>
-        <div class="container">
-            <div class="textcenter">
-                <h1>Welcome!</h1><br><br><br>
-                <% 
-                // get the user inputs
-                String email = (String) session.getAttribute("registeredEmail");
-                String password = (String) session.getAttribute("registeredPassword");
-                %>
-                <h2>
-                    <%= "Email: " + email%><br><br><br>
-                    <%= "Password: " + password%><br><br><br>
-                    <a href="index.jsp">Logout</a>
-                </h2>
-            </div>
+    <div class="container">
+        <div class="titlecenter">
+              <h1>This page is a WIP! Coming Soon...</h1><br><br><br><br><br>
         </div>
+    </div>
     </body>
 </html>

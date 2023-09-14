@@ -48,17 +48,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
           transform: translate(-50%, -50%);
         }
         </style>
-        <title>IoTBay Homepage</title>
+        <title>BudgetBuddy Homepage</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
     <div class="container">
         <div class="titlecenter">
-              <h1>Welcome to the Internet</h1><br><br><br><br><br>
-        </div>
-        <div class="titlecenter">
-            <h1>of Things Bay</h1>
+              <h1>Welcome to BudgetBuddy!</h1><br><br><br><br><br>
         </div>
         <div class="textcenter">
             <form action="login_check.jsp" method="post">
