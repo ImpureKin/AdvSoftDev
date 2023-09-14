@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="titlecenter">
-                <h1>Internet of Things Bay</h1><br><br><br><br><br>
+                <h1>BudgetBuddy</h1><br><br><br><br><br>
             </div>
             <div class="titlecenter">
                 <h1>Register Page</h1>

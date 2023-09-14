@@ -6,7 +6,7 @@
 </head>
 <body>
  
-<a href="index.jsp">Home</a>
+<a href="home.jsp">Home</a>
 <a href="trends.jsp">Trends</a>
 
 <h1> Create Saving goals </h1>

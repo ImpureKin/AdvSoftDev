@@ -41,7 +41,7 @@
             <div class="textcenter">
                 <h1>Login Failed! Make sure to use the right credentials</h1><br><br><br>
                 <h2>
-                    <a href="index.jsp">Return to home</a>
+                    <a href="home.jsp">Return to home</a>
                 </h2>
             </div>
         </div>

@@ -5,5 +5,5 @@ String password = request.getParameter("password");
 // store the user inputs in session variables
 session.setAttribute("registeredEmail", email);
 session.setAttribute("registeredPassword", password);
-response.sendRedirect("welcome_page.jsp");
+response.sendRedirect("home.jsp");
 %>

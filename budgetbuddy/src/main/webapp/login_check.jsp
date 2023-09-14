@@ -6,7 +6,7 @@ String sessionEmail = (String) session.getAttribute("registeredEmail");
 String sessionPassword = (String) session.getAttribute("registeredPassword");
 
 if (email.equals(sessionEmail) && password.equals(sessionPassword)) {
-    response.sendRedirect("welcome_page.jsp");
+    response.sendRedirect("home.jsp");
 }
 else {
     response.sendRedirect("login_fail.jsp");

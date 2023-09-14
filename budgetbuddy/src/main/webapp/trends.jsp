@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 </head>
 <body>
-    <a href="index.jsp">Home</a>
+    <a href="home.jsp">Home</a>
     <a href="savinggoals.jsp">Trends</a>
     <h1>Trends Overview</h1>
 

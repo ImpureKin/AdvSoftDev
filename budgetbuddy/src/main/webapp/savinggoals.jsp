@@ -5,7 +5,7 @@
 <title>Saving and Goals Page </title>
 </head>
 <body>
-    <a href="index.jsp">Home</a>
+    <a href="home.jsp">Home</a>
     <a href="trends.jsp">Trends</a>
     <h1> Saving Goals </h1>
     <p>This page will show data for both savings and goals. Placeholder data is present on this page to show layout</p>

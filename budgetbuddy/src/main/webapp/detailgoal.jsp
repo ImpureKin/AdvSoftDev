@@ -5,7 +5,7 @@
 <title>Goal Details</title>
 </head>
 <body>
-    <a href="index.jsp">Home</a>
+    <a href="home.jsp">Home</a>
     <a href="savinggoals.jsp">Trends</a>
     <h1>Saving Goal Detail</h1>
 

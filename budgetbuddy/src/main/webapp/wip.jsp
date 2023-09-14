@@ -74,7 +74,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <a href="wip.jsp">Deductions</a>
             <a href="wip.jsp">Savings & Goals</a>
             <a href="wip.jsp">Income</a>
-            <a href="welcome_page.jsp">Home</a>
+            <a href="home.jsp">Home</a>
             <a href="wip.jsp">Tips & Knowledge</a>
             <a href="wip.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
