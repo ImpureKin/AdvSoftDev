@@ -83,7 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <a href="saving_goals.jsp">Savings</a>
             <a href="trends.jsp">Trends</a>
             <a href="wip.jsp">Tips & Knowledge</a>
-            <a href="wip.jsp">Bill Reminders</a>
+            <a href="payment.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
             <a href="index.jsp">Logout</a>
           </div>
