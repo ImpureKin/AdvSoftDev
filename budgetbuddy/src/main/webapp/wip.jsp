@@ -70,15 +70,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     </head>
     <body>
         <div class="topnav">
-            <a href="wip.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
-            <a href="wip.jsp">Savings & Goals</a>
-            <a href="wip.jsp">Income</a>
-            <a href="home.jsp">Home</a>
-            <a href="wip.jsp">Tips & Knowledge</a>
-            <a href="wip.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="index.jsp">Logout</a>
+          <a href="wip.jsp">Expenses</a>
+          <a href="wip.jsp">Deductions</a>
+          <a href="saving_goals.jsp">Savings</a>
+          <a href="trends.jsp">Trends</a>
+          <a href="wip.jsp">Income</a>
+          <a href="home.jsp">Home</a>
+          <a href="wip.jsp">Tips & Knowledge</a>
+          <a href="wip.jsp">Bill Reminders</a>
+          <a href="wip.jsp">Financial Support</a>
+          <a href="index.jsp">Logout</a>
         </div>
     <div class="container">
         <div class="titlecenter">

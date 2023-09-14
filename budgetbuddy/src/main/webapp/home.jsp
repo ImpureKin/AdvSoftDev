@@ -58,7 +58,7 @@
         <div class="topnav">
             <a href="wip.jsp">Expenses</a>
             <a href="wip.jsp">Deductions</a>
-            <a href="savinggoals.jsp">Savings</a>
+            <a href="saving_goals.jsp">Savings</a>
             <a href="trends.jsp">Trends</a>
             <a href="wip.jsp">Income</a>
             <a href="home.jsp">Home</a>

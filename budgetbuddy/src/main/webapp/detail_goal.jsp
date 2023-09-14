@@ -6,7 +6,7 @@
 </head>
 <body>
     <a href="home.jsp">Home</a>
-    <a href="savinggoals.jsp">Trends</a>
+    <a href="saving_goals.jsp">Trends</a>
     <h1>Saving Goal Detail</h1>
 
      <!-- Shows details for the goal -->
@@ -23,9 +23,9 @@
     <span id="dateCreated">2023-09-05</span><br>
 
      <!-- links to either allow the user to edit or remove a goal -->
-    <a href="editgoal.jsp">Edit Goal</a> 
+    <a href="edit_goal.jsp">Edit Goal</a> 
     <a href="#" onclick="confirmDelete()">Delete Goal</a>
-    <a href="savinggoals.jsp">Cancel</a>
+    <a href="saving_goals.jsp">Cancel</a>
 
      <!-- Script that will allow the users to go back and message to confirm a delete -->
     <script>

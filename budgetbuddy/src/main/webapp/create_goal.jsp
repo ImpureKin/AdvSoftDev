@@ -18,7 +18,7 @@
         Goal Amount: <input type="number" name="goalAmount" required><br>
         <input type="hidden" name="dateCreated" value=""><br>
         <input type="submit" value="Create Goal">
-        <a href="savinggoals.jsp">Cancel</a>
+        <a href="saving_goals.jsp">Cancel</a>
     </form>
 
     <!-- Dating for the goal to be stored -->

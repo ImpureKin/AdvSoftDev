@@ -20,8 +20,8 @@
         <label for="goalId">Select Goal:</label>
         <select id="goalId" name="goalId">
         <c:choose>
-            <c:when test="${not empty savingGoals}">
-                <c:forEach var="goal" items="${savingGoals}">
+            <c:when test="${not empty saving_goals}">
+                <c:forEach var="goal" items="${saving_goals}">
                     <option value="${goal.id}"><c:out value="${goal.name}" /></option>
                 </c:forEach>
             </c:when>
@@ -38,19 +38,19 @@
 
     <!-- Shows a list of goals  -->
     <h2>Saving Goals</h2>
-    <c:if test="${not empty savingGoals}">
+    <c:if test="${not empty saving_goals}">
         <ul>
-            <c:forEach var="goal" items="${savingGoals}">
+            <c:forEach var="goal" items="${saving_goals}">
                 
             </c:forEach>
         </ul>
     </c:if>
-    <c:if test="${empty savingGoals}">
-        <p>No saving goals set yet. <br> Here is a tester <a href="detailgoal.jsp">Computer</a></p>
+    <c:if test="${empty saving_goals}">
+        <p>No saving goals set yet. <br> Here is a tester <a href="detail_goal.jsp">Computer</a></p>
     </c:if>
     
      <!-- Link to create a Goal -->
-    <a href="creategoal.jsp">Create Goal</a>
+    <a href="create_goal.jsp">Create Goal</a>
 
     <!-- Script to enable and disable adding money to a goal -->
     <script>

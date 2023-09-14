@@ -6,7 +6,7 @@
 </head>
 <body>
     <a href="home.jsp">Home</a>
-    <a href="savinggoals.jsp">Trends</a>
+    <a href="saving_goals.jsp">Trends</a>
     <h1>Edit Saving Goal</h1>
     
      <!-- Form to edit a goal -->
@@ -24,7 +24,7 @@
 
         <input type="submit" value="Save Changes">
         <input type="reset" value="Reset">
-        <a href="detailgoal.jsp">Cancel</a>
+        <a href="detail_goal.jsp">Cancel</a>
     </form>
 
 </body>

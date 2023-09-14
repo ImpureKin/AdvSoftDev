@@ -7,7 +7,7 @@
 </head>
 <body>
     <a href="home.jsp">Home</a>
-    <a href="savinggoals.jsp">Trends</a>
+    <a href="saving_goals.jsp">Trends</a>
     <h1>Trends Overview</h1>
 
     <!-- Summary table of all of the data which the user enters -->
