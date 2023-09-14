@@ -33,6 +33,11 @@
           -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
         }
+        .center-container {
+          display: flex;
+           justify-content: center;
+          align-items: center;
+        }
 
         .center {
                 text-align: center;
@@ -55,17 +60,19 @@
         <title>BudgetBuddy Welcome</title>
     </head>
     <body>
+        <div class="center-container">
         <div class="topnav">
-            <a href="wip.jsp">Expenses</a>
+        <a href="home.jsp">Home</a>
+            <a href="wip.jsp">Income</a>
+            <a href="expenses.jsp">Expenses</a>
             <a href="wip.jsp">Deductions</a>
             <a href="saving_goals.jsp">Savings</a>
             <a href="trends.jsp">Trends</a>
-            <a href="wip.jsp">Income</a>
-            <a href="home.jsp">Home</a>
             <a href="wip.jsp">Tips & Knowledge</a>
             <a href="wip.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
             <a href="index.jsp">Logout</a>
+        </div>
         </div>
         <div class="container">
             <div class="textcenter">

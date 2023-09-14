@@ -51,6 +51,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 text-align: center;
             }
 
+        .center-container {  
+          display: flex;
+           justify-content: center;
+          align-items: center;
+        }
         .topnav input[type=text] {
                 padding: 6px;
                 border: none;
@@ -69,17 +74,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+       <div class="center-container">
         <div class="topnav">
-          <a href="wip.jsp">Expenses</a>
-          <a href="wip.jsp">Deductions</a>
-          <a href="saving_goals.jsp">Savings</a>
-          <a href="trends.jsp">Trends</a>
-          <a href="wip.jsp">Income</a>
-          <a href="home.jsp">Home</a>
-          <a href="wip.jsp">Tips & Knowledge</a>
-          <a href="wip.jsp">Bill Reminders</a>
-          <a href="wip.jsp">Financial Support</a>
-          <a href="index.jsp">Logout</a>
+            <a href="home.jsp">Home</a>
+            <a href="wip.jsp">Income</a>
+            <a href="expenses.jsp">Expenses</a>
+            <a href="wip.jsp">Deductions</a>
+            <a href="saving_goals.jsp">Savings</a>
+            <a href="trends.jsp">Trends</a>
+            <a href="wip.jsp">Tips & Knowledge</a>
+            <a href="wip.jsp">Bill Reminders</a>
+            <a href="wip.jsp">Financial Support</a>
+            <a href="index.jsp">Logout</a>
+          </div>
         </div>
     <div class="container">
         <div class="titlecenter">
