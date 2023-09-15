@@ -76,7 +76,7 @@
         </div>
         <div class="container">
             <div class="textcenter">
-                <h1>Welcome, to the Presentation!</h1><br><br><br>
+                <h1>Welcome!</h1><br><br><br>
                 <% 
                 // get the user inputs
                 String email = (String) session.getAttribute("registeredEmail");
