@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap">
 </head>
 <body>
-     <!-- NavBar-->
+<!-- NavBar-->
     <div class="center-container">
         <div class="topnav">
         <a href="home.jsp">Home</a>
@@ -49,6 +49,9 @@
             <a href="index.jsp">Logout</a>
         </div>
     </div>
-    <h1 id="heading">Tips and Knowledge</h1>
+    <h1 id="heading">Income</h1>
+    <label for="source">Income Source:</label>
+    <input type="text" id="source" name="source"><br><br>
+    <input type="submit" value="Confirm">
 </body>
 </html>
