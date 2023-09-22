@@ -1,1 +1,5 @@
-DO NOT USE THIS FILE FOR ANYTHING. WILL BE DELETED.
+package controller;
+
+public class Placeholder {
+
+}
