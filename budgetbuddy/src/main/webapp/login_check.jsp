@@ -1,9 +1,9 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="database.*" %>
+<%@ page import="database.DB" %>
 
 <%
 
-Connection conn = DB.getConnection(request);
+Connection conn = DB.getConnection();
 
 // check if email and password are set in session
 String email = request.getParameter("email");
