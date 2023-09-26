@@ -9,24 +9,18 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
-    private String address;
+    private String dob;
+    private String gender;
     
     // Customer Constructor
-    public User(int id, String firstName, String lastName, String email, String password, String phoneNumber, String address) {
+    public User(int id, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
+        this.dob = dob;
+        this.gender = gender;
     }
 }

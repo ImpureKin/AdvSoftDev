@@ -62,10 +62,11 @@ public class DB {
             String email = rs.getString("email");
             String password = rs.getString("password");
             String phoneNumber = rs.getString("phone_number");
-            String address = rs.getString("address");
+            String dob = rs.getString("dob");
+            String gender = rs.getString("gender");
 
             // Create User using details from DB
-            User user = new User(id, firstName, lastName, email, password, phoneNumber, address);
+            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender);
             return user;
         } catch (SQLException e) {
             System.out.println("Error getting User: " + e);
@@ -74,21 +75,22 @@ public class DB {
     }
     
     // Insert (Register) a User into the database
-    public static String registerCustomer(Connection connection, String firstName, String lastName, String email, String password, String phoneNumber, String address) {
+    public static String registerUser(Connection connection, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender) {
         try {
-            String query = "INSERT INTO Customer (first_name, last_name, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?);";
+            String query = "INSERT INTO Users (first_name, last_name, email, password, phone, dob, gender) VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, firstName);
             pstmt.setString(2, lastName);
             pstmt.setString(3, email);
             pstmt.setString(4, password);
             pstmt.setString(5, phoneNumber);
-            pstmt.setString(6, address);
+            pstmt.setString(6, dob);
+            pstmt.setString(7, gender);
             pstmt.executeUpdate();
-            System.out.println("Successfully registered customer: " + firstName + " " + lastName);
+            System.out.println("Successfully registered user: " + firstName + " " + lastName);
             return "Success";
         } catch (SQLException e) {
-            System.out.println("Customer Registration error: " + e);
+            System.out.println("User Registration error: " + e);
             return "Failed. " + e;
         }
     }
@@ -120,6 +122,7 @@ public class DB {
             System.out.println("Error deleting user account: " + e);
         }
     }
+
     // #################################################################################################### //
     // #################################### OTHER FUNCTIONS BELOW ######################################### //
     // #################################################################################################### //
