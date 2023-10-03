@@ -1,5 +1,6 @@
 package database;
 import model.*;
+import controller.*;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -61,12 +62,12 @@ public class DB {
             String lastName = rs.getString("last_name");
             String email = rs.getString("email");
             String password = rs.getString("password");
-            String phoneNumber = rs.getString("phone_number");
+            String phoneNumber = rs.getString("phone");
             String dob = rs.getString("dob");
             String gender = rs.getString("gender");
 
             // Create User using details from DB
-            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender);
+            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, new UserController());
             return user;
         } catch (SQLException e) {
             System.out.println("Error getting User: " + e);
@@ -96,15 +97,17 @@ public class DB {
     }
     
     // Update a user's details
-    public static void updateUserDetail(Connection connection, String field, String value, int userID) {
-        String query = "UPDATE Users SET " + field + " = '" + value + "' WHERE id = " + userID;
+    public static String updateUserDetail(Connection connection, String field, String value, int userId) {
+        String query = "UPDATE Users SET " + field + " = '" + value + "' WHERE id = " + userId;
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.executeUpdate();
             System.out.println("Updated user details - " + field + ".");
+            return null; 
         }
         catch(Exception e) {
             System.out.println("Error updating user details: " + e);
+            return "Error";
         }
     }
     

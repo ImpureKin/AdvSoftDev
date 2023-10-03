@@ -9,17 +9,19 @@ public class LoginController {
         if (isEmpty(email) || isEmpty(password)) {
             return "Both email and password are required.";
         }
-
+        Connection conn = DB.getConnection();
         try {
-            Connection conn = DB.getConnection();
             if (!DB.authenticateUser(conn, email, password)) {
+                conn.close();
                 return "User does not exist.";
             }
         }   
         catch (Exception e) {
+            conn.close();
             System.out.println("Connection Failed: " + e);
             throw e;
         }
+        conn.close();
         return null;
     }
 

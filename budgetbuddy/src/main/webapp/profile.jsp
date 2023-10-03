@@ -1,5 +1,5 @@
 <%-- 
-    Document   : Welcome Page
+    Document   : Profile
     Created on : 28 Mar 2023, 6:38:18 pm
     Author     : John
 --%>
@@ -57,7 +57,7 @@
         }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>BudgetBuddy Welcome</title>
+        <title>Profile</title>
     </head>
     <body>
         <div class="center-container">
@@ -77,7 +77,7 @@
         </div>
         <div class="container">
             <div class="textcenter">
-                <h1>Welcome!</h1><br><br><br>
+                <h1>What would you like to do?</h1><br><br><br>
             </div>
         </div>
     </body>
