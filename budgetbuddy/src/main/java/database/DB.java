@@ -57,7 +57,7 @@ public class DB {
             ResultSet rs = pstmt.executeQuery();
             
             // Assign variables from DB query result
-            int id = rs.getInt("id");
+            String id = rs.getString("id");
             String firstName = rs.getString("first_name");
             String lastName = rs.getString("last_name");
             String email = rs.getString("email");
@@ -98,7 +98,7 @@ public class DB {
     }
     
     // Update a user's details
-    public static String updateUserDetail(Connection connection, String field, String value, int userId) {
+    public static String updateUserDetail(Connection connection, String field, String value, String userId) {
         String query = "UPDATE Users SET " + field + " = '" + value + "' WHERE id = " + userId;
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -113,7 +113,7 @@ public class DB {
     }
     
     // Delete user account
-    public static void deleteAccount(Connection connection, int userID) {
+    public static void deleteAccount(Connection connection, String userID) {
         String deleteAccountQuery = "DELETE FROM Users WHERE id = " + userID;
         System.out.println(deleteAccountQuery);
         try {

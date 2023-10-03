@@ -2,7 +2,7 @@ package model;
 import controller.UserController;
 
 public class User {
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
@@ -12,7 +12,7 @@ public class User {
     private String gender;
     private UserController uc;
 
-    public User(int id, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender, UserController uc) {
+    public User(String id, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender, UserController uc) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,7 +30,7 @@ public class User {
     }
 
     // Getter for id
-    public int getId() {
+    public String getId() {
         return id;
     }
 

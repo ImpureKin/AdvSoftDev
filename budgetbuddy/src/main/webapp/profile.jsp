@@ -87,6 +87,13 @@
               UserController uc = user.getUserController(); 
               %>
               <p>Your email is: <%= uc.getValue(user, "email") %></p>
+              <p>Your first name is: <%= uc.getValue(user, "firstName") %></p>
+              <p>Your last name is: <%= uc.getValue(user, "lastName") %></p>
+              <p>Your password is: <%= uc.getValue(user, "password") %></p>
+              <p>Your phone number is: <%= uc.getValue(user, "phoneNumber") %></p>
+              <p>Your dob is: <%= uc.getValue(user, "dob") %></p>
+              <p>Your gender is: <%= uc.getValue(user, "gender") %></p>
+
 
               <br>
               <h3> Edit your account details below: </h3>
@@ -118,7 +125,7 @@
               </table>
               <br>
               <input type="submit" value="Save">
-              <button type="button" style="height:20px;width:75px" onClick="location.href='index.jsp'">Cancel</button>
+              <button type="button" style="height:20px;width:75px" onClick="location.href='home.jsp'">Cancel</button>
               <input type="hidden" name="submitted" value="yes">
             </form>
             <form action="delete_user.jsp" method="POST">

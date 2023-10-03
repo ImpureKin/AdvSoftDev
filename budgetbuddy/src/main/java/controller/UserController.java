@@ -5,28 +5,36 @@ import database.DB;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class UserController {
-    public User getUser(String email) throws Exception {
-        Connection conn = DB.getConnection();
-        User user = DB.getUser(conn, email);
-        if (user != null) {
+    public User getUser(String email) {
+        try {
+            Connection conn = DB.getConnection();
+            User user = DB.getUser(conn, email);
+            if (user != null) {
+                conn.close();
+                return user;
+            }
             conn.close();
-            return user;
-        }
-        conn.close();
-        return null;
-    }
-
-    public String editUser(String field, String value, int userId) throws Exception {
-        Connection conn = DB.getConnection();
-        if (DB.updateUserDetail(conn, field, value, userId) != null) {
+            return null;
+        } catch (Exception e) {
             return null;
         }
-        else {
-            return "Error updating user details.";
+    }
+
+    public String editUser(String field, String value, String userId) {
+        try {
+            Connection conn = DB.getConnection();
+            if (DB.updateUserDetail(conn, field, value, userId) == null) {
+                conn.close();
+                return null;
+            }
+            else {
+                conn.close();
+                return "Error updating user details.";
+            }
+        } catch (Exception e) {
+            return "Error updating user details: " + e;
         }
     }
 
@@ -47,6 +55,17 @@ public class UserController {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             return "Error accessing value";
+        }
+    }
+
+    public String deleteUser(String userId) {
+        try {
+            Connection conn = DB.getConnection();
+            DB.deleteAccount(conn, userId);
+            conn.close();
+            return null;
+        } catch (Exception e) {
+            return "Error deleting account: " + e;
         }
     }
 }
