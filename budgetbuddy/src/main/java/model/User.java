@@ -24,6 +24,11 @@ public class User {
         this.uc = uc;
     }
 
+    // Getter for UserController
+    public UserController getUserController() {
+        return uc;
+    }
+
     // Getter for id
     public int getId() {
         return id;

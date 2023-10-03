@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="model.*" %>
+<%@ page import="controller.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -79,6 +81,51 @@
             <div class="textcenter">
                 <h1>What would you like to do?</h1><br><br><br>
             </div>
+            <form action="edit_user.jsp" method="POST">
+              <% 
+              User user = (User) session.getAttribute("User");
+              UserController uc = user.getUserController(); 
+              %>
+              <p>Your email is: <%= uc.getValue(user, "email") %></p>
+
+              <br>
+              <h3> Edit your account details below: </h3>
+              <table>
+                  <tr>
+                          <td><label for="email">Email:</label></td>
+                          <td><input type="email" name="email"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="firstName">First Name:</label></td>
+                          <td><input type="text" name="firstName"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="lastName">Last Name:</label></td>
+                          <td><input type="text" name="lastName"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="password">Password:</label></td>
+                          <td><input type="password" name="password"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="phoneNumber">Phone Number:</label></td>
+                          <td><input type="text" name="phoneNumber"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="address">Address:</label></td>
+                          <td><input type="text" name="address"></td>
+                  </tr>
+              </table>
+              <br>
+              <input type="submit" value="Save">
+              <button type="button" style="height:20px;width:75px" onClick="location.href='index.jsp'">Cancel</button>
+              <input type="hidden" name="submitted" value="yes">
+            </form>
+            <form action="delete_user.jsp" method="POST">
+              <h2>Delete your account?</h2>
+              <p> WARNING! This will remove your account entirely. This cannot be undone!</p> 
+              <input type="submit" value="Delete Account">
+            </form>
         </div>
     </body>
 </html>

@@ -67,7 +67,8 @@ public class DB {
             String gender = rs.getString("gender");
 
             // Create User using details from DB
-            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, new UserController());
+            UserController uc = new UserController();
+            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, uc);
             return user;
         } catch (SQLException e) {
             System.out.println("Error getting User: " + e);
