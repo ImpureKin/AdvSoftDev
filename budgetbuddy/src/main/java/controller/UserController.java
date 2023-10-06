@@ -11,7 +11,7 @@ public class UserController {
     public User getUser(String email) {
         try {
             Connection conn = ConnectionManager.getConnection();
-            User user = UserManager.getUser(conn, email);
+            User user = UserManager.getUser(conn, "email", email);
             if (user != null) {
                 conn.close();
                 return user;

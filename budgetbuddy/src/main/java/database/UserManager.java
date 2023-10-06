@@ -1,13 +1,7 @@
 package database;
 import model.*;
 import controller.*;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserManager {
 
@@ -29,10 +23,10 @@ public class UserManager {
     }
     
     // Get User based on email and userType
-    public static User getUser(Connection connection, String request_email) {
+    public static User getUser(Connection connection, String field, String field_value) {
         try {
             // Query DB
-            String query = "SELECT * FROM Users WHERE email = '" + request_email + "'";
+            String query = "SELECT * FROM Users WHERE " + field + " = '" + field_value + "'";
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             
@@ -106,12 +100,4 @@ public class UserManager {
             System.out.println("Error deleting user account: " + e);
         }
     }
-
-    // #################################################################################################### //
-    // #################################### OTHER FUNCTIONS BELOW ######################################### //
-    // #################################################################################################### //
-
-
-
-
 }

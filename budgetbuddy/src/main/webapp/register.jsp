@@ -33,11 +33,37 @@
           -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
         }
+
+        .center-container {
+          display: flex;
+           justify-content: center;
+          align-items: center;
+        }
+
+        .topnav a {
+          text-align: center;
+          padding: 10px 15px;
+        }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BudgetBuddy Register</title>
     </head>
     <body>
+        <div class="center-container">
+            <div class="topnav">
+            <a href="home.jsp">Home</a>
+                <a href="income.jsp">Income</a>
+                <a href="expenses.jsp">Expenses</a>
+                <a href="wip.jsp">Deductions</a>
+                <a href="saving_goals.jsp">Savings</a>
+                <a href="trends.jsp">Trends</a>
+                <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
+                <a href="payment.jsp">Bill Reminders</a>
+                <a href="wip.jsp">Financial Support</a>
+                <a href="profile.jsp">Profile</a>
+                <a href="index.jsp">Logout</a>
+            </div>
+            </div>
         <div class="container">
             <div class="titlecenter">
                 <h1>BudgetBuddy</h1><br><br><br><br><br>
@@ -46,11 +72,34 @@
                 <h1>Register Page</h1>
             </div>
             <div class="textcenter">
-                <form action="register_success.jsp">
+                <form action="register_check.jsp">
                     <label for="email">Email:</label><br><br>
                     <input type="email" id="email" name="email" required><br><br>
+
                     <label for="password">Password:</label><br><br>
                     <input type="password" id="password" name="password" required><br><br><br>
+
+                    <label for="confirmPassword">Confirm Password:</label><br><br>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br><br>
+
+                    <label for="firstName">First Name:</label><br><br>
+                    <input type="text" id="firstName" name="firstName" required><br><br>
+
+                    <label for="lastName">Last Name:</label><br><br>
+                    <input type="text" id="lastName" name="lastName" required><br><br>
+
+                    <label for="phone">Phone Number:</label><br><br>
+                    <input type="text" id="phone" name="phone" required><br><br>
+
+                    <label for="dob">Date of Birth:</label><br><br>
+                    <input type="date" id="dob" name="dob" required><br><br>
+
+                    <label for="gender">Gender:</label><br>
+                    <input type="radio" id="gender" name="gender" value="Male">
+                    <label for="gender">Male</label><br>
+                    <input type="radio" id="gender" name="gender" value="Female">
+                    <label for="gender">Female</label><br><br>
+
                     <input type="submit" id="submit" value="Submit">
                 </form>
             </div>

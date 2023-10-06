@@ -12,7 +12,7 @@ public class SignupController {
         // Check for empty fields
         if (isEmpty(email) || isEmpty(password) || isEmpty(confirmPassword) || isEmpty(firstName) || isEmpty(lastName)
                 || isEmpty(phone) || isEmpty(dob) || isEmpty(gender)) {
-            return "All fields are required.";
+            return "Please fill in all fields.";
         }
 
         // Check if password meets criteria
@@ -29,11 +29,22 @@ public class SignupController {
         // Check email format (you can use a regular expression for more precise
         // validation)
         if (!isValidEmail(email)) {
-            return "Email is invalid.";
+            return "Email is invalid. Please try again.";
         }
 
+        // Check phone length
         if (phone.length() != 10) {
-            return "Phone number is not valid.";
+            return "Phone number is not valid. Please try again.";
+        }
+
+        // Check if email is registered already
+        if (emailAlreadyExists(email)) {
+            return "This email is already in use. Please try again.";
+        }
+
+        // Check if phone is registered already
+        if (phoneAlreadyExists(email)) {
+            return "This phone number is already in use. Please try again.";
         }
 
         // Register user in DB
@@ -47,6 +58,34 @@ public class SignupController {
 
         // If all checks pass, return null (indicating successful validation)
         return null;
+    }
+
+    private boolean emailAlreadyExists(String email) {
+        try {
+            Connection conn = ConnectionManager.getConnection();
+            if (UserManager.getUser(conn, "email", email) != null) {
+                conn.close();
+                return true;
+            } 
+        } catch (Exception e) {
+            System.out.println("Connection Failed: " + e);
+            return false;
+        }
+        return false;
+    }
+
+    private boolean phoneAlreadyExists(String phone) {
+        try {
+            Connection conn = ConnectionManager.getConnection();
+            if (UserManager.getUser(conn, "phone", phone) != null) {
+                conn.close();
+                return true;
+            } 
+        } catch (Exception e) {
+            System.out.println("Connection Failed: " + e);
+            return false;
+        }
+        return false;
     }
 
     private boolean isEmpty(String value) {
