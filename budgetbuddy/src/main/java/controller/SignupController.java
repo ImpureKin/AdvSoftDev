@@ -2,14 +2,16 @@ package controller;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import database.DB;
+import database.*;
 import java.sql.*;
 
 public class SignupController {
 
-    public String isValidSignup(String email, String password, String confirmPassword, String firstName, String lastName, String phone, String dob, String gender) throws Exception {
+    public String isValidSignup(String email, String password, String confirmPassword, String firstName,
+            String lastName, String phone, String dob, String gender) throws Exception {
         // Check for empty fields
-        if (isEmpty(email) || isEmpty(password) || isEmpty(confirmPassword) || isEmpty(firstName) || isEmpty(lastName) || isEmpty(phone) || isEmpty(dob) || isEmpty(gender)) {
+        if (isEmpty(email) || isEmpty(password) || isEmpty(confirmPassword) || isEmpty(firstName) || isEmpty(lastName)
+                || isEmpty(phone) || isEmpty(dob) || isEmpty(gender)) {
             return "All fields are required.";
         }
 
@@ -24,7 +26,8 @@ public class SignupController {
             return "Provided passwords do not match.";
         }
 
-        // Check email format (you can use a regular expression for more precise validation)
+        // Check email format (you can use a regular expression for more precise
+        // validation)
         if (!isValidEmail(email)) {
             return "Email is invalid.";
         }
@@ -35,10 +38,9 @@ public class SignupController {
 
         // Register user in DB
         try {
-            Connection conn = DB.getConnection();
-            DB.registerUser(conn, firstName, lastName, email, password, phone, dob, gender);
-        }   
-        catch (Exception e) {
+            Connection conn = ConnectionManager.getConnection();
+            UserManager.registerUser(conn, firstName, lastName, email, password, phone, dob, gender);
+        } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
             throw e;
         }

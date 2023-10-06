@@ -1,6 +1,7 @@
 package controller;
+
 import model.User;
-import database.DB;
+import database.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,8 +10,8 @@ import java.sql.*;
 public class UserController {
     public User getUser(String email) {
         try {
-            Connection conn = DB.getConnection();
-            User user = DB.getUser(conn, email);
+            Connection conn = ConnectionManager.getConnection();
+            User user = UserManager.getUser(conn, email);
             if (user != null) {
                 conn.close();
                 return user;
@@ -24,12 +25,11 @@ public class UserController {
 
     public String editUser(String field, String value, String userId) {
         try {
-            Connection conn = DB.getConnection();
-            if (DB.updateUserDetail(conn, field, value, userId) == null) {
+            Connection conn = ConnectionManager.getConnection();
+            if (UserManager.updateUserDetail(conn, field, value, userId) == null) {
                 conn.close();
                 return null;
-            }
-            else {
+            } else {
                 conn.close();
                 return "Error updating user details.";
             }
@@ -60,8 +60,8 @@ public class UserController {
 
     public String deleteUser(String userId) {
         try {
-            Connection conn = DB.getConnection();
-            DB.deleteAccount(conn, userId);
+            Connection conn = ConnectionManager.getConnection();
+            UserManager.deleteAccount(conn, userId);
             conn.close();
             return null;
         } catch (Exception e) {

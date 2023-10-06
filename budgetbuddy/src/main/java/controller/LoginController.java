@@ -1,7 +1,7 @@
 package controller;
 
 import java.sql.Connection;
-import database.DB;
+import database.*;
 
 public class LoginController {
 
@@ -9,14 +9,13 @@ public class LoginController {
         if (isEmpty(email) || isEmpty(password)) {
             return "Both email and password are required.";
         }
-        Connection conn = DB.getConnection();
+        Connection conn = ConnectionManager.getConnection();
         try {
-            if (!DB.authenticateUser(conn, email, password)) {
+            if (!UserManager.authenticateUser(conn, email, password)) {
                 conn.close();
                 return "User does not exist.";
             }
-        }   
-        catch (Exception e) {
+        } catch (Exception e) {
             conn.close();
             System.out.println("Connection Failed: " + e);
             throw e;
