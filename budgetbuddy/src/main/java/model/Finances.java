@@ -1,5 +1,4 @@
 package model;
-import java.sql.*;
 
 // Class for Finances 
 public class Finances {

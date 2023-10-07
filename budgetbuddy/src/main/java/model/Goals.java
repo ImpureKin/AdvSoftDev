@@ -1,6 +1,5 @@
 package model;
 import java.util.Date;
-import java.sql.*;
 
 // Class for Goals
 public class Goals {
@@ -10,13 +9,15 @@ public class Goals {
     private int goalAmount;
     private int savedAmount;
     private String category;
+     private String description;
     private Date date;
 
 // Goal Constructor 
-    public Goals(int id, int userId, String name, int goalAmount, int savedAmount, String category, Date date) {
+    public Goals(int id, int userId, String name, int goalAmount, int savedAmount, String category,String description, Date date) {
         this.id = id;
         this.userId = userId;
         this.name = name;
+        this.description = description;
         this.goalAmount = goalAmount;
         this.savedAmount = savedAmount;
         this.category = category;
@@ -24,7 +25,6 @@ public class Goals {
     }
 
     //Getters and Settetrs 
-
     public int getId() {
         return id;
     }
@@ -47,6 +47,14 @@ public class Goals {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public int getGoalAmount(){
