@@ -20,6 +20,7 @@ public class ExpensesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
+            ExpenseManager.initializeDatabase(connection);
             req.setAttribute("expensesList", ExpenseManager.getAllExpenses(connection));
             req.getRequestDispatcher("expenses.jsp").forward(req, resp);
         } catch (Exception e) {

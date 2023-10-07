@@ -9,17 +9,18 @@ import java.util.List;
 public class ExpenseManager {
 
     public static void initializeDatabase(Connection connection) throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS Expenses ("
-                   + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                   + "expenseName TEXT NOT NULL,"
-                   + "amount REAL NOT NULL,"
-                   + "category TEXT NOT NULL,"
-                   + "date DATE NOT NULL"
-                   + ")";
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS Expenses ("
+                              + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                              + "expenseName TEXT NOT NULL,"
+                              + "amount REAL NOT NULL,"
+                              + "category TEXT NOT NULL,"
+                              + "date DATE NOT NULL"
+                              + ")";
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
+            stmt.execute(createTableSQL);
         }
     }
+
 
     public static void addExpense(Connection connection, Expenses expense) throws SQLException {
         String sql = "INSERT INTO Expenses (expenseName, amount, category, date) VALUES (?, ?, ?, ?)";

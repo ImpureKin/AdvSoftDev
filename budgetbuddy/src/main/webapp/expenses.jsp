@@ -78,21 +78,17 @@
                 <th>Amount</th>
                 <th>Category</th>
                 <th>Date</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="expenseTableBody">
             <!-- Dynamic rows go here -->
-        </tbody>
 
-        <tbody id="expenseTableBody">
             <c:forEach items="${expensesList}" var="expense">
                 <tr>
                     <td>${expense.expenseName}</td>
                     <td>${expense.amount}</td>
                     <td>${expense.category}</td>
                     <td>${expense.date}</td>
-                    <td>...Actions...</td>
                 </tr>
             </c:forEach>
         </tbody>
