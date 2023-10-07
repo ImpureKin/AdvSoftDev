@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Goals;
-import database.DB;
+import database.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -36,7 +36,7 @@ public class AddSavingGoalServlet extends HttpServlet {
             Goals newGoal = new Goals(0, 1, goalName, goalAmount, savedAmount, category, goalDescription, dateCreated);
     
             // Insert the goal into the database
-            DB.createGoal(newGoal);
+            GoalsManager.createGoal(newGoal);
     
             // Redirect back to the original page
             response.sendRedirect("LoadGoalsAndSavingsServlet");

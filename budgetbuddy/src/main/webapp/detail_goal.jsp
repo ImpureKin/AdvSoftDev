@@ -31,7 +31,7 @@
                         <a class="nav-link" href="wip.jsp">Deductions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="saving_goals.jsp">Savings</a>
+                        <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="trends.jsp">Trends</a>
@@ -61,29 +61,37 @@
     <!-- Goal Details -->
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <label for="goalName">Goal Name:</label>
+            <label for="goalName"><strong>Goal Name:</strong></label>
             <span id="goalName"><c:out value="${goal.name}" /></span><br>
 
-            <label for="goalDescription">Goal Description:</label>
+            <label for="goalDescription"><strong>Goal Description: </strong></label>
             <span id="goalDescription"><c:out value="${goal.description}" /></span><br>
 
-            <label for="goalAmount">Goal Amount:</label>
+            <label for="goalAmount"><strong>Goal Amount:</strong></label>
             <span id="goalAmount">$<c:out value="${goal.goalAmount}" /></span><br>
 
-            <label for="dateCreated">Date Created:</label>
+            <label for="dateCreated"><strong>Date Created:</strong></label>
             <span id="dateCreated"><c:out value="${goal.date}" /></span><br>
 
-            <label for="category">Date Created:</label>
+            <label for="category"><strong>Category:</strong></label>
             <span id="category"><c:out value="${goal.category}" /></span><br>
         </div>
     </div>
 
     <!-- Goal Progress -->
+    
     <div class="row justify-content-center mt-4">
         <div class="col-md-6">
-            <h3>Goal Progress</h3>
+            <h3>Goal Progress:</h3>
             <p>You've saved $<c:out value="${goal.savedAmount}" /> out of $<c:out value="${goal.goalAmount}" /> so far.</p>
-            <p>Progress: <c:out value="${formattedProgress}" />%</p>
+            <div class="progress">
+            <div class="progress-bar" role="progressbar" 
+                 style="width: ${percentage}%;" 
+                 aria-valuenow="${percentage}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+                ${percentage}%
+            </div>
         </div>
     </div>
 
@@ -92,7 +100,7 @@
         <div class="col-md-6">
             <a href="edit_goal.jsp" class="btn btn-primary mr-2">Edit Goal</a> 
             <a href="#" onclick="confirmDelete()" class="btn btn-danger mr-2">Delete Goal</a>
-            <a href="saving_goals.jsp" class="btn btn-secondary">Go Back</a>
+            <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Go Back</a>
         </div>
     </div>
 </div>

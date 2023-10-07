@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Goals;
-import database.DB;
+import database.*;
 import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet("/AddMoneytoGoalServlet")
@@ -16,14 +16,14 @@ public class AddMoneytoGoalServlet extends HttpServlet {
             int savedAmount = Integer.parseInt(request.getParameter("amount"));
             
             // Retrieve the goal by ID
-            Goals goal = DB.getGoalById(goalId);
+            Goals goal = GoalsManager.getGoalById(goalId);
     
             if (goal != null) {
                 // Update the goal's savedAmount
                 goal.setSavedAmount(goal.getSavedAmount() + savedAmount);
     
                 // Save the updated goal
-                DB.updateSavedAmount(goalId, savedAmount);
+                GoalsManager.updateSavedAmount(goalId, savedAmount);
                 
                 System.out.println("Goal Updated: " + goal.getName()); // Print confirmation
                 System.out.println("Saved Amount Updated: " + savedAmount);

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.*;
-import database.DB;
+import database.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -18,26 +18,28 @@ public class LoadGoalsAndSavingsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Connection connection = DB.getConnection();
-            int userId = 2;
+            int userId = 1;
 
-            List<Goals> userGoals = DB.getGoalsByUserId(connection, userId);
-            Finances userFinances = DB.getFinancesByUserId(connection, userId);
+            List<Goals> userGoals = GoalsManager.getGoalsByUserId(connection, userId);
 
-            // Extract total_savings from Finances
+            // Get total savings and total saved from TotalUserSavings view
+            TotalUserSavings userFinances = FinancesManager.getTotalUserSavings(connection, userId);
             
             int totalSavings = 0; // Set a default value
+            int totalSaved = 0;   // Set a default value
+
 
             if (userFinances != null) {
                 totalSavings = userFinances.getTotalSavings();
+                totalSaved = userFinances.getTotalSaved();
             }
-
-
 
             connection.close();
 
             request.setAttribute("userGoals", userGoals);
             request.setAttribute("userFinances", userFinances);
-            request.setAttribute("totalSavings", totalSavings); // Add totalSavings to request attributes
+            request.setAttribute("totalSavings", totalSavings);
+            request.setAttribute("totalSaved", totalSaved); // Add totalSaved to request attributes
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("saving_goals.jsp");
             dispatcher.forward(request, response);
@@ -48,3 +50,4 @@ public class LoadGoalsAndSavingsServlet extends HttpServlet {
         }
     }
 }
+

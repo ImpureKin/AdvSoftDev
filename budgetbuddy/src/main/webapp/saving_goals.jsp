@@ -2,7 +2,7 @@
 <%@ page import="model.Goals" %>
 <%@ page import="model.Finances" %>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="database.DB" %>
+<%@ page import="database.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html> 
@@ -61,56 +61,71 @@
     
     <!-- Information about the page -->
     <div class="container mt-4">
-    <h1 class="text-center">Saving Goals</h1>
-    <p class="text-center">This page will display your saving trends and Goals. At BudgetBuddy we are all about 
+    <h1 class="text-center">Saving and Goals</h1>
+    <p class="text-center">This page will display your saving and your saving goals. At BudgetBuddy we are all about 
          achieving your saving goals. To do this we will show you how you and use your remaining money to save towards a saving goal.
          This could be towards a trip, buying a house, or an item which you really wanted! <br> <br> Below you can create a new goal,
          send money towards a goal, see your savings and see all your current goals.</p>
 
-        <div class="row">
-         <div class="col-md-6">
-    <!-- Shows money available for goals -->
-    <%
-        Integer totalSavings = (Integer) request.getAttribute("totalSavings");
-
-        // Check if totalSavings is null or zero
-        if (totalSavings == null || totalSavings == 0) {
-            totalSavings = 0; // Set it to 0 if it's null or zero
-        }
-    %>
-    <h2>Savings Available:</h2>
-    <p class="lead"><c:out value="${totalSavings}" /></p>
-    </div>
-  
-
+      <div class="row">
+    <div class="col-md-6">
+        <!-- Shows money available for goals -->
+        <% 
+            Integer totalSavings = (Integer) request.getAttribute("totalSavings"); 
+            Integer totalGoalSavings = (Integer) request.getAttribute("totalGoalSavings"); 
+            Integer totalSaved = (Integer) request.getAttribute("totalSaved");
             
-                <!-- Add Money to a saving goal if available -->
-            <div class="col-md-6">
-                <h2>Add Money to Goal</h2>
-                <form action="AddMoneytoGoalServlet" method="post" class="row"> 
-                    <!-- Goal Selection -->
-                    <div class="form-group">
-                        <label for="goalId">Select Goal:</label>
-                        <select id="goalId" name="goalId" class="form-control">
-                            <c:forEach var="goal" items="${userGoals}">
-                                <option value="${goal.id}"><c:out value="${goal.name}" /></option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    
-                    <!-- Amount Input -->
-                    <div class="form-group ">
-                        <label for="amount">Amount:</label>
-                        <input type="number" id="amount" name="amount" class="form-control" required step="1">
-                    </div>
-                    
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary mt-4">Add Money</button>
-                </form>
-            <div id="successNotification" class="alert alert-success mt-3" style="display:none;">
-        Money successfully added to goal!
+            // Check if totalSavings, totalGoalSavings, or totalSaved is null or zero 
+            if (totalSavings == null || totalSavings == 0) { 
+                totalSavings = 0; // Set it to 0 if it's null or zero 
+            }
+            
+            if (totalGoalSavings == null || totalGoalSavings == 0) { 
+                totalGoalSavings = 0; // Set it to 0 if it's null or zero 
+            }
+            
+            if (totalSaved == null || totalSaved == 0) { 
+                totalSaved = 0; // Set it to 0 if it's null or zero 
+            } 
+        %>
+    
+        <!-- Display the total savings information --> 
+        <h2 class="pb-2">Savings Information</h2> 
+        <p class="mb-4 fs-5"> Total Savings: $ <%= totalSavings %> </p> 
+        <p class="mb-4 fs-5">Savings for Goals: $ <%= totalSaved %> </p> 
     </div>
+
+    <!-- Add Money to a saving goal if available --> 
+<div class="col-md-6">
+    <h2>Add Money to Goal</h2> 
+    <form action="AddMoneytoGoalServlet" method="post" class="row"> 
+        <!-- Goal Selection --> 
+        <div class="form-group"> 
+            <label for="goalId"><strong>Select Goal:</strong></label> 
+            <select id="goalId" name="goalId" class="form-control"> 
+                <c:forEach var="goal" items="${userGoals}"> 
+                    <option value="${goal.id}"><c:out value="${goal.name}" /></option> 
+                </c:forEach> 
+            </select> 
+        </div>
+        
+        <!-- Amount Input --> 
+        <div class="form-group"> 
+            <label for="amount"><strong>Amount:</strong></label> 
+            <input type="number" id="amount" name="amount" class="form-control" 
+                <c:if test="${totalSaved == 0}">disabled</c:if> required step="1"> 
+        </div>
+        
+        <!-- Submit Button --> 
+        <button type="submit" class="btn btn-primary mt-4" 
+            <c:if test="${totalSaved == 0}">disabled</c:if>>Add Money</button> 
+    </form>
+    
+    <div id="successNotification" class="alert alert-success mt-3" style="display:none;"> 
+        Money successfully added to goal! 
+    </div> 
 </div>
+
 
             
 
@@ -121,8 +136,8 @@
         <ul class="list-group">
             <c:forEach var="goal" items="${userGoals}">
                 <li class="list-group-item">
-                    ${goal.name} - Saved: $${goal.savedAmount} / Goal: $${goal.goalAmount}
-                    <a href="detail_goal.jsp?goalId=${goal.id}" class="btn btn-info btn-sm float-right">Details</a>
+                    <strong>${goal.name}</strong> - Saved: $${goal.savedAmount} / Goal: $${goal.goalAmount}
+                    <a href="GetGoalDetailServlet?goalId=${goal.id}" class="btn btn-info btn-sm float-right">Details</a>
                 </li>
             </c:forEach>
         </ul>
@@ -133,11 +148,6 @@
 
     <a href="create_goal.jsp" class="btn btn-success btn-lg mt-3 col-12">Create Goal</a>
 </div>
-
-<c:if test="${not empty userGoals}">
-    <p>Data loaded successfully!</p>
-</c:if>
-
 
     <!-- Script to enable and disable adding money to a goal -->
     <script>
