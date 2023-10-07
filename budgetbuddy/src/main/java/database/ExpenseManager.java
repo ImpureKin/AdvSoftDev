@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class expenses {
+public class ExpenseManager {
 
     public static void initializeDatabase(Connection connection) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Expenses ("
