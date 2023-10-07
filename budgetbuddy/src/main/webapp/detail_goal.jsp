@@ -1,4 +1,3 @@
-<%@page import="model.Goals"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -57,7 +56,7 @@
     </nav>
 
     <div class="container text-center mt-5 mb-5">
-    <h1>Saving Goal Detail</h1> 
+    <h1><c:out value="${goal.name}" /> Details</h1> 
     <!-- Goal Details -->
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -98,7 +97,7 @@
     <!-- Action Buttons -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-6">
-            <a href="edit_goal.jsp" class="btn btn-primary mr-2">Edit Goal</a> 
+            <a href="GetGoalForEditServlet?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a> 
             <a href="#" onclick="confirmDelete()" class="btn btn-danger mr-2">Delete Goal</a>
             <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Go Back</a>
         </div>

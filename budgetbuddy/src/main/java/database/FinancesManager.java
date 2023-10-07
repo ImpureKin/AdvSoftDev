@@ -1,16 +1,7 @@
 package database;
 import model.Finances;
 import model.TotalUserSavings;
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Date;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.List;
 
 public class FinancesManager {
 

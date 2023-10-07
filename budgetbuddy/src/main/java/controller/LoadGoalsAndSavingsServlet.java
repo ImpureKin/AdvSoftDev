@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.*;
 import database.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @WebServlet("/LoadGoalsAndSavingsServlet")
 public class LoadGoalsAndSavingsServlet extends HttpServlet {

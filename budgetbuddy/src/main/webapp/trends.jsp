@@ -1,115 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="model.Finances" %>
 <!DOCTYPE html>
 <html> 
 <head>
-<title>Trends Page </title>
-<style>
-     .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .center {
-                text-align: center;
-            }
-
-        .topnav input[type=text] {
-                padding: 6px;
-                border: none;
-                margin-top: 8px;
-                font-size: 17px;
-                background-color: #e9e9e9;
-              }
-        /* Style the links inside the navigation bar */
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<title>Financial Trends Page </title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
- 
 <body>
-     <!-- NavBar-->
-    <div class="center-container">  
-        <div class="topnav">
-            <a href="home.jsp">Home</a>
-            <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
-            <a href="saving_goals.jsp">Savings</a>
-            <a href="trends.jsp">Trends</a>
-            <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-            <a href="payment.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="index.jsp">Logout</a>
+          <!-- NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">BudgetBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.jsp">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="income.jsp">Income</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="expenses.jsp">Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wip.jsp">Deductions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trends.jsp">Trends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tips_and_knowledge.jsp">Tips & Knowledge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payment.jsp">Bill Reminders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wip.jsp">Financial Support</a>
+                    </li>
+                </ul>
+                <br>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.jsp">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    
-    <h1>Trends Overview</h1>
-    <!-- Summary table of all of the data which the user enters -->
-    <h2>Summary Table</h2>
-    <table border="1">
-        <tr> 
-            <th>Date</th> 
-            <th>Income</th>
-            <th>Deductions</th>
-            <th>Expenses</th>
-            <th>Savings</th>
-        </tr>
-        <tr>
-            <td>2023-09-01</td>
-            <td>$2000</td>
-            <td>$300</td>
-            <td>$1000</td>
-            <td>$700</td>
-        </tr>
-        <tr>
-            <td>2023-09-02</td>
-            <td>$2500</td>
-            <td>$200</td>
-            <td>$1200</td>
-            <td>$1100</td>
-        </tr>
-    </table>
+    </nav>
 
-    <!-- Test run of this graph set. This has dummy data entered into it  -->
-    <h2>Graphical View Prototype </h2>
-    <canvas id="trendsChart" width="800" height="400"></canvas>
-    <script>
-        var ctx = document.getElementById('trendsChart').getContext('2d');
-        var trendsChart = new Chart(ctx, {
-            type: 'line',
+    <!-- Summary table of all of the data which the user enters -->
+    <div class="container mt-5">
+        <h1>Financial Trends</h1>
+        <%
+  Finances finances = (Finances) request.getAttribute("finances");
+  NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+%>
+
+        <!-- Table -->
+        <h2>Summary Table</h2>
+        <h2>Summary Table</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Income</td>
+                    <td><%= currencyFormatter.format(finances.getTotalIncome()) %></td>
+                </tr>
+                <tr>
+                    <td>Total Deductions</td>
+                    <td><%= currencyFormatter.format(finances.getTotalDeductions()) %></td>
+                </tr>
+                <tr>
+                    <td>Total Expenses</td>
+                    <td><%= currencyFormatter.format(finances.getTotalExpenses()) %></td>
+                </tr>
+                <tr>
+                    <td>Total Savings</td>
+                    <td><%= currencyFormatter.format(finances.getTotalSavings()) %></td>
+                </tr>
+            </tbody>
+        </table> 
+        
+        <!-- Graph -->
+        <h2>Graphical View</h2>
+        <div class="form-group">
+        <label for="chartType">Select Chart Type:</label>
+        <select class="form-control" id="chartType" onchange="updateChartType()">
+            <option value="bar">Bar Chart</option>
+            <option value="line">Line Chart</option>
+            <option value="pie">Pie Chart</option>
+        </select>
+    </div>
+        <canvas id="financesChart" width="800" height="400"></canvas>
+    </div>
+
+<script>
+    var chartType = 'bar'; // Default chart type
+    var financesChart = null; // Reference to the chart
+
+    function updateChartType() {
+        chartType = document.getElementById('chartType').value;
+        generateChart();
+    }
+
+    function generateChart() {
+        if (financesChart) {
+            financesChart.destroy(); // Destroy the existing chart
+        }
+
+        var ctx = document.getElementById('financesChart').getContext('2d');
+        financesChart = new Chart(ctx, {
+            type: chartType,
             data: {
-                labels: ['2023-09-01', '2023-09-02'], 
+                labels: ['Total Income', 'Total Deductions', 'Total Expenses', 'Total Savings'],
                 datasets: [
                     {
-                        label: 'Income',
-                        data: [2000, 2500], 
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Deductions',
-                        data: [300, 200], 
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Expenses',
-                        data: [1000, 1200], 
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Savings',
-                        data: [700, 1100], 
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderColor: 'rgba(255, 206, 86, 1)',
+                        label: 'Amount',
+                        data: [
+                            ${finances.totalIncome},
+                            ${finances.totalDeductions},
+                            ${finances.totalExpenses},
+                            ${finances.totalSavings}
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
                         borderWidth: 1
                     }
                 ]
@@ -122,7 +160,12 @@
                 }
             }
         });
-    </script>
+    }
+
+    // Generate the initial chart
+    generateChart();
+</script>
+
     
 </body>
 

@@ -67,7 +67,7 @@
             <a href="expenses.jsp">Expenses</a>
             <a href="wip.jsp">Deductions</a>
             <a href="LoadGoalsAndSavingsServlet">Savings</a>
-            <a href="trends.jsp">Trends</a>
+            <a href="GetFinancialDataServlet">Trends</a>
             <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
             <a href="payment.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>

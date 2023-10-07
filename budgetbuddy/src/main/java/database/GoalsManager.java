@@ -1,5 +1,4 @@
 package database;
-import database.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -133,4 +132,21 @@ public class GoalsManager {
         }
         return finances;
     }
+
+    public static void updateGoal(int goalId, String goalName, String goalDescription, int goalAmount) throws Exception {
+        try (Connection connection = DB.getConnection()) {
+            String query = "UPDATE Goals SET name=?, description=?, goal_amount=? WHERE id=?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, goalName);
+            pstmt.setString(2, goalDescription);
+            pstmt.setInt(3, goalAmount);
+            pstmt.setInt(4, goalId);
+    
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception, log it, or throw a custom exception if needed
+        }
+    }
+    
 }

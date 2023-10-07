@@ -1,8 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.Goals" %>
-<%@ page import="model.Finances" %>
-<%@page import="java.util.ArrayList"%>
-<%@ page import="database.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html> 
@@ -37,7 +33,7 @@
                         <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="trends.jsp">Trends</a>
+                        <a class="nav-link" href="GetFinancialDataServlet">Trends</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="tips_and_knowledge.jsp">Tips & Knowledge</a>
@@ -91,8 +87,8 @@
     
         <!-- Display the total savings information --> 
         <h2 class="pb-2">Savings Information</h2> 
-        <p class="mb-4 fs-5"> Total Savings: $ <%= totalSavings %> </p> 
-        <p class="mb-4 fs-5">Savings for Goals: $ <%= totalSaved %> </p> 
+        <p class="mb-4 fs-5"> <strong>Total Savings:</strong> $ <%= totalSavings %> </p> 
+        <p class="mb-4 fs-5"> <strong> Savings for Goals:</strong> $ <%= totalSaved %> </p> 
     </div>
 
     <!-- Add Money to a saving goal if available --> 

@@ -19,16 +19,14 @@ public class AddMoneytoGoalServlet extends HttpServlet {
             Goals goal = GoalsManager.getGoalById(goalId);
     
             if (goal != null) {
-                // Update the goal's savedAmount
-                goal.setSavedAmount(goal.getSavedAmount() + savedAmount);
-    
-                // Save the updated goal
+                // Update the goal's savedAmount using GoalsManager
                 GoalsManager.updateSavedAmount(goalId, savedAmount);
                 
                 System.out.println("Goal Updated: " + goal.getName()); // Print confirmation
                 System.out.println("Saved Amount Updated: " + savedAmount);
-
-            } 
+            } else {
+                System.out.println("Goal not found with ID: " + goalId);
+            }
     
             // Redirect back to the original page
             request.setAttribute("goalAdded", true);
@@ -37,6 +35,7 @@ public class AddMoneytoGoalServlet extends HttpServlet {
         // Exception handling
         } catch (Exception e) {
             e.printStackTrace();
+            // Handle any exceptions or redirect to an error page
         }
     }
 }

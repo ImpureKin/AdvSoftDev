@@ -1,69 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html> 
 <head>
 <title>Edit Goal </title>
-<style>
-     .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .center {
-                text-align: center;
-            }
-
-        .topnav input[type=text] {
-                padding: 6px;
-                border: none;
-                margin-top: 8px;
-                font-size: 17px;
-                background-color: #e9e9e9;
-              }
-        /* Style the links inside the navigation bar */
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
-
 <body>
-     <!-- NavBar-->
-    <div class="center-container">
-        <div class="topnav">
-            <a href="home.jsp">Home</a>
-            <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
-            <a href="saving_goals.jsp">Savings</a>
-            <a href="trends.jsp">Trends</a>
-            <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-            <a href="payment.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="index.jsp">Logout</a>
-         </div>
-    </div>
+    <!-- NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">BudgetBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.jsp">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="income.jsp">Income</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="expenses.jsp">Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wip.jsp">Deductions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trends.jsp">Trends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tips_and_knowledge.jsp">Tips & Knowledge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payment.jsp">Bill Reminders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wip.jsp">Financial Support</a>
+                    </li>
+                </ul>
+                <br>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.jsp">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <h1>Edit Saving Goal</h1>
-     <!-- Form to edit a goal -->
-    <form action="" method="post">
-    <label for="goalName"> Goal Name: </label>
-    <input type="text" id="goalName" value="Computer"><br>
+   <div class="container mt-5">
+    <h1 class="text-center mb-4">Edit <c:out value='${goal.name}'/> </h1>
 
-    <label for="goalDecription"> Goal Description: </label>
-    <input type="text" id="goalDecription" value="Because I want" required><br>
+    <!-- Form to edit a goal -->
+    <form action="UpdateGoalServlet" method="post">
+        <input type="hidden" name="goalId" value="<c:out value='${goal.id}'/>">
 
-    <label for="goalAmount"> Goal Amount: </label>
-    <input type="number" id="goalAmount" value="1000" required><br>
+        <div class="form-group">
+            <label for="goalName">Goal Name:</label>
+            <input type="text" class="form-control" id="goalName" name="goalName" value="<c:out value='${goal.name}'/>"required>
+        </div>
 
-    <input type="hidden" name="date_created" value="2023-09-05">
+        <div class="form-group">
+            <label for="goalDescription">Goal Description:</label>
+            <input type="text" class="form-control" id="goalDescription" name="goalDescription" value="<c:out value='${goal.description}'/>" >
+        </div>
 
-        <input type="submit" value="Save Changes">
-        <input type="reset" value="Reset">
-        <a href="detail_goal.jsp">Cancel</a>
+        <div class="form-group">
+            <label for="goalAmount">Goal Amount:</label>
+            <input type="number" class="form-control" id="goalAmount" name="goalAmount" value="<c:out value='${goal.goalAmount}'/>" required>
+        </div>
+
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <a href="GetGoalDetailServlet?goalId=${goal.id}" class="btn btn-secondary">Cancel</a>
+        </div>
     </form>
+</div>
+
 
 </body>
 </html>
