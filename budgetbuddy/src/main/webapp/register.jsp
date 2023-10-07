@@ -74,7 +74,7 @@
             <div class="textcenter">
                 <form action="register_check.jsp">
                     <label for="email">Email:</label><br><br>
-                    <input type="email" id="email" name="email" required><br><br>
+                    <input type="email" id="email" name="email" required value="${sessionScope.registrationEmail}"><br><br>
 
                     <label for="password">Password:</label><br><br>
                     <input type="password" id="password" name="password" required><br><br><br>
@@ -83,22 +83,26 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" required><br><br><br>
 
                     <label for="firstName">First Name:</label><br><br>
-                    <input type="text" id="firstName" name="firstName" required><br><br>
+                    <input type="text" id="firstName" name="firstName" required value="${sessionScope.registrationFirstName}"><br><br>
 
                     <label for="lastName">Last Name:</label><br><br>
-                    <input type="text" id="lastName" name="lastName" required><br><br>
+                    <input type="text" id="lastName" name="lastName" required value="${sessionScope.registrationLastName}"><br><br>
 
                     <label for="phone">Phone Number:</label><br><br>
-                    <input type="text" id="phone" name="phone" required><br><br>
+                    <input type="text" id="phone" name="phone" required value="${sessionScope.registrationPhone}"><br><br>
 
                     <label for="dob">Date of Birth:</label><br><br>
-                    <input type="date" id="dob" name="dob" required><br><br>
+                    <input type="date" id="dob" name="dob" required value="${sessionScope.registrationDob}"><br><br>
 
                     <label for="gender">Gender:</label><br>
-                    <input type="radio" id="gender" name="gender" value="Male">
-                    <label for="gender">Male</label><br>
-                    <input type="radio" id="gender" name="gender" value="Female">
-                    <label for="gender">Female</label><br><br>
+                    <input type="radio" id="genderMale" name="gender" value="Male" 
+                        ${sessionScope.registrationGender == 'Male' ? 'checked' : ''}>
+                    <label for="genderMale">Male</label><br>
+                    
+                    <input type="radio" id="genderFemale" name="gender" value="Female" 
+                        ${sessionScope.registrationGender == 'Female' ? 'checked' : ''}>
+                    <label for="genderFemale">Female</label><br><br>
+                    
 
                     <input type="submit" id="submit" value="Submit">
                 </form>
