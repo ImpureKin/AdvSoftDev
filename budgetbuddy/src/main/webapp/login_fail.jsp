@@ -39,9 +39,9 @@
     <body>
         <div class="container">
             <div class="textcenter">
-                <h1>Login Failed! Make sure to use the right credentials</h1><br><br><br>
+                <h1>Login Failed! Please create an account or use the correct login details.</h1><br><br><br>
                 <h2>
-                    <a href="home.jsp">Return to home</a>
+                    <a href="index.jsp">Return to Login/Register</a>
                 </h2>
             </div>
         </div>

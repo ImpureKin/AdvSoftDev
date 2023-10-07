@@ -1,7 +1,7 @@
 package controller;
 
 import model.Expenses;
-import database.expenses;
+import database.ExpenseManager;
 import database.ConnectionManager;
 
 import jakarta.servlet.ServletException;
@@ -20,7 +20,7 @@ public class ExpensesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
-            req.setAttribute("expensesList", expenses.getAllExpenses(connection));
+            req.setAttribute("expensesList", ExpenseManager.getAllExpenses(connection));
             req.getRequestDispatcher("expenses.jsp").forward(req, resp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class ExpensesController extends HttpServlet {
             newExpense.setCategory(category);
             newExpense.setDate(date);
 
-            expenses.addExpense(connection, newExpense);
+            ExpenseManager.addExpense(connection, newExpense);
 
             resp.sendRedirect("expenses.jsp");
         } catch (Exception e) {
