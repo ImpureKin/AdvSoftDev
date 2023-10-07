@@ -78,21 +78,20 @@
         </div>
         </div>
         <div class="container">
-            <div class="textcenter">
-                <h1>What would you like to do?</h1><br><br><br>
-            </div>
+
             <form action="edit_user.jsp" method="POST">
+              <h3> Your current account details: </h3>
               <% 
               User user = (User) session.getAttribute("User");
               UserController uc = user.getUserController(); 
               %>
-              <p>Your email is: <%= uc.getValue(user, "email") %></p>
-              <p>Your first name is: <%= uc.getValue(user, "firstName") %></p>
-              <p>Your last name is: <%= uc.getValue(user, "lastName") %></p>
-              <p>Your password is: <%= uc.getValue(user, "password") %></p>
-              <p>Your phone number is: <%= uc.getValue(user, "phoneNumber") %></p>
-              <p>Your dob is: <%= uc.getValue(user, "dob") %></p>
-              <p>Your gender is: <%= uc.getValue(user, "gender") %></p>
+              <p>Email: <%= uc.getValue(user, "email") %></p>
+              <p>First Name: <%= uc.getValue(user, "firstName") %></p>
+              <p>Last Name: <%= uc.getValue(user, "lastName") %></p>
+              <p>Password: <%= uc.getValue(user, "password") %></p>
+              <p>Phone Number: <%= uc.getValue(user, "phoneNumber") %></p>
+              <p>Date of Birth: <%= uc.getValue(user, "dob") %></p>
+              <p>Gender: <%= uc.getValue(user, "gender") %></p>
 
 
               <br>
@@ -115,12 +114,16 @@
                           <td><input type="password" name="password"></td>
                   </tr>
                   <tr>
-                          <td><label for="phoneNumber">Phone Number:</label></td>
-                          <td><input type="text" name="phoneNumber"></td>
+                    <td><label for="confirmPassword">Confirm Password:</label></td>
+                    <td><input type="password" name="confirmPassword"></td>
                   </tr>
                   <tr>
-                          <td><label for="address">Address:</label></td>
-                          <td><input type="text" name="address"></td>
+                          <td><label for="phone">Phone Number:</label></td>
+                          <td><input type="text" name="phone"></td>
+                  </tr>
+                  <tr>
+                          <td><label for="dob">Date of Birth:</label></td>
+                          <td><input type="date" name="dob"></td>
                   </tr>
               </table>
               <br>

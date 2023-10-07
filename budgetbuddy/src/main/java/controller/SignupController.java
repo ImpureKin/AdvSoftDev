@@ -21,21 +21,17 @@ public class SignupController {
         }
 
         // Check email format
-        if (!isValidEmail(email)) {
-            signupStatus.add("Email is invalid.");
-            return signupStatus;
-        }
-
-        // Check if email is registered already
-        if (emailAlreadyExists(email)) {
-            signupStatus.add("This email is already in use.");
+        String emailStatus = isValidEmail(email);
+        if (emailStatus != null) {
+            signupStatus.add(emailStatus);
             return signupStatus;
         }
 
         // Check if password meets criteria
-        signupStatus = isValidPassword(password);
-        if (!signupStatus.isEmpty()) {
-            return signupStatus;
+        List<String> passwordStatus = isValidPassword(password);
+        if (!passwordStatus.isEmpty()) {
+            signupStatus.addAll(passwordStatus);
+            return passwordStatus;
         }
 
         // Check if password and confirm password match
@@ -44,19 +40,13 @@ public class SignupController {
             return signupStatus;
         }
 
-        // Check phone length
-        if (phone.length() != 10) {
-            signupStatus.add("Phone number is not valid!");
+        String phoneStatus = isValidPhone(phone);
+        if (phoneStatus != null) {
+            signupStatus.add(phoneStatus);
             return signupStatus;
         }
 
-        // Check if phone is registered already
-        if (phoneAlreadyExists(email)) {
-            signupStatus.add("This phone number is already in use.");
-            return signupStatus;
-        }
-
-        // Register user in DB
+        // Register user in Database
         try {
             Connection conn = ConnectionManager.getConnection();
             UserManager.registerUser(conn, firstName, lastName, email, password, phone, dob, gender);
@@ -64,26 +54,15 @@ public class SignupController {
             System.out.println("Connection Failed: " + e);
             throw e;
         }
-
         // If all checks pass, return null (indicating successful validation)
         return null;
     }
 
-    private boolean emailAlreadyExists(String email) {
-        try {
-            Connection conn = ConnectionManager.getConnection();
-            if (UserManager.getUser(conn, "email", email) != null) {
-                conn.close();
-                return true;
-            } 
-        } catch (Exception e) {
-            System.out.println("Connection Failed: " + e);
-            return false;
-        }
-        return false;
+    public boolean phoneIsValidLength(String phone) {
+        return phone.length() == 10;
     }
 
-    private boolean phoneAlreadyExists(String phone) {
+    public boolean phoneAlreadyExists(String phone) {
         try {
             Connection conn = ConnectionManager.getConnection();
             if (UserManager.getUser(conn, "phone", phone) != null) {
@@ -97,42 +76,78 @@ public class SignupController {
         return false;
     }
 
-    private boolean isEmpty(String value) {
+    public String isValidPhone(String phone) {
+        if (!phoneIsValidLength(phone)) {
+            return "Phone number is invalid. It needs to have 10 digits.";
+        }
+
+        if (phoneAlreadyExists(phone)) {
+            return "Phone number is already in use.";
+        }
+        return null;
+    }
+
+    public boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
 
-    private boolean isValidEmail(String email) {
-        // Validate email format using regex
+    public boolean emailMatchesFormat(String email) {
         return email.matches(".+@.+\\..+");
     }
 
-    private boolean passwordsMatch(String password, String confirmPassword) {
+    public boolean emailAlreadyExists(String email) {
+        try {
+            Connection conn = ConnectionManager.getConnection();
+            if (UserManager.getUser(conn, "email", email) != null) {
+                conn.close();
+                return true;
+            } 
+        } catch (Exception e) {
+            System.out.println("Connection Failed: " + e);
+            return false;
+        }
+        return false;
+    }
+
+    public String isValidEmail(String email) {
+        // Validate email format using regex
+        if (!emailMatchesFormat(email)) {
+            return "Email format is invalid.";
+        }
+
+        // Check if email is registered already
+        if (emailAlreadyExists(email)) {
+            return "Email already exists.";
+        }
+        return null;
+    }
+
+    public boolean passwordsMatch(String password, String confirmPassword) {
         return !password.equals(confirmPassword);
     }
 
-    private List<String> isValidPassword(String password) {
-        List<String> validationMessages = new ArrayList<>();
+    public List<String> isValidPassword(String password) {
+        List<String> passwordValidationMessages = new ArrayList<>();
 
         // Check password length (min 6 characters, max 12 characters)
         if (password.length() < 6 || password.length() > 12) {
-            validationMessages.add("Password must be between 6 and 12 characters.");
+            passwordValidationMessages.add("Password must be between 6 and 12 characters.");
         }
 
         // Check for at least one digit
         if (!containsDigit(password)) {
-            validationMessages.add("Password must contain at least 1 numeric value.");
+            passwordValidationMessages.add("Password must contain at least 1 numeric value.");
         }
 
         // Check for at least one special character (using a regex pattern)
         if (!containsSpecialCharacter(password)) {
-            validationMessages.add("Password must contain at least 1 special character (e.g., @).");
+            passwordValidationMessages.add("Password must contain at least 1 special character (e.g., @).");
         }
-
-        return validationMessages;
+        return passwordValidationMessages;
     }
 
-    private boolean containsDigit(String password) {
-        for (char c : password.toCharArray()) {
+    public boolean containsDigit(String string) {
+        for (char c : string.toCharArray()) {
             if (Character.isDigit(c)) {
                 return true;
             }
@@ -140,10 +155,10 @@ public class SignupController {
         return false;
     }
 
-    private boolean containsSpecialCharacter(String password) {
+    public boolean containsSpecialCharacter(String string) {
         // Check if string (password) contains a special character
         Pattern pattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>?]");
-        Matcher matcher = pattern.matcher(password);
+        Matcher matcher = pattern.matcher(string);
         return matcher.find();
     }
 }
