@@ -9,13 +9,4 @@
 
     <!-- Any other configurations go here -->
 
-    <servlet>
-    <servlet-name>ExpensesController</servlet-name>
-    <servlet-class>controller.ExpensesController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-    <servlet-name>ExpensesController</servlet-name>
-    <url-pattern>/ExpensesController</url-pattern>
-    </servlet-mapping>
-
 </web-app>
