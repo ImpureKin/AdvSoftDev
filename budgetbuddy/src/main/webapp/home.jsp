@@ -71,22 +71,13 @@
             <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
             <a href="payment.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
+            <a href="profile.jsp">Profile</a>
             <a href="index.jsp">Logout</a>
         </div>
         </div>
         <div class="container">
             <div class="textcenter">
                 <h1>Welcome!</h1><br><br><br>
-                <% 
-                // get the user inputs
-                String email = (String) session.getAttribute("registeredEmail");
-                String password = (String) session.getAttribute("registeredPassword");
-                %>
-                <h2>
-                    <%= "Email: " + email%><br><br><br>
-                    <%= "Password: " + password%><br><br><br>
-                    <a href="index.jsp">Logout</a>
-                </h2>
             </div>
         </div>
     </body>
