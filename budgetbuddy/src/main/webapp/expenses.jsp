@@ -1,5 +1,6 @@
 <html>
-<taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"></taglib>
+<taglib prefix="c" uri="https://jakarta.apache.org/taglibs/standard_2_0-rt/core"></taglib>
+
 <head>
     <title>Budget Buddy - Expenses</title>
     <style>
