@@ -1,4 +1,4 @@
-package Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,13 +12,13 @@ import database.*;
 class FinancesManagerTest {
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Reset the database before each test
         DatabaseManager.resetDatabase();
     }
 
     @Test
-    void testGetFinancesByUserId() {
+    public void testGetFinancesByUserId() {
         try {
             // Create a connection
             Connection connection = ConnectionManager.getConnection();
@@ -43,7 +43,7 @@ class FinancesManagerTest {
     }
 
     @Test
-    void testGetTotalUserSavings() {
+    public void testGetTotalUserSavings() {
         try {
             // Create a connection
             Connection connection = ConnectionManager.getConnection();
