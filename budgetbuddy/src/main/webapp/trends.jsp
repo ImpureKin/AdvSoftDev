@@ -1,61 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.text.NumberFormat" %>
 <%@ page import="model.Finances" %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html> 
 <head>
 <title>Financial Trends Page </title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-          <!-- NavBar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">BudgetBuddy</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="home.jsp">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="income.jsp">Income</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="expenses.jsp">Expenses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="wip.jsp">Deductions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="trends.jsp">Trends</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="payment.jsp">Bill Reminders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="wip.jsp">Financial Support</a>
-                    </li>
-                </ul>
-                <br>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.jsp">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <!-- Summary table of all of the data which the user enters -->
     <div class="container mt-5">
@@ -165,7 +119,8 @@
     generateChart();
 </script>
 
-    
+<%@include file="sections/foot.jsp" %>
 </body>
 
+<%@include file="sections/footer.jsp" %>
 </html>
