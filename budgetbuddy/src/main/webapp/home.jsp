@@ -64,8 +64,8 @@
         <div class="topnav">
         <a href="home.jsp">Home</a>
             <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
+            <a href="Expenses">Expenses</a>
+            <a href="Deductions">Deductions</a>
             <a href="saving_goals.jsp">Savings</a>
             <a href="trends.jsp">Trends</a>
             <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>

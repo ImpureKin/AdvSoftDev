@@ -15,10 +15,13 @@ public class DeductionManager {
     public static void initializeDatabase(Connection connection) throws SQLException {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS Deductions ("
                               + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                              + "userId INTEGER NOT NULL,"
                               + "name TEXT NOT NULL,"
                               + "amount REAL NOT NULL,"
-                              + "type TEXT NOT NULL,"
-                              + "date DATE NOT NULL"
+                              + "category TEXT NOT NULL,"
+                              + "date DATE NOT NULL,"
+                              + "frequency TEXT,"             
+                              + "invoice_date TEXT"           
                               + ")";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createTableSQL);
@@ -26,14 +29,17 @@ public class DeductionManager {
     }
 
     // Add a new deduction
-    public static void addDeduction(Connection connection, Deductions deduction) throws SQLException {
-        String sql = "INSERT INTO Deductions (name, amount, type, date) VALUES (?, ?, ?, ?)";
+    public static void addDeduction(Connection connection, Deductions deduction, int userId) throws SQLException {
+        String sql = "INSERT INTO Deductions (name, userId, amount, category, date, frequency, invoice_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, deduction.getname());
-            pstmt.setDouble(2, deduction.getAmount());
-            pstmt.setString(3, deduction.getCategory());
-            pstmt.setDate(4, new java.sql.Date(deduction.getDate().getTime()));
+            pstmt.setInt(2, userId);
+            pstmt.setDouble(3, deduction.getAmount());
+            pstmt.setString(4, deduction.getCategory());
+            pstmt.setDate(5, new java.sql.Date(deduction.getDate().getTime()));
+            pstmt.setString(6, deduction.getFrequency());      // Make sure to add getFrequency in Deductions model.
+            pstmt.setString(7, deduction.getInvoiceDate());   // Make sure to add getInvoiceDate in Deductions model.
             
             pstmt.executeUpdate();
         }
@@ -56,12 +62,19 @@ public class DeductionManager {
                 deduction.setname(rs.getString("name"));
                 deduction.setAmount(rs.getDouble("amount"));
                 deduction.setCategory(rs.getString("category"));
+                deduction.setFrequency(rs.getString("frequency"));   
+                deduction.setInvoiceDate(rs.getString("invoice_date"));
     
-                // Parse the date from the string format
                 String dateString = rs.getString("date");
                 try {
-                    Date date = dateFormat.parse(dateString);
+                    Date date;
+                    if (dateString.matches("^\\d+$")) { // if it's a long integer (timestamp)
+                        date = new Date(Long.parseLong(dateString)); // convert it to a date
+                    } else {
+                        date = dateFormat.parse(dateString); // else, use SimpleDateFormat to parse it
+                    }
                     deduction.setDate(date);
+                    
                 } catch (ParseException e) {
                     e.printStackTrace();
                     continue;

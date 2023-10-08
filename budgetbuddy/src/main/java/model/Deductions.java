@@ -6,10 +6,13 @@ import java.util.Date;
 public class Deductions {
     
     private int id; 
+    private int userId;
     private String name;
     private double amount;
-    private String category;  // Examples: "Tax", "Insurance", "Loan"
+    private String category;
     private Date date;
+    private String frequency;  // Added
+    private String invoice_date;  // Added
     
     // Default categories for validation
     private static final String[] VALID_CAT = {"Tax", "Insurance", "Loan", "Work Related Purchase","Other"};
@@ -20,12 +23,15 @@ public class Deductions {
         // Default constructor
     }
 
-    public Deductions(int id, String name, double amount, String category, Date date) {
+    public Deductions(int id, int userId, String name, double amount, String category, Date date, String frequency, String invoice_date) {
         setId(id);
+        setUserId(userId);
         setname(name);
         setAmount(amount);
         setCategory(category);
         setDate(date);
+        setFrequency(frequency);  // Initialize frequency
+        setInvoiceDate(invoice_date);  // Initialize invoice_date
     }
 
     // Getters and Setters
@@ -39,6 +45,17 @@ public class Deductions {
             throw new IllegalArgumentException("ID cannot be negative.");
         }
         this.id = id;
+    }
+
+    public int getUserId() { // New getter for userId
+        return userId;
+    }
+
+    public void setUserId(int userId) { // New setter for userId
+        if (userId < 0) {
+            throw new IllegalArgumentException("UserID cannot be negative.");
+        }
+        this.userId = userId;
     }
 
     public String getname() {
@@ -85,6 +102,22 @@ public class Deductions {
         this.date = date;
     }
 
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getInvoiceDate() {
+        return invoice_date;
+    }
+
+    public void setInvoiceDate(String invoice_date) {
+        this.invoice_date = invoice_date;
+    }
+
     // Utility method to validate category
 
     private boolean isValidCategory(String category) {
@@ -99,7 +132,7 @@ public class Deductions {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        return "Deduction [id=" + id + ", name=" + name + ", amount=" + amount + ", category=" + category
-                + ", date=" + sdf.format(date) + "]";
+        return "Deduction [id=" + id + ", userId=" + userId + ", name=" + name + ", amount=" + amount + ", category=" + category
+                + ", date=" + sdf.format(date) + ", frequency=" + frequency + ", invoice_date=" + invoice_date + "]";
     }
 }

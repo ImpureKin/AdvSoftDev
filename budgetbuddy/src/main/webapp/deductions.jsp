@@ -6,10 +6,11 @@
 
 <script>
     $( function() {
-        $( "#date" ).datepicker({
-            dateFormat: "dd-mm-yy"
-        });
+    $( "#date, #invoice_date" ).datepicker({
+        dateFormat: "dd-mm-yy"
+    });
     } );
+
     </script>
 
 <!DOCTYPE html>
@@ -61,31 +62,37 @@
 
         <h2>Deductions Feature</h2>
 
-        <!-- Form to Add New Deduction -->
         <h3>Add New Deduction</h3>
         <form id="addDeductionForm" method="post" action="/app/Deductions">
     
             <label for="name">Deduction Name:</label>
             <input type="text" id="name" name="name" required>
-    
+        
             <label for="amount">Amount:</label>
             <input type="number" id="amount" name="amount" required>
-    
-            <label for="category">Category:</label>
-            <select id="category" name="category">
-                <option value="Tax">Tax</option>
-                <option value="Insurance">Insurance</option>
-                <option value="Loan">Loan</option>
-                <option value="Work Related Purchase">Work Related Purchase</option>
-                <option value="Other">Other</option>
-            </select>
-    
+        
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="Tax">Tax</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Loan">Loan</option>
+                    <option value="Work Related Purchase">Work Related Purchase</option>
+                    <option value="Other">Other</option>
+                </select>
+        
             <label for="date">Date:</label>
             <input type="text" id="date" name="date" required>
-    
+        
+   
+            <label for="frequency">Frequency:</label>
+            <input type="text" id="frequency" name="frequency" required>
+
+            <label for="invoice_date">Invoice Date:</label>
+            <input type="text" id="invoice_date" name="invoice_date" class="datepicker">
+        
             <input type="submit" value="Add Deduction">
         </form>
-    
+        
         <!-- Table to Display Deductions -->
         <h3>Current Deductions</h3>
         <table border="1">
@@ -93,8 +100,10 @@
                 <tr>
                     <th>Deduction Name</th>
                     <th>Amount</th>
-                    <th>category</th>
+                    <th>Category</th>
                     <th>Date</th>
+                    <th>Frequency</th> <!-- New Column Header -->
+                    <th>Invoice Date</th> <!-- New Column Header -->
                 </tr>
             </thead>
             <tbody id="deductionTableBody">
@@ -104,11 +113,14 @@
                         <td>${deduction.amount}</td>
                         <td>${deduction.category}</td>
                         <td>${deduction.date}</td>
+                        <td>${deduction.frequency}</td> 
+                        <td>${deduction.invoiceDate}</td> 
                     </tr>
                 </c:forEach>
             </tbody>
-    
         </table>
+        
+
     
         <!-- Optionally, you can add JavaScript to make the form and table dynamic -->
     </body>
