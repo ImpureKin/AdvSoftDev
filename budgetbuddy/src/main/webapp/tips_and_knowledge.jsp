@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html> 
+<html lang="en">
 <head>
-<title>Edit Goal </title>
-<style>
-     .center-container {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: 'Lato', sans-serif; }
+        #heading { font-size: 36px; color: black; font-weight: 900; }
+        .center-container {
           display: flex;
            justify-content: center;
           align-items: center;
@@ -26,14 +28,16 @@
           text-align: center;
           padding: 10px 15px;
         }
-</style>
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap">
 </head>
-
 <body>
      <!-- NavBar-->
     <div class="center-container">
         <div class="topnav">
-            <a href="home.jsp">Home</a>
+        <a href="home.jsp">Home</a>
             <a href="income.jsp">Income</a>
             <a href="expenses.jsp">Expenses</a>
             <a href="wip.jsp">Deductions</a>
@@ -43,27 +47,8 @@
             <a href="payment.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
             <a href="index.jsp">Logout</a>
-         </div>
+        </div>
     </div>
-
-    <h1>Edit Saving Goal</h1>
-     <!-- Form to edit a goal -->
-    <form action="" method="post">
-    <label for="goalName"> Goal Name: </label>
-    <input type="text" id="goalName" value="Computer"><br>
-
-    <label for="goalDecription"> Goal Description: </label>
-    <input type="text" id="goalDecription" value="Because I want" required><br>
-
-    <label for="goalAmount"> Goal Amount: </label>
-    <input type="number" id="goalAmount" value="1000" required><br>
-
-    <input type="hidden" name="date_created" value="2023-09-05">
-
-        <input type="submit" value="Save Changes">
-        <input type="reset" value="Reset">
-        <a href="detail_goal.jsp">Cancel</a>
-    </form>
-
+    <h1 id="heading">Tips and Knowledge</h1>
 </body>
 </html>
