@@ -25,6 +25,8 @@ public class TestUser {
 
     static Logger logger = Logger.getLogger(TestUser.class.getName());
 
+    Connection connection;
+
     @BeforeAll
     public static void initialiseDatabase() {
         try {
@@ -38,6 +40,9 @@ public class TestUser {
     @AfterEach
     public void resetDatabase() {
         try {
+            if (connection != null) {
+                connection.close();
+            }
             dm.resetDatabase();
         }
         catch (Exception e) {
