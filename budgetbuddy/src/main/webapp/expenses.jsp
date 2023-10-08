@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -65,6 +67,7 @@
             <option value="transport">Transport</option>
             <option value="utilities">Utilities</option>
             <option value="entertainment">Entertainment</option>
+            <option value="Other">Other</option>
         </select>
 
         <label for="date">Date:</label>
@@ -82,6 +85,7 @@
                 <th>Amount</th>
                 <th>Category</th>
                 <th>Date</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody id="expenseTableBody">
@@ -93,6 +97,9 @@
                     <td>${expense.amount}</td>
                     <td>${expense.category}</td>
                     <td>${expense.date}</td>
+                    <td>
+                        <a href="/app/Expenses?deleteId=${expense.id}">Delete</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>

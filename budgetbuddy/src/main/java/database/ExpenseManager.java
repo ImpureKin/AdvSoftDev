@@ -66,4 +66,12 @@ public class ExpenseManager {
     }
 
     // ... [other CRUD operations like delete, update, etc.] ...
+
+    public static void deleteExpense(Connection connection, int id) throws SQLException {
+    String sql = "DELETE FROM Expenses WHERE id = ?";
+    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+    }
+}
 }

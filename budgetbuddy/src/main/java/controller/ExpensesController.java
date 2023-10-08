@@ -21,6 +21,10 @@ public class ExpensesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
+            String deleteId = req.getParameter("deleteId");
+            if (deleteId != null) {
+              ExpenseManager.deleteExpense(connection, Integer.parseInt(deleteId));
+            }
             ExpenseManager.initializeDatabase(connection);
             List<Expenses> expensesList = ExpenseManager.getAllExpenses(connection);
             req.setAttribute("expensesList", expensesList);
@@ -28,6 +32,8 @@ public class ExpensesController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+            
     }
     
     @Override
@@ -36,7 +42,7 @@ public class ExpensesController extends HttpServlet {
             String expenseName = req.getParameter("expenseName");
             double amount = Double.parseDouble(req.getParameter("amount"));
             String category = req.getParameter("category");
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date"));
+            Date date = new SimpleDateFormat("DD-MM-YYYY").parse(req.getParameter("date"));
 
             Expenses newExpense = new Expenses();
             newExpense.setExpenseName(expenseName);

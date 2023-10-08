@@ -11,7 +11,7 @@ public class Expenses {
     private Date date;
     
     // Default categories for validation
-    private static final String[] VALID_CATEGORIES = {"food", "transport", "utilities", "entertainment"};
+    private static final String[] VALID_CATEGORIES = {"food", "transport", "utilities", "entertainment", "other"};
 
     // Constructors
     public Expenses() {
@@ -76,11 +76,11 @@ public class Expenses {
         return date;
     }
 
-    public void setDate(Date date) {
-        if (date == null) {
+    public void setDate(Date date2) {
+        if (date2 == null) {
             throw new IllegalArgumentException("Date cannot be null.");
         }
-        this.date = date;
+        this.date = date2;
     }
 
     // Utility method to validate category
