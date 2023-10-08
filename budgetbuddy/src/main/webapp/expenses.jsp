@@ -1,5 +1,8 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<!DOCTYPE html>
 <html>
-<taglib prefix="c" uri="https://jakarta.apache.org/taglibs/standard_2_0-rt/core"></taglib>
+<!-- <taglib prefix="c" uri="https://jakarta.apache.org/taglibs/standard_2_0-rt/core"></taglib> -->
 
 <head>
     <title>Budget Buddy - Expenses</title>
@@ -33,7 +36,7 @@
         <div class="topnav">
             <a href="home.jsp">Home</a>
             <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
+            <a href="Expenses">Expenses</a>
             <a href="wip.jsp">Deductions</a>
             <a href="saving_goals.jsp">Savings</a>
             <a href="trends.jsp">Trends</a>
@@ -48,7 +51,7 @@
 
     <!-- Form to Add New Expenses -->
     <h3>Add New Expense</h3>
-    <form id="addExpenseForm" method="post" action="/app/ExpensesController">
+    <form id="addExpenseForm" method="post" action="/app/Expenses">
 
         <label for="expenseName">Expense Name:</label>
         <input type="text" id="expenseName" name="expenseName" required>

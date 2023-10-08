@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/ExpensesController")
+@WebServlet("/Expenses")
 public class ExpensesController extends HttpServlet {
     
     @Override
@@ -46,7 +46,7 @@ public class ExpensesController extends HttpServlet {
 
             ExpenseManager.addExpense(connection, newExpense);
 
-            resp.sendRedirect("ExpensesController");
+            resp.sendRedirect("Expenses");
         } catch (Exception e) {
             e.printStackTrace();
         }

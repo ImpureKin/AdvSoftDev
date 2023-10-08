@@ -4,7 +4,6 @@ import model.Expenses;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -51,9 +50,8 @@ public class ExpenseManager {
                 expense.setExpenseName(rs.getString("expenseName"));
                 expense.setAmount(rs.getDouble("amount"));
                 expense.setCategory(rs.getString("category"));
-                String dateString = rs.getString("date");
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = formatter.parse(dateString);
+                long timestamp = rs.getLong("date");
+                Date date = new Date(timestamp);
                 expense.setDate(date);
                 
                 expensesList.add(expense);
