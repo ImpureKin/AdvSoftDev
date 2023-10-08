@@ -9,13 +9,13 @@ import database.*;
 
 
 
-class FinancesManagerTest {
+class FinanceManagerTest {
 
-    @BeforeEach
-    public void setUp() {
-        // Reset the database before each test
-        DatabaseManager.resetDatabase();
-    }
+    // @BeforeEach
+    // public void setUp() {
+    //     // Reset the database before each test
+    //     DatabaseManager.resetDatabase();
+    // }
 
     @Test
     public void testGetFinancesByUserId() {
