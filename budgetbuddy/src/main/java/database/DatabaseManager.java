@@ -294,10 +294,10 @@ public class DatabaseManager {
                 "(2, 'Shoes', 80, 'Cash Sale', '01/01/23', 'one-off');");
 
         tableDataQueries.put("Expenses", "INSERT INTO Expenses (userId, name, amount, category, date, frequency) VALUES\n" +
-                "(1, 'Shoes', 500, 'Cash Purchase', '01/01/23', 'one-off'),\n" +
-                "(1, 'Food', 4500, 'Cash Purchase', '01/01/23', 'one-off'),\n" +
-                "(2, 'Shoes', 808, 'Cash Purchase', '01/01/23', 'one-off'),\n" +
-                "(2, 'Drugs (Legal)', 9000, 'Cash Purchase', '01/01/23', 'one-off');");
+                "(1, 'Shoes', 500, 'Other', '01/01/23', 'one-off'),\n" +
+                "(1, 'Food', 4500, 'Food', '01/01/23', 'one-off'),\n" +
+                "(2, 'Shoes', 808, 'Other', '01/01/23', 'one-off'),\n" +
+                "(2, 'Drugs (Legal)', 9000, 'Other', '01/01/23', 'one-off');");
 
         tableDataQueries.put("Deductions", "INSERT INTO Deductions (userId, name, amount, category, date, frequency) VALUES\n" +
                 "(1, 'Work Shoes', 50, 'Work Related Purchase', '01/01/23', 'one-off'),\n" +
