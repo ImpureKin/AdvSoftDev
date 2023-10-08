@@ -49,6 +49,7 @@
     <!-- Form to Add New Expenses -->
     <h3>Add New Expense</h3>
     <form id="addExpenseForm" method="post" action="/app/ExpensesController">
+
         <label for="expenseName">Expense Name:</label>
         <input type="text" id="expenseName" name="expenseName" required>
         

@@ -3,8 +3,11 @@ package database;
 import model.Expenses;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class ExpenseManager {
 
@@ -35,7 +38,7 @@ public class ExpenseManager {
         }
     }
 
-    public static List<Expenses> getAllExpenses(Connection connection) throws SQLException {
+    public static List<Expenses> getAllExpenses(Connection connection) throws SQLException, ParseException {
         List<Expenses> expensesList = new ArrayList<>();
         String sql = "SELECT * FROM Expenses";
         
@@ -48,12 +51,19 @@ public class ExpenseManager {
                 expense.setExpenseName(rs.getString("expenseName"));
                 expense.setAmount(rs.getDouble("amount"));
                 expense.setCategory(rs.getString("category"));
-                expense.setDate(rs.getDate("date"));
+                String dateString = rs.getString("date");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(dateString);
+                expense.setDate(date);
                 
                 expensesList.add(expense);
             }
         }
-        
+
+        //Logging statement for point 3
+        System.out.println("Total records fetched from database: " + expensesList.size());
+
+
         return expensesList;
     }
 

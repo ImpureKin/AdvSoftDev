@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/ExpensesController")
 public class ExpensesController extends HttpServlet {
@@ -21,7 +22,8 @@ public class ExpensesController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
             ExpenseManager.initializeDatabase(connection);
-            req.setAttribute("expensesList", ExpenseManager.getAllExpenses(connection));
+            List<Expenses> expensesList = ExpenseManager.getAllExpenses(connection);
+            req.setAttribute("expensesList", expensesList);
             req.getRequestDispatcher("expenses.jsp").forward(req, resp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +46,7 @@ public class ExpensesController extends HttpServlet {
 
             ExpenseManager.addExpense(connection, newExpense);
 
-            resp.sendRedirect("expenses.jsp");
+            resp.sendRedirect("ExpensesController");
         } catch (Exception e) {
             e.printStackTrace();
         }
