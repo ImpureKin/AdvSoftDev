@@ -1,3 +1,4 @@
+<!-- login_check.jsp -->
 <%@ page import="java.sql.*" %>
 <%@ page import="controller.*" %>
 <%@ page import="model.*" %>

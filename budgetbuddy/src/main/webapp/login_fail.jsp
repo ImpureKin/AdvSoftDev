@@ -1,7 +1,4 @@
-<%-- 
-    Document   : Login Fail Page
-    Created on : 28 Mar 2023, 6:38:18 pm
---%>
+<!-- login_fail.jsp -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

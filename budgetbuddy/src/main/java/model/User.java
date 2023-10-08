@@ -1,3 +1,4 @@
+// User.java
 package model;
 import controller.UserController;
 

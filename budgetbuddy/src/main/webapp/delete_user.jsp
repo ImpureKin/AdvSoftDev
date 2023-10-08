@@ -1,3 +1,4 @@
+<!-- delete_user.jsp -->
 <%@ page import="java.sql.*" %>
 <%@ page import="controller.*" %>
 <%@ page import="model.*" %>
@@ -12,3 +13,4 @@ uc.deleteUser(userId);
 session.invalidate();
 response.sendRedirect("index.jsp");
 %>
+
