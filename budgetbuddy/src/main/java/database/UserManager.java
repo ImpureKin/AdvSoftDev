@@ -22,7 +22,7 @@ public class UserManager {
         }
     }
     
-    // Get User based on email and userType
+    // Get User based on chosen field and field valie (i.e. Email + user email)
     public static User getUser(Connection connection, String field, String field_value) {
         try {
             // Query DB
