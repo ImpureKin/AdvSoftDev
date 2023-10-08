@@ -2,7 +2,10 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
+         http://jakarta.apache.org/jsp/jstl/core
+         https://jakarta.apache.org/taglibs/standard_2_0-rt/core"
+
          version="5.0">
 
     <display-name>Archetype Created Web Application</display-name>
