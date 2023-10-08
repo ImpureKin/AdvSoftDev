@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.sqlite.core.DB;
+
 import model.Goals;
 
 public class GoalsManager {
@@ -66,17 +69,25 @@ public class GoalsManager {
     public static void updateSavedAmount(int goalId, int savedAmount) {
         try {
             Connection connection = ConnectionManager.getConnection();
+            System.out.println("Got connection");
+    
             String query = "UPDATE Goals SET saved_amount = saved_amount + ? WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, savedAmount);
             pstmt.setInt(2, goalId);
-            pstmt.executeUpdate();
+    
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println(rowsAffected + " row(s) affected");
+    
+            System.out.println("Updating goalId: " + goalId + ", savedAmount: " + savedAmount);
     
             connection.close();
+            System.out.println("Connection closed");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
 
     public static void createGoal(Goals goal) throws Exception {
         try {
@@ -117,11 +128,18 @@ public class GoalsManager {
             pstmt.setInt(3, goalAmount);
             pstmt.setInt(4, goalId);
     
-            pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                System.out.println("Update successful. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Update failed. No rows affected.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception, log it, or throw a custom exception if needed
         }
     }
+    
     
 }

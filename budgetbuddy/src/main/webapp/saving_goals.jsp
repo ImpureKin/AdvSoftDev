@@ -111,8 +111,6 @@
     <a href="create_goal.jsp" class="btn btn-success btn-lg mt-3 col-12">Create Goal</a>
 </div>
 
-
-
  <script>
     document.getElementById('moneyForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the form from submitting normally
