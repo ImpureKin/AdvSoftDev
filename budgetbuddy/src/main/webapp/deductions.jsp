@@ -102,8 +102,9 @@
                     <th>Amount</th>
                     <th>Category</th>
                     <th>Date</th>
-                    <th>Frequency</th> <!-- New Column Header -->
-                    <th>Invoice Date</th> <!-- New Column Header -->
+                    <th>Frequency</th> 
+                    <th>Invoice Date</th> 
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="deductionTableBody">
@@ -112,9 +113,10 @@
                         <td>${deduction.name}</td>
                         <td>${deduction.amount}</td>
                         <td>${deduction.category}</td>
-                        <td>${deduction.date}</td>
+                        <td>${deduction.formattedDate}</td>
                         <td>${deduction.frequency}</td> 
                         <td>${deduction.invoiceDate}</td> 
+                        <td><a href="/app/Deductions?action=delete&id=${deduction.id}">Delete</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

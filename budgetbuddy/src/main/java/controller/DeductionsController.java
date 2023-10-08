@@ -22,7 +22,23 @@ public class DeductionsController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        if (userId == null) {
+            userId = 1; // For testing purposes
+            //resp.sendRedirect("index.jsp"); // Redirect to login page if user is not authenticated
+            //return;
+        }
+        
         try (Connection connection = ConnectionManager.getConnection()) {
+            //Delete feature
+            String action = req.getParameter("action");
+            if ("delete".equals(action)) {
+                int id = Integer.parseInt(req.getParameter("id"));
+                DeductionManager.removeDeduction(connection, id);
+            }
+            
             DeductionManager.initializeDatabase(connection);
             List<Deductions> deductionsList = DeductionManager.getAllDeductions(connection);
             req.setAttribute("deductionsList", deductionsList);
@@ -42,6 +58,7 @@ public class DeductionsController extends HttpServlet {
             if(userId == null) {
                 userId = 1; // for testing purposes only, change later
                 // Handle error. E.g., redirect to login page.
+                
                 //resp.sendRedirect("index.jsp");
                 //return;
             }

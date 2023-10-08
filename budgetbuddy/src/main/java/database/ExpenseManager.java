@@ -13,6 +13,7 @@ public class ExpenseManager {
     public static void initializeDatabase(Connection connection) throws SQLException {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS Expenses ("
                               + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                              + "userId INTEGER NOT NULL,"
                               + "expenseName TEXT NOT NULL,"
                               + "amount REAL NOT NULL,"
                               + "category TEXT NOT NULL,"
@@ -24,15 +25,14 @@ public class ExpenseManager {
     }
 
 
-    public static void addExpense(Connection connection, Expenses expense) throws SQLException {
-        String sql = "INSERT INTO Expenses (expenseName, amount, category, date) VALUES (?, ?, ?, ?)";
-        
+    public static void addExpense(Connection connection, Expenses expense, int userId) throws SQLException {
+        String sql = "INSERT INTO Expenses (expenseName, userId, amount, category, date) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, expense.getExpenseName());
-            pstmt.setDouble(2, expense.getAmount());
-            pstmt.setString(3, expense.getCategory());
-            pstmt.setDate(4, new java.sql.Date(expense.getDate().getTime()));
-            
+            pstmt.setInt(2, userId);  // userId in the second column
+            pstmt.setDouble(3, expense.getAmount());
+            pstmt.setString(4, expense.getCategory());
+            pstmt.setDate(5, new java.sql.Date(expense.getDate().getTime()));
             pstmt.executeUpdate();
         }
     }
@@ -47,6 +47,7 @@ public class ExpenseManager {
             while (rs.next()) {
                 Expenses expense = new Expenses();
                 expense.setId(rs.getInt("id"));
+                expense.setUserId(rs.getInt("userId"));
                 expense.setExpenseName(rs.getString("expenseName"));
                 expense.setAmount(rs.getDouble("amount"));
                 expense.setCategory(rs.getString("category"));
@@ -57,9 +58,6 @@ public class ExpenseManager {
                 expensesList.add(expense);
             }
         }
-
-        //Logging statement for point 3
-        System.out.println("Total records fetched from database: " + expensesList.size());
 
 
         return expensesList;

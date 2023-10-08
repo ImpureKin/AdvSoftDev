@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Expenses {
     private int id; // unique identifier for each expense
+    private int userId;
     private String expenseName;
     private double amount;
     private String category;
@@ -18,8 +19,9 @@ public class Expenses {
         // Default constructor
     }
 
-    public Expenses(int id, String expenseName, double amount, String category, Date date) {
+    public Expenses(int id, int userId, String expenseName, double amount, String category, Date date) {
         setId(id);
+        setUserId(userId);
         setExpenseName(expenseName);
         setAmount(amount);
         setCategory(category);
@@ -38,6 +40,18 @@ public class Expenses {
         }
         this.id = id;
     }
+
+    public int getUserId() { // New getter for userId
+        return userId;
+    }
+
+    public void setUserId(int userId) { // New setter for userId
+        if (userId < 0) {
+            throw new IllegalArgumentException("UserID cannot be negative.");
+        }
+        this.userId = userId;
+    }
+
 
     public String getExpenseName() {
         return expenseName;
@@ -91,6 +105,11 @@ public class Expenses {
             }
         }
         return false;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(this.date);
     }
 
     @Override

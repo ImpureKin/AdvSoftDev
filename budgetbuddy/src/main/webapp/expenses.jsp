@@ -96,7 +96,7 @@
                     <td>${expense.expenseName}</td>
                     <td>${expense.amount}</td>
                     <td>${expense.category}</td>
-                    <td>${expense.date}</td>
+                    <td>${expense.formattedDate}</td>
                     <td>
                         <a href="/app/Expenses?deleteId=${expense.id}">Delete</a>
                     </td>
