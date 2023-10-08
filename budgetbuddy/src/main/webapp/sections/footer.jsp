@@ -1,4 +1,4 @@
-<footer class="footer mt-auto py-1 p-5 pb-3" style="background-color: #36454F">
+<footer class="footer mt-auto py-1 p-5 p2-2 pb-3" style="background-color: #36454F">
     <div class="container text-center">
         <a href="https://github.com/ImpureKin/AdvSoftDev" target="_blank" class="text-decoration-none text-white">GitHub</a>
         <p class="mb-0 text-white">Copyright &copy; 2023. Designed by Group 3</p>
