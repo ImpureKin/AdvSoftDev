@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.*;
 import database.*;
 
@@ -15,32 +16,44 @@ import database.*;
 public class LoadGoalsAndSavingsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Connection connection = DB.getConnection();
-            int userId = 1;
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("User");
 
-            List<Goals> userGoals = GoalsManager.getGoalsByUserId(connection, userId);
+            if (user != null) {
+                String userIdString = String.valueOf(user.getId()); // Convert int to String
+                int userId = Integer.parseInt(userIdString); // Convert String to int
 
-            // Get total savings and total saved from TotalUserSavings view
-            TotalUserSavings userFinances = FinancesManager.getTotalUserSavings(connection, userId);
-            
-            int totalSavings = 0; // Set a default value
-            int totalSaved = 0;   // Set a default value
+                // Print user information
+                System.out.println("User ID: " + userId);
 
+                Connection connection = ConnectionManager.getConnection();
 
-            if (userFinances != null) {
-                totalSavings = userFinances.getTotalSavings();
-                totalSaved = userFinances.getTotalSaved();
+                List<Goals> userGoals = GoalsManager.getGoalsByUserId(connection, userId);
+
+                // Get total savings and total saved from TotalUserSavings view
+                TotalUserSavings userFinances = FinancesManager.getTotalUserSavings(connection, userId);
+
+                int totalSavings = 0; // Set a default value
+                int totalSaved = 0;   // Set a default value
+
+                if (userFinances != null) {
+                    totalSavings = userFinances.getTotalSavings();
+                    totalSaved = userFinances.getTotalSaved();
+                }
+
+                connection.close();
+
+                request.setAttribute("userGoals", userGoals);
+                request.setAttribute("userFinances", userFinances);
+                request.setAttribute("totalSavings", totalSavings);
+                request.setAttribute("totalSaved", totalSaved); // Add totalSaved to request attributes
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("saving_goals.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                // Handle the case where the user object is not found in the session
+                response.sendRedirect("welcome_page.jsp");
             }
-
-            connection.close();
-
-            request.setAttribute("userGoals", userGoals);
-            request.setAttribute("userFinances", userFinances);
-            request.setAttribute("totalSavings", totalSavings);
-            request.setAttribute("totalSaved", totalSaved); // Add totalSaved to request attributes
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("saving_goals.jsp");
-            dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

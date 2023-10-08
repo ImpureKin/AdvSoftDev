@@ -9,16 +9,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Finances;
+import model.User;
 import database.*;
 
 @WebServlet("/GetFinancialDataServlet")
 public class GetFinancialDataServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = 1;
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
         
         Connection connection = null;
         try {
-            connection = DB.getConnection();
+            connection = ConnectionManager.getConnection();
+            String userIdString = String.valueOf(user.getId());
+            int userId = Integer.parseInt(userIdString); // Convert String to int
+            
             Finances finances = FinancesManager.getFinancesByUserId(connection, userId);
             if (finances != null) {
                 request.setAttribute("finances", finances);

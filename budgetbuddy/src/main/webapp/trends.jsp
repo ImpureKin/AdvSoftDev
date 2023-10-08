@@ -67,7 +67,6 @@
 
         <!-- Table -->
         <h2>Summary Table</h2>
-        <h2>Summary Table</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>

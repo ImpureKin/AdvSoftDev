@@ -11,31 +11,42 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/AddMoneytoGoalServlet")
 public class AddMoneytoGoalServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            int goalId = Integer.parseInt(request.getParameter("goalId"));
-            int savedAmount = Integer.parseInt(request.getParameter("amount"));
-            
-            // Retrieve the goal by ID
-            Goals goal = GoalsManager.getGoalById(goalId);
-    
-            if (goal != null) {
-                // Update the goal's savedAmount using GoalsManager
-                GoalsManager.updateSavedAmount(goalId, savedAmount);
-                
-                System.out.println("Goal Updated: " + goal.getName()); // Print confirmation
-                System.out.println("Saved Amount Updated: " + savedAmount);
-            } else {
-                System.out.println("Goal not found with ID: " + goalId);
-            }
-    
-            // Redirect back to the original page
-            request.setAttribute("goalAdded", true);
-            response.sendRedirect("LoadGoalsAndSavingsServlet");
+        String goalIdParameter = request.getParameter("goalId");
+        String amountParameter = request.getParameter("amount");
 
-        // Exception handling
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle any exceptions or redirect to an error page
+        System.out.println("goalIdParameter: " + goalIdParameter);
+        System.out.println("amountParameter: " + amountParameter);
+
+
+        if (goalIdParameter != null && amountParameter != null) {
+            int goalId = Integer.parseInt(goalIdParameter);
+            int amountToAdd = Integer.parseInt(amountParameter);
+
+            // Retrieve the goal and its saved amount
+            Goals goal = GoalsManager.getGoalById(goalId);
+            int savedAmount = goal.getSavedAmount();
+            int goalAmount = goal.getGoalAmount();
+
+            System.out.println("Goal ID: " + goal.getId());
+            System.out.println("Saved Amount: " + savedAmount);
+            System.out.println("Goal Amount: " + goalAmount);
+
+            String message;
+            if (savedAmount + amountToAdd > goalAmount) {
+                // The total saved amount would exceed the goal amount
+                message = "Error: Total saved amount exceeds the goal amount.";
+            } else {
+                // Add the money to the goal
+                GoalsManager.updateSavedAmount(goalId, amountToAdd);
+                message = "Money successfully added to goal!";
+            }
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(message);
+        } else {
+            response.getWriter().println("Error: Invalid parameters.");
         }
     }
 }
+

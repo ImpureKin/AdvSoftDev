@@ -7,8 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import model.Finances;
 import model.Goals;
 
 public class GoalsManager {
@@ -40,7 +38,7 @@ public class GoalsManager {
     public static Goals getGoalById(int goalId) {
         Goals goal = null;
         try {
-            Connection connection = DB.getConnection();
+            Connection connection = ConnectionManager.getConnection();
             String query = "SELECT * FROM Goals WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, goalId);
@@ -67,7 +65,7 @@ public class GoalsManager {
 
     public static void updateSavedAmount(int goalId, int savedAmount) {
         try {
-            Connection connection = DB.getConnection();
+            Connection connection = ConnectionManager.getConnection();
             String query = "UPDATE Goals SET saved_amount = saved_amount + ? WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, savedAmount);
@@ -82,7 +80,7 @@ public class GoalsManager {
 
     public static void createGoal(Goals goal) throws Exception {
         try {
-            Connection connection = DB.getConnection();
+            Connection connection = ConnectionManager.getConnection();
     
             String query = "INSERT INTO Goals (userId, name, goal_amount, saved_amount, category, description, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -110,31 +108,8 @@ public class GoalsManager {
     
 
 
-
-    public static Finances getFinancesByUserId(Connection connection, int userId) {
-        Finances finances = null;
-        try {
-            String query = "SELECT * FROM Finances WHERE userId = ?";
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-    
-            if (rs.next()) {
-                int totalIncome = rs.getInt("total_income");
-                int totalDeductions = rs.getInt("total_deductions");
-                int totalExpenses = rs.getInt("total_expenses");
-                int totalSavings = rs.getInt("total_savings");
-    
-                finances = new Finances(userId, totalIncome, totalDeductions, totalExpenses, totalSavings);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error getting finances: " + e);
-        }
-        return finances;
-    }
-
     public static void updateGoal(int goalId, String goalName, String goalDescription, int goalAmount) throws Exception {
-        try (Connection connection = DB.getConnection()) {
+        try (Connection connection = ConnectionManager.getConnection()) {
             String query = "UPDATE Goals SET name=?, description=?, goal_amount=? WHERE id=?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, goalName);
