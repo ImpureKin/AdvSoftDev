@@ -14,7 +14,7 @@ public class DatabaseManager {
     static ArrayList<String> tables = new ArrayList<>(Arrays.asList("Users", "Incomes", "Expenses", "Deductions", "Goals", "Bills", "Tips"));
     static ArrayList<String> views = new ArrayList<>(Arrays.asList("Finances", "TotalUserSavings "));
     
-    public static void resetDatabase() {
+    public boolean resetDatabase() {
         try {
             System.out.println("Now resetting Database...");
             conn = ConnectionManager.getConnection();
@@ -24,8 +24,10 @@ public class DatabaseManager {
             foreignKeyStatement = conn.createStatement(); foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = ON; ");
             closeConnection();
             System.out.println("Successfully reset Database...");
+            return true;
         } catch (Exception e) {
             System.out.println(e);
+            return false;
         }
     }
 
@@ -170,7 +172,7 @@ public class DatabaseManager {
         createTableQueries.put("Expenses", "CREATE TABLE Expenses (\n" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "userId INTEGER NOT NULL,\n" +
-                "name TEXT NOT NULL,\n" +
+                "expenseName TEXT NOT NULL,\n" +
                 "amount INTEGER NOT NULL,\n" +
                 "category TEXT NOT NULL,\n" +
                 "date TEXT NOT NULL,\n" +
@@ -292,7 +294,7 @@ public class DatabaseManager {
                 "(2, 'Data Job', 300000, 'Salary', '01/01/23', 'Yearly'),\n" +
                 "(2, 'Shoes', 80, 'Cash Sale', '01/01/23', 'one-off');");
 
-        tableDataQueries.put("Expenses", "INSERT INTO Expenses (userId, name, amount, category, date) VALUES\n" +
+        tableDataQueries.put("Expenses", "INSERT INTO Expenses (userId, expenseName, amount, category, date) VALUES\n" +
                 "(1, 'Shoes', 500, 'Other', '01/01/23'),\n" +
                 "(1, 'Food', 4500, 'Food', '01/01/23'),\n" +
                 "(2, 'Shoes', 808, 'Other', '01/01/23'),\n" +
