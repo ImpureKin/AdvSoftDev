@@ -28,10 +28,10 @@ class FinanceManagerTest {
 
             // Verify the result
             assertNotNull(finances);
-            assertEquals(200000, finances.getTotalIncome());
-            assertEquals(0, finances.getTotalDeductions());
-            assertEquals(500, finances.getTotalExpenses());
-            assertEquals(199500, finances.getTotalSavings());
+            assertEquals(200300, finances.getTotalIncome());
+            assertEquals(130, finances.getTotalDeductions());
+            assertEquals(5000, finances.getTotalExpenses());
+            assertEquals(195170, finances.getTotalSavings());
             
             // Close the connection
             connection.close();
@@ -41,6 +41,8 @@ class FinanceManagerTest {
             fail("Exception thrown: " + e.getMessage());
         }
     }
+
+    
 
     @Test
     public void testGetTotalUserSavings() {
@@ -53,9 +55,9 @@ class FinanceManagerTest {
 
             // Verify the result
             assertNotNull(totalUserSavings);
-            assertEquals(199500, totalUserSavings.getTotalSavings());
-            assertEquals(20000, totalUserSavings.getTotalGoalSavings());
-            assertEquals(179500, totalUserSavings.getTotalSaved());
+            assertEquals(195170, totalUserSavings.getTotalSavings());
+            assertEquals(19200, totalUserSavings.getTotalGoalSavings());
+            assertEquals(175970, totalUserSavings.getTotalSaved());
             
             // Close the connection
             connection.close();
