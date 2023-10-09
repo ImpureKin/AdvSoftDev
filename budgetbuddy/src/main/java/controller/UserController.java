@@ -8,32 +8,37 @@ import java.lang.reflect.Method;
 import java.sql.*;
 
 public class UserController {
+
+    Connection conn;
+
     public User getUser(String email) {
         try {
-            Connection conn = ConnectionManager.getConnection();
+            conn = ConnectionManager.getConnection();
             User user = UserManager.getUser(conn, "email", email);
             if (user != null) {
-                conn.close();
+                ConnectionManager.closeConnection(conn);
                 return user;
             }
-            conn.close();
+            ConnectionManager.closeConnection(conn);
             return null;
         } catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
             return null;
         }
     }
 
     public String editUser(String field, String value, String userId) {
         try {
-            Connection conn = ConnectionManager.getConnection();
+            conn = ConnectionManager.getConnection();
             if (UserManager.updateUserDetail(conn, field, value, userId) == null) {
-                conn.close();
+                ConnectionManager.closeConnection(conn);
                 return null;
             } else {
-                conn.close();
+                ConnectionManager.closeConnection(conn);
                 return "Error updating user details.";
             }
         } catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
             return "Error updating user details: " + e;
         }
     }
@@ -60,11 +65,12 @@ public class UserController {
 
     public String deleteUser(String userId) {
         try {
-            Connection conn = ConnectionManager.getConnection();
+            conn = ConnectionManager.getConnection();
             UserManager.deleteAccount(conn, userId);
-            conn.close();
+            ConnectionManager.closeConnection(conn);
             return null;
         } catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
             return "Error deleting account: " + e;
         }
     }

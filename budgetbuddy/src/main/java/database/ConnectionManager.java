@@ -19,4 +19,15 @@ public class ConnectionManager {
             throw e;
         }
     }
+
+    public static void closeConnection(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Failed to close connection: " + e);
+        }
+    }
 }

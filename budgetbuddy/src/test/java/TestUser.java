@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.*;
 import java.util.List;
@@ -16,7 +17,6 @@ import database.*;
 
 public class TestUser {
 
-    static ConnectionManager cm = new ConnectionManager();
     static DatabaseManager dm = new DatabaseManager();
 
     static UserController uc = new UserController();
@@ -25,7 +25,7 @@ public class TestUser {
 
     static Logger logger = Logger.getLogger(TestUser.class.getName());
 
-    Connection connection;
+    Connection conn;
 
     @BeforeAll
     public static void initialiseDatabase() {
@@ -40,9 +40,7 @@ public class TestUser {
     @AfterEach
     public void resetDatabase() {
         try {
-            if (connection != null) {
-                connection.close();
-            }
+            ConnectionManager.closeConnection(conn);
             dm.resetDatabase();
         }
         catch (Exception e) {
@@ -65,31 +63,94 @@ public class TestUser {
 
             // Check for valid sign up and if it's valid, register user
             List<String> status_message = sc.isValidSignup(email, password, confirmPassword, firstName, lastName, phone, dob, gender);
+            ConnectionManager.closeConnection(conn);
             assertNull(status_message);
             logger.log(Level.INFO, "Successfully performed userValidRegistration test.");
         }
         catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
             logger.log(Level.SEVERE, "Failed userValidRegistration test: ", e);
         }
     }
 
-    // @Test
-    // public void userValidLogin() {
+    @Test
+    public void userValidLogin() {
+        try {
+            logger.log(Level.INFO, "Beginning userValidLogin test.");
+            String email = "eren.atilgan@student.uts.edu.au";
+            String password = "password";
+            ConnectionManager.closeConnection(conn);
+            assertNull(lc.isValidLogin(email, password));
+            logger.log(Level.INFO, "Successfully performed userValidLogin test."); 
+        }
+        catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
+            logger.log(Level.SEVERE, "Failed userValidLogin test: ", e);
+        }
+    }
 
-    // }
+    @Test
+    public void userDelete() {
+        try {
+            logger.log(Level.INFO, "Beginning userDelete test.");
+            User testUser;
 
-    // @Test
-    // public static void userDelete() {
+            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            uc.deleteUser(uc.getValue(testUser, "id"));
 
-    // }
+            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            assertNull(testUser);
+        }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed userDelete test: ", e);
+        }
+    }
 
-    // @Test
-    // public static void userValidModifyPassword() {
+    @Test
+    public void userValidModifyPassword() {
+        try {
+            logger.log(Level.INFO, "Beginning userValidModifyPassword test.");
+            User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            String newPassword = "@Password1";
+            List<String> passwordStatus = sc.isValidPassword(newPassword);
 
-    // }
+            if (passwordStatus.isEmpty()) {
+                testUser.setPassword(newPassword);
+            }
 
-    // @Test
-    // public static void userValidModifyEmail() {
+            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            String password = uc.getValue(testUser, "password");
+            assertEquals(password, newPassword);
+        }
+        catch (Exception e) {
+           logger.log(Level.SEVERE, "Failed userValidModifyPassword test: ", e); 
+        }
+    }
 
-    // }
+    @Test
+    public void userValidModifyEmail() {
+        try {
+            logger.log(Level.INFO, "Beginning userValidModifyEmail test.");
+            conn = ConnectionManager.getConnection();
+            User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            String newEmail = "eren,atilganTest@student.uts.edu.au";
+            String emailStatus = sc.isValidEmail(newEmail, conn);
+
+            if (emailStatus == null) {
+                testUser.setEmail(newEmail);
+            }
+
+            Boolean status = false;
+            testUser = uc.getUser("eren.atilganTest@student.uts.edu.au");
+            if (testUser == null) {
+                status = true;
+            }
+            ConnectionManager.closeConnection(conn);
+            assertTrue(status);
+        }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed userValidModifyEmail test: ", e); 
+            ConnectionManager.closeConnection(conn);
+        }
+    }
 }

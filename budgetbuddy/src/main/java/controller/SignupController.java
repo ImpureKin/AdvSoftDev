@@ -9,8 +9,12 @@ import java.sql.*;
 
 public class SignupController {
 
+    Connection conn;
+
     public List<String> isValidSignup(String email, String password, String confirmPassword, String firstName,
             String lastName, String phone, String dob, String gender) throws Exception {
+
+        conn = ConnectionManager.getConnection();
 
         List<String> signupStatus = new ArrayList<>();;
         // Check for empty fields
@@ -21,7 +25,7 @@ public class SignupController {
         }
 
         // Check email format
-        String emailStatus = isValidEmail(email);
+        String emailStatus = isValidEmail(email, conn);
         if (emailStatus != null) {
             signupStatus.add(emailStatus);
             return signupStatus;
@@ -40,7 +44,7 @@ public class SignupController {
             return signupStatus;
         }
 
-        String phoneStatus = isValidPhone(phone);
+        String phoneStatus = isValidPhone(phone, conn);
         if (phoneStatus != null) {
             signupStatus.add(phoneStatus);
             return signupStatus;
@@ -48,13 +52,14 @@ public class SignupController {
 
         // Register user in Database
         try {
-            Connection conn = ConnectionManager.getConnection();
             UserManager.registerUser(conn, firstName, lastName, email, password, phone, dob, gender);
         } catch (Exception e) {
+            ConnectionManager.closeConnection(conn);
             System.out.println("Connection Failed: " + e);
             throw e;
         }
         // If all checks pass, return null (indicating successful validation)
+        ConnectionManager.closeConnection(conn);
         return null;
     }
 
@@ -62,11 +67,9 @@ public class SignupController {
         return phone.length() == 10;
     }
 
-    public boolean phoneAlreadyExists(String phone) {
+    public boolean phoneAlreadyExists(String phone, Connection connection) {
         try {
-            Connection conn = ConnectionManager.getConnection();
-            if (UserManager.getUser(conn, "phone", phone) != null) {
-                conn.close();
+            if (UserManager.getUser(connection, "phone", phone) != null) {
                 return true;
             } 
         } catch (Exception e) {
@@ -76,12 +79,12 @@ public class SignupController {
         return false;
     }
 
-    public String isValidPhone(String phone) {
+    public String isValidPhone(String phone, Connection connection) {
         if (!phoneIsValidLength(phone)) {
             return "Phone number is invalid. It needs to have 10 digits.";
         }
 
-        if (phoneAlreadyExists(phone)) {
+        if (phoneAlreadyExists(phone, connection)) {
             return "Phone number is already in use.";
         }
         return null;
@@ -95,11 +98,9 @@ public class SignupController {
         return email.matches(".+@.+\\..+");
     }
 
-    public boolean emailAlreadyExists(String email) {
+    public boolean emailAlreadyExists(String email, Connection connection) {
         try {
-            Connection conn = ConnectionManager.getConnection();
-            if (UserManager.getUser(conn, "email", email) != null) {
-                conn.close();
+            if (UserManager.getUser(connection, "email", email) != null) {
                 return true;
             } 
         } catch (Exception e) {
@@ -109,14 +110,14 @@ public class SignupController {
         return false;
     }
 
-    public String isValidEmail(String email) {
+    public String isValidEmail(String email, Connection connection) {
         // Validate email format using regex
         if (!emailMatchesFormat(email)) {
             return "Email format is invalid.";
         }
 
         // Check if email is registered already
-        if (emailAlreadyExists(email)) {
+        if (emailAlreadyExists(email, connection)) {
             return "Email already exists.";
         }
         return null;
