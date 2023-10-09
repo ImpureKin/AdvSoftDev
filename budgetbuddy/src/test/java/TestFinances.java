@@ -10,43 +10,44 @@ import model.*;
 import database.*;
 
 
-
+// Used to test the Finances Manager to make sure the queries are working as expected 
 class TestFinances {
 
     Connection connection;
 
      @BeforeEach
     public void setUp() {
-            // Reset the database before each test
+            // Resets the database before each test
             DatabaseManager.resetDatabase();
         }
 
     @AfterEach
     public void cleanup() throws SQLException {
-        //Reset the database before each test
+        //Resets the database before each test
         if (connection != null) {
             connection.close();
         }
         DatabaseManager.resetDatabase();
     }
 
+    // Tests GetFinancesByUserId function
     @Test
     public void testGetFinancesByUserId() {
         try {
-            // Establish connection
+            // Establishing connection
             connection = ConnectionManager.getConnection();
 
-            // Test the method
+            // Tests the method
             Finances finances = FinancesManager.getFinancesByUserId(connection, 1);
 
-            // Verify the result
+            // Verifies the result
             assertNotNull(finances);
             assertEquals(200300, finances.getTotalIncome());
             assertEquals(130, finances.getTotalDeductions());
             assertEquals(5000, finances.getTotalExpenses());
             assertEquals(195170, finances.getTotalSavings());
             
-            // Close connection
+            // Closes connection
             connection.close();
         } catch (SQLException e) {
             fail("SQL Exception thrown: " + e.getMessage());
@@ -55,24 +56,23 @@ class TestFinances {
         }
     }
 
-    
-
+    // Tests GetTotalUserSaving function 
     @Test
     public void testGetTotalUserSavings() {
         try {
-            // Establish connection
+            // Establishing connection
             connection = ConnectionManager.getConnection();
 
-            // Test the method
+            // Tests the method
             TotalUserSavings totalUserSavings = FinancesManager.getTotalUserSavings(connection, 1);
 
-            // Verify the result
+            // Verifies the result
             assertNotNull(totalUserSavings);
             assertEquals(195170, totalUserSavings.getTotalSavings());
             assertEquals(19200, totalUserSavings.getTotalGoalSavings());
             assertEquals(175970, totalUserSavings.getTotalSaved());
             
-            // Close connection
+            // Closes connection
             connection.close();
         } catch (SQLException e) {
             fail("SQL Exception thrown: " + e.getMessage());

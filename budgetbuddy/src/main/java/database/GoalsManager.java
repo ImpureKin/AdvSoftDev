@@ -7,15 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.sqlite.core.DB;
-
 import model.Goals;
 
+//This java managaers the datatabase functions relating to Goals 
 public class GoalsManager {
+
+    //Retrives ALL Goals associated to a user 
     public static List<Goals> getGoalsByUserId(Connection connection, int userId) {
         List<Goals> goals = new ArrayList<>();
         try {
+
+            //Query DB
             String query = "SELECT id, userId, name, description, goal_amount, saved_amount, category FROM Goals WHERE userId = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, userId);
@@ -38,10 +40,16 @@ public class GoalsManager {
         return goals;
     }
 
+    // Get a SPECIFIC goals details by its goal id
     public static Goals getGoalById(int goalId) {
+
         Goals goal = null;
+
         try {
+            
             Connection connection = ConnectionManager.getConnection();
+            
+            //Query DB
             String query = "SELECT * FROM Goals WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, goalId);
@@ -66,11 +74,14 @@ public class GoalsManager {
         return goal;
     }
 
+    // Update the saved amount of a specific goal
     public static void updateSavedAmount(int goalId, int savedAmount) {
         try {
+
             Connection connection = ConnectionManager.getConnection();
             System.out.println("Got connection");
-    
+
+            //Query DB
             String query = "UPDATE Goals SET saved_amount = saved_amount + ? WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, savedAmount);
@@ -88,13 +99,15 @@ public class GoalsManager {
         }
     }
     
-
+    // CREATE a new saving goal
     public static void createGoal(Goals goal) throws Exception {
         try {
             Connection connection = ConnectionManager.getConnection();
-    
+
+            //Query DB
             String query = "INSERT INTO Goals (userId, name, goal_amount, saved_amount, category, description, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(query);
+
             pstmt.setInt(1, goal.getUserId());
             pstmt.setString(2, goal.getName());
             pstmt.setInt(3, goal.getGoalAmount());
@@ -102,7 +115,7 @@ public class GoalsManager {
             pstmt.setString(5, goal.getCategory());
             pstmt.setString(6, goal.getDescription());
     
-            // Format the date
+            // Format the date as needed 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String formattedDate = dateFormat.format(goal.getDate());
     
@@ -117,12 +130,14 @@ public class GoalsManager {
         }
     }
     
-
-
+    // Update a saving goal 
     public static void updateGoal(int goalId, String goalName, String goalDescription, int goalAmount) throws Exception {
         try (Connection connection = ConnectionManager.getConnection()) {
+
+            //Query DB
             String query = "UPDATE Goals SET name=?, description=?, goal_amount=? WHERE id=?";
             PreparedStatement pstmt = connection.prepareStatement(query);
+
             pstmt.setString(1, goalName);
             pstmt.setString(2, goalDescription);
             pstmt.setInt(3, goalAmount);
@@ -137,9 +152,9 @@ public class GoalsManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception, log it, or throw a custom exception if needed
         }
     }
     
+    // DELETE WILL BE DONE IN R2
     
 }

@@ -12,52 +12,64 @@ import jakarta.servlet.http.HttpSession;
 import model.*;
 import database.*;
 
+//This Servlet retrives the users savings and goals 
 @WebServlet("/LoadGoalsAndSavingsServlet")
 public class LoadGoalsAndSavingsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+
+            // Retreives session attributes
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("User");
 
+            //checks to make sure that the user is not null
             if (user != null) {
-                String userIdString = String.valueOf(user.getId()); // Convert int to String
-                int userId = Integer.parseInt(userIdString); // Convert String to int
+            
+                // Converts the user id value 
+                String userIdString = user.getId();
+                int userId = Integer.parseInt(userIdString);
 
-                // Print user information
+                // Print user information for debugging purposes
                 System.out.println("User ID: " + userId);
 
+                // Get the connection 
                 Connection connection = ConnectionManager.getConnection();
 
+                // Get a list of the goals which the users have 
                 List<Goals> userGoals = GoalsManager.getGoalsByUserId(connection, userId);
 
                 // Get total savings and total saved from TotalUserSavings view
                 TotalUserSavings userFinances = FinancesManager.getTotalUserSavings(connection, userId);
 
-                int totalSavings = 0; // Set a default value
-                int totalSaved = 0;   // Set a default value
+                int totalSavings = 0; // Sets a default value incase it is a negative
+                int totalSaved = 0;   // Sets a default value incase it is a negative 
 
+                // if the user finances is not 0 then retrieve the savogns and toal saved 
                 if (userFinances != null) {
                     totalSavings = userFinances.getTotalSavings();
                     totalSaved = userFinances.getTotalSaved();
                 }
 
+                // closes connection 
                 connection.close();
 
+                //sends retrieved data to the saving goals.jsp
                 request.setAttribute("userGoals", userGoals);
                 request.setAttribute("userFinances", userFinances);
                 request.setAttribute("totalSavings", totalSavings);
-                request.setAttribute("totalSaved", totalSaved); // Add totalSaved to request attributes
+                request.setAttribute("totalSaved", totalSaved); 
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("saving_goals.jsp");
                 dispatcher.forward(request, response);
+
             } else {
-                // Handle the case where the user object is not found in the session
-                response.sendRedirect("welcome_page.jsp");
+                // Handle if there is no user attribute found 
+                response.sendRedirect("index.jsp");
             }
 
         } catch (Exception e) {
+            // Handle any excpetions and prints the trace
             e.printStackTrace();
-            // Handle any exceptions or redirect to an error page
         }
     }
 }

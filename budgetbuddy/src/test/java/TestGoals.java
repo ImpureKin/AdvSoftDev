@@ -12,6 +12,7 @@ import java.util.List;
 import model.Goals;
 import database.*;
 
+// Used to tets the Goals Manager to make sure the queries are working correctly 
 class TestGoals {
 
     Connection connection;
@@ -19,48 +20,50 @@ class TestGoals {
 
     @BeforeEach
    public void setUp() {
-         // Reset the database before each test
+         // Resets the database before each test
         DatabaseManager.resetDatabase();
         
-    try {
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement initialPstmt = connection.prepareStatement("SELECT saved_amount FROM Goals WHERE id = ?");
-            initialPstmt.setInt(1, 1);
-            ResultSet initialResult = initialPstmt.executeQuery();
-            initialResult.next();
-             initialSavedAmount = initialResult.getInt("saved_amount");
-            connection.close();
-        } catch (SQLException e) {
-            fail("SQL Exception thrown: " + e.getMessage());
-        } catch (Exception e) {
-            fail("Exception thrown: " + e.getMessage());
+        // Retrives the amount after the databas is made. This is for a specific test
+        try {
+                Connection connection = ConnectionManager.getConnection();
+                PreparedStatement initialPstmt = connection.prepareStatement("SELECT saved_amount FROM Goals WHERE id = ?");
+                initialPstmt.setInt(1, 1);
+                ResultSet initialResult = initialPstmt.executeQuery();
+                initialResult.next();
+                initialSavedAmount = initialResult.getInt("saved_amount");
+                connection.close();
+            } catch (SQLException e) {
+                fail("SQL Exception thrown: " + e.getMessage());
+            } catch (Exception e) {
+                fail("Exception thrown: " + e.getMessage());
         }
-        
-        }
+            
+    }
 
-   //@AfterEach
-   // public void cleanup() throws SQLException {
-        //Reset the database before each test
-      //  if (connection != null) {
-        //    connection.close();
-       // }
-       // DatabaseManager.resetDatabase();
-   // }
+   @AfterEach
+   public void cleanup() throws SQLException {
+        //Resets the database before each test
+            if (connection != null) {
+                   connection.close();
+         }
+            DatabaseManager.resetDatabase();
+    }
 
+    // Tests GetGoalsByUserId function
     @Test
     void testGetGoalsByUserId() {
         try {
-            // Create a connection
+            // Creates a connection
             connection = ConnectionManager.getConnection();
 
-            // Test the method
+            // Tests the method
             List<Goals> goals = GoalsManager.getGoalsByUserId(connection, 1);
 
-            // Verify the result
+            // Verifies the result
             assertNotNull(goals);
-            assertEquals(2, goals.size()); // Assuming there are two goals for user 1 in your test data
+            assertEquals(2, goals.size()); 
 
-            // Close the connection
+            // Closes the connection
             connection.close();
         } catch (SQLException e) {
             fail("SQL Exception thrown: " + e.getMessage());
@@ -69,30 +72,30 @@ class TestGoals {
         }
     }
 
-
+    // Tests UpdateSavedAmount function 
     @Test
     void testUpdateSavedAmount() {
         try {
-            // Create a connection
+            // Creates a connection
             connection = ConnectionManager.getConnection();
 
-            // Update the saved amount
+            // Updates the saved amount
             GoalsManager.updateSavedAmount(1, 100);
 
-            // Get the updated saved amount
+            // Gets the updated saved amount
             PreparedStatement updatedPstmt = connection.prepareStatement("SELECT * FROM Goals WHERE id = ?");
             updatedPstmt.setInt(1, 1);
             ResultSet updatedResult = updatedPstmt.executeQuery();
             updatedResult.next();
             int updatedSavedAmount = updatedResult.getInt("saved_amount");
 
-            // Print updated saved amount
+            // Prints updated saved amount
             System.out.println("Updated Saved Amount: " + updatedSavedAmount);
 
-            // Verify the result
+            // Verifies the result
             assertEquals(initialSavedAmount + 100, updatedSavedAmount);
 
-            // Close the connection
+            // Closes the connection
             connection.close();
         } catch (SQLException e) {
             fail("SQL Exception thrown: " + e.getMessage());
@@ -101,32 +104,30 @@ class TestGoals {
         }
     }
 
-
-
-
+    // Tests the GetGoalById function
     @Test
     void testGetGoalById() {
         try {
-            // Test the method
+            // Tests the method
             Goals goal = GoalsManager.getGoalById(1);
 
-            // Verify the result
+            // Verifies the result
             assertNotNull(goal);
-            assertEquals(1, goal.getUserId()); // Assuming goal with id 1 exists in your test data
+            assertEquals(1, goal.getUserId()); 
 
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
     }
 
-
+    // Tests the UpdateGoal function
     @Test
     void testUpdateGoal() {
         try {
-            // Test the method
+            // Tests the method
             GoalsManager.updateGoal(1, "New Goal Name", "New Goal Description", 5000);
 
-            // Verify the result by retrieving the updated goal
+            // Verifies the result by retrieving the updated goal
             Goals updatedGoal = GoalsManager.getGoalById(1);
 
             assertNotNull(updatedGoal);

@@ -3,12 +3,16 @@ import model.Finances;
 import model.TotalUserSavings;
 import java.sql.*;
 
+//This java managers the database functions that are related to gathering user financial data 
 public class FinancesManager {
 
     // Retrives all financial data for the user logged in
     public static Finances getFinancesByUserId(Connection connection, int userId) {
+        
         Finances finances = null;
+        
         try {
+            //Query DB
             String query = "SELECT * FROM Finances WHERE userId = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, userId);
@@ -28,9 +32,12 @@ public class FinancesManager {
         return finances;
     }
 
-    //Retrives all financial data relating to savings for the user logged in
+    //Retrives all financial data relating to JUST savings for the user logged in
     public static TotalUserSavings getTotalUserSavings(Connection connection, int userId) throws SQLException {
+        
         TotalUserSavings totalUserSavings = null;
+       
+        //Query DB
         String query = "SELECT * FROM TotalUserSavings WHERE User_ID = ?";
         
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
