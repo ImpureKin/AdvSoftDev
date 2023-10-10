@@ -5,4 +5,8 @@
     color: #fff; /* Your desired text color */
 }
 
+.container-fluid {
+    --bs-gutter-x: 0; /* Set gutter-x to 0 to remove horizontal gutters */
+    --bs-gutter-y: 0; /* Set gutter-y to 0 to remove vertical gutters */
+}
     

@@ -2,7 +2,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,8 @@ class TestFinances {
      @BeforeEach
     public void setUp() {
             // Resets the database before each test
-            DatabaseManager.resetDatabase();
-        }
+                DatabaseManager.resetDatabase();
+         }
 
     @AfterEach
     public void cleanup() throws SQLException {

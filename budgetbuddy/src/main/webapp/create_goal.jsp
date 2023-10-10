@@ -7,45 +7,51 @@
 <head>
 <title>Create Saving Goal Page </title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
   
- <!-- Adding a saving goal-->
-<div class="container mt-4">
-<h1 class="text-center"> Create a Saving Goal </h1>
-<p clas="text-center"></p>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form action="AddingSavingGoalServlet" method="post">
-                <div class="form-group mb-5">
-                    <label for="goalName">Goal Name:</label>
-                    <input type="text" name="goalName" class="form-control" required>
-                </div>
-                <div class="form-group mb-5">
-                    <label for="goalDescription">Goal Description:</label>
-                    <input type="text" name="goalDescription" class="form-control" required>
-                </div>
+    <!-- Adding a new saving goal-->
+    <div class="container-fluid mt-5 flex-grow-1">
+        <h1 class="text-center"> Create a Saving Goal </h1>
+        <p class="text-center"></p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="AddingSavingGoalServlet" method="post">
+                    <div class="form-group mb-5">
+                        <label for="goalName"><strong>Goal Name:</strong></label>
+                        <input type="text" name="goalName" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="goalDescription"><strong>Goal Description:</strong></label>
+                        <input type="text" name="goalDescription" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group mb-5">
+                        <label for="category"><strong>Goal Category:</strong></label>
+                        <input type="text" name="category" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group mb-5">
+                        <label for="goalAmount"><strong>Goal Amount:</strong></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" name="goalAmount" class="form-control" required step="1">
+                        </div>
+                    </diV>
 
-                <div class="form-group mb-5">
-                    <label for="category">Goal Category:</label>
-                    <input type="text" name="category" class="form-control" required>
-                </div>
+                    <input type="hidden" name="dateCreated" value="">
 
-                <div class="form-group mb-5">
-                    <label for="goalAmount">Goal Amount:</label>
-                    <input type="number" name="goalAmount" class="form-control" required step="1">
-                </div>
-                <input type="hidden" name="dateCreated" value="">
-
-                <div class ="form-group mt-5 text-center">
-                    <button type="submit" class="btn btn-primary">Create Goal</button>
-                    <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Cancel</a>
-                <div>
-            </form>
+                    <div class ="form-group mt-5 text-center">
+                        <button type="submit" class="btn btn-primary">Create Goal</button>
+                        <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Cancel</a>
+                    <div>
+                </form>
+            </div>
         </div>
-  </div>
-</div>
+    </div>
 
-     <!-- Dating for the goal to be stored -->
+     <!-- Making date the correct fomatt for the goal to be stored -->
     <script>
     var currentDate = new Date();
 
@@ -57,8 +63,7 @@
     document.querySelector('input[name="date_created"]').value = formattedDate;
     </script>
     
-<%@include file="sections/foot.jsp" %>
+    <%@include file="sections/foot.jsp" %>
+    <%@include file="sections/footer.jsp" %>
 </body>
-
-<%@include file="sections/footer.jsp" %>
- </html>
+</html>

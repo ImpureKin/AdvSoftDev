@@ -50,7 +50,7 @@ public class GetFinancialDataServlet extends HttpServlet {
             } else {
 
                 // Handle the case where finances are not found
-                response.getWriter().println("Finances not found");
+                response.sendRedirect("trends.jsp");
             }
 
         } catch (Exception e) {
