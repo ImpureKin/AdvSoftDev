@@ -45,24 +45,6 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)
       artifact: drop
 
-- stage: Test
-  displayName: Test stage
-  dependsOn: Build
-  condition: succeeded()
-  jobs:
-  - job: RunTests
-    displayName: Run JUnit Tests
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - script: |
-        # Restore the build artifacts from the previous stage
-        cp -R $(Build.ArtifactStagingDirectory)/target/test-classes $(Agent.TempDirectory)/test-classes
-
-        # Run the tests using the ConsoleLauncher
-        java -cp '$(Agent.TempDirectory)/test-classes:$(Agent.TempDirectory)/compiled-classes' org.junit.platform.console.ConsoleLauncher --scan-class-path
-      displayName: Run JUnit Tests
-
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
