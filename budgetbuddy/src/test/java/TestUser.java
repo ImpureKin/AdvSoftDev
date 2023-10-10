@@ -51,7 +51,7 @@ public class TestUser {
     @Test
     public void userValidRegistration() {
         try {
-            logger.log(Level.INFO, "Beginning userValidRegistration test.");
+            logger.log(Level.INFO, "Beginning Test: userValidRegistration.");
             String email = "test@hotmail.com";
             String password = "@Password1";
             String confirmPassword = "@Password1";
@@ -65,34 +65,34 @@ public class TestUser {
             List<String> status_message = sc.isValidSignup(email, password, confirmPassword, firstName, lastName, phone, dob, gender);
             ConnectionManager.closeConnection(conn);
             assertNull(status_message);
-            logger.log(Level.INFO, "Successfully performed userValidRegistration test.");
+            logger.log(Level.INFO, "Successfully Performed Test: userValidRegistration.");
         }
         catch (Exception e) {
             ConnectionManager.closeConnection(conn);
-            logger.log(Level.SEVERE, "Failed userValidRegistration test: ", e);
+            logger.log(Level.SEVERE, "Failed Test: userValidRegistration", e);
         }
     }
 
     @Test
     public void userValidLogin() {
         try {
-            logger.log(Level.INFO, "Beginning userValidLogin test.");
+            logger.log(Level.INFO, "Beginning Test: userValidLogin.");
             String email = "eren.atilgan@student.uts.edu.au";
             String password = "password";
             ConnectionManager.closeConnection(conn);
             assertNull(lc.isValidLogin(email, password));
-            logger.log(Level.INFO, "Successfully performed userValidLogin test."); 
+            logger.log(Level.INFO, "Successfully Performed Test: userValidLogin."); 
         }
         catch (Exception e) {
             ConnectionManager.closeConnection(conn);
-            logger.log(Level.SEVERE, "Failed userValidLogin test: ", e);
+            logger.log(Level.SEVERE, "Failed Test: userValidLogin", e);
         }
     }
 
     @Test
     public void userDelete() {
         try {
-            logger.log(Level.INFO, "Beginning userDelete test.");
+            logger.log(Level.INFO, "Beginning Test: userDelete.");
             User testUser;
 
             testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
@@ -102,14 +102,14 @@ public class TestUser {
             assertNull(testUser);
         }
         catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed userDelete test: ", e);
+            logger.log(Level.SEVERE, "Failed Test: userDelete", e);
         }
     }
 
     @Test
     public void userValidModifyPassword() {
         try {
-            logger.log(Level.INFO, "Beginning userValidModifyPassword test.");
+            logger.log(Level.INFO, "Beginning Test: userValidModifyPassword.");
             User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
             String newPassword = "@Password1";
             List<String> passwordStatus = sc.isValidPassword(newPassword);
@@ -123,14 +123,14 @@ public class TestUser {
             assertEquals(password, newPassword);
         }
         catch (Exception e) {
-           logger.log(Level.SEVERE, "Failed userValidModifyPassword test: ", e); 
+           logger.log(Level.SEVERE, "Failed Test: userValidModifyPassword", e); 
         }
     }
 
     @Test
     public void userValidModifyEmail() {
         try {
-            logger.log(Level.INFO, "Beginning userValidModifyEmail test.");
+            logger.log(Level.INFO, "Beginning Test: userValidModifyEmail");
             conn = ConnectionManager.getConnection();
             User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
             String newEmail = "eren,atilganTest@student.uts.edu.au";
@@ -149,7 +149,7 @@ public class TestUser {
             assertTrue(status);
         }
         catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed userValidModifyEmail test: ", e); 
+            logger.log(Level.SEVERE, "Failed Test: userValidModifyEmail", e); 
             ConnectionManager.closeConnection(conn);
         }
     }
