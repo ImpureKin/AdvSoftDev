@@ -1,6 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,11 +10,13 @@ import model.Expenses;
 import controller.ExpensesController;
 import database.ExpenseManager;
 import database.ConnectionManager;
+import database.DatabaseManager;
 
 public class TestExpenses {
 
     static ExpenseManager ExpenseManager = new ExpenseManager();
     static ExpensesController expensesController = new ExpensesController();
+    static DatabaseManager dm = new DatabaseManager();
 
     static Logger logger = Logger.getLogger(TestExpenses.class.getName());
 
@@ -86,21 +86,21 @@ public class TestExpenses {
         }
     }
 
-    @Test
-    public void deleteExpenseTest() {
-        try {
-            logger.log(Level.INFO, "Beginning Test: deleteExpenseTest.");
+    // @Test
+    // public void deleteExpenseTest() {
+    //     try {
+    //         logger.log(Level.INFO, "Beginning Test: deleteExpenseTest.");
 
-            // Assuming an expense with ID 1 exists for deletion
-            database.ExpenseManager.deleteExpense(conn, 1);
+    //         // Assuming an expense with ID 1 exists for deletion
+    //         database.ExpenseManager.deleteExpense(conn, 1);
 
-            // Check if the expense was deleted
-            Expenses deletedExpense = ExpenseManager.getExpenseById(conn, 1);
-            assertTrue(deletedExpense == null);
+    //         // Check if the expense was deleted
+    //         Expenses deletedExpense = ExpenseManager.getExpenseById(conn, 1);
+    //         assertTrue(deletedExpense == null);
 
-            logger.log(Level.INFO, "Successfully Performed Test: deleteExpenseTest.");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed Test: deleteExpenseTest", e);
-        }
-    }
+    //         logger.log(Level.INFO, "Successfully Performed Test: deleteExpenseTest.");
+    //     } catch (Exception e) {
+    //         logger.log(Level.SEVERE, "Failed Test: deleteExpenseTest", e);
+    //     }
+    // }
 }

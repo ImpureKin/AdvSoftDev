@@ -9,7 +9,7 @@ public class ConnectionManager {
         try {
             Class.forName("org.sqlite.JDBC");
             // Connection Path - NEED TO CHANGE THIS ACCORDING TO ACTUAL LOCATION. Need to figure out how to do this on WebApp side.
-            Connection con = DriverManager.getConnection("jdbc:sqlite:/Users/haighminassian/Desktop/AdvSoftDev/budgetbuddy/src/main/webapp/BudgetBuddy.db");
+            Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Big Pops\\Desktop\\AdvSoftDev\\AdvSoftDev\\budgetbuddy\\src\\main\\webapp\\BudgetBuddy.db");
             
             System.out.println("Connection Successful");
             return con;
@@ -17,6 +17,17 @@ public class ConnectionManager {
         catch (Exception e) {
             System.out.println("Connection Failed: " + e);
             throw e;
+        }
+    }
+
+    public static void closeConnection(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Failed to close connection: " + e);
         }
     }
 }

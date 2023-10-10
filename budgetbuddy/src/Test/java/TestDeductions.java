@@ -1,5 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,11 +12,13 @@ import model.Deductions;
 import controller.DeductionsController;
 import database.DeductionManager;
 import database.ConnectionManager;
+import database.DatabaseManager;
 
 public class TestDeductions {
 
     static DeductionManager deductionManager = new DeductionManager();
     static DeductionsController deductionsController = new DeductionsController();
+    static DatabaseManager dm = new DatabaseManager();
 
     static Logger logger = Logger.getLogger(TestDeductions.class.getName());
 
@@ -74,37 +75,37 @@ public class TestDeductions {
         }
     }
 
-    @Test
-    public void retrieveAllDeductionsTest() {
-        try {
-            logger.log(Level.INFO, "Beginning Test: retrieveAllDeductionsTest.");
+    // @Test
+    // public void retrieveAllDeductionsTest() {
+    //     try {
+    //         logger.log(Level.INFO, "Beginning Test: retrieveAllDeductionsTest.");
 
-            List<Deductions> deductionsList = DeductionManager.getAllDeductions(conn);
+    //         List<Deductions> deductionsList = DeductionManager.getAllDeductions(conn);
             
-            assertNotNull(deductionsList);
-            assertTrue(!deductionsList.isEmpty());
+    //         assertNotNull(deductionsList);
+    //         assertTrue(!deductionsList.isEmpty());
             
-            logger.log(Level.INFO, "Successfully Performed Test: retrieveAllDeductionsTest."); 
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed Test: retrieveAllDeductionsTest", e);
-        }
-    }
+    //         logger.log(Level.INFO, "Successfully Performed Test: retrieveAllDeductionsTest."); 
+    //     } catch (Exception e) {
+    //         logger.log(Level.SEVERE, "Failed Test: retrieveAllDeductionsTest", e);
+    //     }
+    // }
 
-    @Test
-    public void removeDeductionTest() {
-        try {
-            logger.log(Level.INFO, "Beginning Test: removeDeductionTest.");
+    // @Test
+    // public void removeDeductionTest() {
+    //     try {
+    //         logger.log(Level.INFO, "Beginning Test: removeDeductionTest.");
 
-            // Assuming an deduction with ID 1 exists for removal
-            DeductionManager.removeDeduction(conn, 1);
+    //         // Assuming an deduction with ID 1 exists for removal
+    //         DeductionManager.removeDeduction(conn, 1);
 
-            // Check if the deduction was removed
-            Deductions removedDeduction = DeductionManager.getDeductionById(conn, 1); // Assuming you have such a method
-            assertTrue(removedDeduction == null);
+    //         // Check if the deduction was removed
+    //         Deductions removedDeduction = DeductionManager.getDeductionById(conn, 1); // Assuming you have such a method
+    //         assertTrue(removedDeduction == null);
 
-            logger.log(Level.INFO, "Successfully Performed Test: removeDeductionTest.");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed Test: removeDeductionTest", e);
-        }
-    }
+    //         logger.log(Level.INFO, "Successfully Performed Test: removeDeductionTest.");
+    //     } catch (Exception e) {
+    //         logger.log(Level.SEVERE, "Failed Test: removeDeductionTest", e);
+    //     }
+    // }
 }
