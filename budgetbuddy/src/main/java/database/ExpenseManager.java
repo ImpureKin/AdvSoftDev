@@ -51,6 +51,7 @@ public class ExpenseManager {
                 expense.setExpenseName(rs.getString("expenseName"));
                 expense.setAmount(rs.getDouble("amount"));
                 expense.setCategory(rs.getString("category"));
+                
                 long timestamp = rs.getLong("date");
                 Date date = new Date(timestamp);
                 expense.setDate(date);
@@ -58,8 +59,7 @@ public class ExpenseManager {
                 expensesList.add(expense);
             }
         }
-
-
+    
         return expensesList;
     }
 
