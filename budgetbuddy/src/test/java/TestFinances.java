@@ -2,8 +2,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import model.*;
 import database.*;
@@ -13,20 +16,28 @@ import database.*;
 class TestFinances {
 
     Connection connection;
+    static DatabaseManager dm = new DatabaseManager();
+    static Logger logger = Logger.getLogger(TestFinances.class.getName());
 
-     @BeforeEach
-    public void setUp() {
-            // Resets the database before each test
-                DatabaseManager.resetDatabase();
-         }
+    @BeforeAll
+    public static void initialiseDatabase() {
+        try {
+            dm.resetDatabase();
+        }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+        }
+    }
 
     @AfterEach
-    public void cleanup() throws SQLException {
-        //Resets the database before each test
-        if (connection != null) {
-            connection.close();
+    public void resetDatabase() {
+        try {
+            ConnectionManager.closeConnection(connection);
+            dm.resetDatabase();
         }
-        DatabaseManager.resetDatabase();
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+        }
     }
 
     // Tests GetFinancesByUserId function
@@ -47,10 +58,12 @@ class TestFinances {
             assertEquals(195170, finances.getTotalSavings());
             
             // Closes connection
-            connection.close();
+            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
+            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
+            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
@@ -72,10 +85,12 @@ class TestFinances {
             assertEquals(175970, totalUserSavings.getTotalSaved());
             
             // Closes connection
-            connection.close();
+            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
+            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
+            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }

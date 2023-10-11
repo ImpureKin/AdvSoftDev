@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Goals;
 import database.*;
@@ -17,36 +19,48 @@ class TestGoals {
 
     Connection connection;
     private int initialSavedAmount;
+    static DatabaseManager dm = new DatabaseManager();
+    static Logger logger = Logger.getLogger(TestGoals.class.getName());
 
-    @BeforeEach
-   public void setUp() {
-         // Resets the database before each test
-        DatabaseManager.resetDatabase();
-        
-        // Retrives the amount after the databas is made. This is for a specific test
+    @BeforeAll
+    public static void initialiseDatabase() {
         try {
-                Connection connection = ConnectionManager.getConnection();
-                PreparedStatement initialPstmt = connection.prepareStatement("SELECT saved_amount FROM Goals WHERE id = ?");
-                initialPstmt.setInt(1, 1);
-                ResultSet initialResult = initialPstmt.executeQuery();
-                initialResult.next();
-                initialSavedAmount = initialResult.getInt("saved_amount");
-                connection.close();
-            } catch (SQLException e) {
-                fail("SQL Exception thrown: " + e.getMessage());
-            } catch (Exception e) {
-                fail("Exception thrown: " + e.getMessage());
+            dm.resetDatabase();
         }
-            
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+        }
     }
 
-   @AfterEach
-   public void cleanup() throws SQLException {
-        //Resets the database before each test
-            if (connection != null) {
-                   connection.close();
-         }
-            DatabaseManager.resetDatabase();
+    @BeforeEach
+    public void setUp() {
+        // Retrives the amount after the databas is made. This is for a specific test
+        try {
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement initialPstmt = connection.prepareStatement("SELECT saved_amount FROM Goals WHERE id = ?");
+            initialPstmt.setInt(1, 1);
+            ResultSet initialResult = initialPstmt.executeQuery();
+            initialResult.next();
+            initialSavedAmount = initialResult.getInt("saved_amount");
+            ConnectionManager.closeConnection(connection);
+        } catch (SQLException e) {
+            ConnectionManager.closeConnection(connection);
+            fail("SQL Exception thrown: " + e.getMessage());
+        } catch (Exception e) {
+            ConnectionManager.closeConnection(connection);
+            fail("Exception thrown: " + e.getMessage());
+        }
+    }
+
+    @AfterEach
+    public void resetDatabase() {
+        try {
+            ConnectionManager.closeConnection(connection);
+            dm.resetDatabase();
+        }
+        catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+        }
     }
 
     // Tests GetGoalsByUserId function
@@ -64,10 +78,12 @@ class TestGoals {
             assertEquals(2, goals.size()); 
 
             // Closes the connection
-            connection.close();
+            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
+            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
+            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
@@ -96,10 +112,12 @@ class TestGoals {
             assertEquals(initialSavedAmount + 100, updatedSavedAmount);
 
             // Closes the connection
-            connection.close();
+            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
+            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
+            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
