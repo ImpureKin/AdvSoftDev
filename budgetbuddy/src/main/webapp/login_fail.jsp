@@ -1,35 +1,12 @@
 <!-- login_fail.jsp -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/logged_out_navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-        .container {
-          height: 700px;
-          position: relative;
-          border: 3px solid black;
-        }
-
-        .titlecenter {
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .textcenter {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Failed</title>
     </head>
@@ -42,5 +19,7 @@
                 </h2>
             </div>
         </div>
+    <%@include file="sections/foot.jsp" %>
     </body>
+<%@include file="sections/footer.jsp" %>
 </html>

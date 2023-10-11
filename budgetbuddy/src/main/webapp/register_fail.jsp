@@ -1,67 +1,18 @@
 <!-- register_fail.jsp -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/logged_out_navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-        .container {
-          height: 700px;
-          position: relative;
-          border: 3px solid black;
-        }
-
-        .titlecenter {
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .textcenter {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-          top: 45%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-
-        .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BudgetBuddy Register</title>
     </head>
     <body>
-        <div class="center-container">
-            <div class="topnav">
-            <a href="home.jsp">Home</a>
-                <a href="income.jsp">Income</a>
-                <a href="expenses.jsp">Expenses</a>
-                <a href="wip.jsp">Deductions</a>
-                <a href="saving_goals.jsp">Savings</a>
-                <a href="trends.jsp">Trends</a>
-                <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-                <a href="payment.jsp">Bill Reminders</a>
-                <a href="wip.jsp">Financial Support</a>
-                <a href="profile.jsp">Profile</a>
-                <a href="index.jsp">Logout</a>
-            </div>
-            </div>
         <div class="container">
             <div class="titlecenter">
                 <h1>Registration Failed!</h1><br><br><br><br><br>
@@ -84,5 +35,7 @@
                 </h2>
             </div>
         </div>
+    <%@include file="sections/foot.jsp" %>
     </body>
+<%@include file="sections/footer.jsp" %>
 </html>

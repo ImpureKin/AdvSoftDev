@@ -1,60 +1,18 @@
 <!-- register.jsp -->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/logged_out_navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-        .container {
-          height: 700px;
-          position: relative;
-          border: 3px solid black;
-        }
-
-        .titlecenter {
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .textcenter {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-          top: 45%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-
-        .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BudgetBuddy Register</title>
     </head>
     <body>
-        <div class="center-container">
-            <div class="topnav">
-                <a href="index.jsp">Login</a>
-            </div>
-            </div>
         <div class="container">
             <div class="titlecenter">
-                <h1>BudgetBuddy</h1><br><br><br><br><br>
-            </div>
-            <div class="titlecenter">
-                <h1>Register Page</h1>
+                <h1>Register an Account</h1><br><br><br><br><br>
             </div>
             <div class="textcenter">
                 <form action="register_check.jsp">
@@ -93,5 +51,7 @@
                 </form>
             </div>
         </div>
+    <%@include file="sections/foot.jsp" %>
     </body>
+<%@include file="sections/footer.jsp" %>
 </html>

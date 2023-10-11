@@ -13,7 +13,7 @@
                         <a class="nav-link" href="income.jsp">Income</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="expenses.jsp">Expenses</a>
+                        <a class="nav-link" href="Expenses">Expenses</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="wip.jsp">Deductions</a>
@@ -33,11 +33,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="wip.jsp">Financial Support</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.jsp">Profile</a>
+                    </li>
                 </ul>
                 <br>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.jsp">Logout</a>
+                        <a class="nav-link" href="logout.jsp">Logout</a>
                     </li>
                 </ul>
             </div>

@@ -1,50 +1,12 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/logged_out_navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
+
 <!DOCTYPE html>
 <!-- index.jsp -->
 <html>
     <head>
-        <style>
-        .container {
-          height: 700px;
-          position: relative;
-          border: 3px solid black;
-        }
-
-        .titlecenter {
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .textcenter {
-          margin: 0;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .notecenter {
-          margin: 0;
-          position: absolute;
-          top: 70%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .buttoncenter {
-          margin: 0;
-          position: absolute;
-          top: 90%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        </style>
         <title>BudgetBuddy Homepage</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,5 +32,7 @@
             <button type="button" style="height:40px;width:100px" onClick="location.href='register.jsp'">Register</button><br><br><br><br><br><br><br><br>
         </div>
     </div>
+    <%@include file="sections/foot.jsp" %>
     </body>
+<%@include file="sections/footer.jsp" %>
 </html>
