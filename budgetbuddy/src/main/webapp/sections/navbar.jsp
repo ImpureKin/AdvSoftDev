@@ -33,9 +33,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="wip.jsp">Financial Support</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.jsp">Profile</a>
-                    </li>
                 </ul>
                 <br>
                 <ul class="navbar-nav">
