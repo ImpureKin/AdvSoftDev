@@ -14,6 +14,8 @@ String password = request.getParameter("password");
 if (lc.isValidLogin(email, password) == null) {
     // Save user details in session
     User user = uc.getUser(email);
+    System.out.println("Save email details in session in login, "+ email);
+    session.setAttribute("currentEmail", email);
     session.setAttribute("User", user);
     response.sendRedirect("home.jsp");
 }
