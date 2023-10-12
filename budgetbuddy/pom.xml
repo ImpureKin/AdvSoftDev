@@ -20,16 +20,16 @@
   </properties>
 
   <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>5.10.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.10.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -49,6 +49,7 @@
         <artifactId>jakarta.servlet.jsp.jstl</artifactId>
         <version>3.0.1</version>
     </dependency>
+    
 
     <!-- Standard Implementation -->
     <dependency>
@@ -57,10 +58,10 @@
       <version>1.2.5</version>
     </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+		</dependency>
 
   </dependencies>
 
