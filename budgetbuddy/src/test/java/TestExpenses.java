@@ -53,7 +53,7 @@ public class TestExpenses {
             newExpense.setUserId(1); // This is for testing, assuming there's a user with ID=1
             newExpense.setExpenseName("Test Expense");
             newExpense.setAmount(100.0);
-            newExpense.setCategory("Test Category");
+            newExpense.setCategory("other");
             java.util.Date date = new java.util.Date();
             newExpense.setDate(date);
 
