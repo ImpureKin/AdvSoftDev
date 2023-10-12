@@ -47,6 +47,7 @@ public class TestExpenses {
     public void addExpenseTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: addExpenseTest.");
+            conn = ConnectionManager.getConnection();
             
             Expenses newExpense = new Expenses();
             newExpense.setUserId(1); // This is for testing, assuming there's a user with ID=1
@@ -74,6 +75,7 @@ public class TestExpenses {
     public void retrieveAllExpensesTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: retrieveAllExpensesTest.");
+            conn = ConnectionManager.getConnection();
 
             List<Expenses> expensesList = database.ExpenseManager.getAllExpenses(conn);
             
