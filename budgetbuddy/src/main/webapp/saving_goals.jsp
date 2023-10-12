@@ -41,8 +41,8 @@
                     <!-- Displays information of overall user savings and savings in which the user has saved 
                         to be used towards goals --> 
                     <h2 class="pb-2">Savings Information</h2> 
-                    <p class="mb-4 fs-5"> <strong>Total Savings:</strong> $ <%= currencyFormatter.format(totalSavings) %> </p> 
-                    <p class="mb-4 fs-5"> <strong> Savings for Goals:</strong> $ <%= currencyFormatter.format(totalSaved) %> </p> 
+                    <p class="mb-4 fs-5"> <strong>Total Savings:</strong> <%= currencyFormatter.format(totalSavings) %> </p> 
+                    <p class="mb-4 fs-5"> <strong> Savings for Goals:</strong> <%= currencyFormatter.format(totalSaved) %> </p> 
             </div>
 
                         <!-- Add Money to a saving goal if available --> 
