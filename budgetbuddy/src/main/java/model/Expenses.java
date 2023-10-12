@@ -5,21 +5,23 @@ import java.util.Date;
 
 public class Expenses {
     private int id; // unique identifier for each expense
+    private int userId;
     private String expenseName;
     private double amount;
     private String category;
     private Date date;
     
     // Default categories for validation
-    private static final String[] VALID_CATEGORIES = {"food", "transport", "utilities", "entertainment"};
+    private static final String[] VALID_CATEGORIES = {"food", "transport", "utilities", "entertainment", "other"};
 
     // Constructors
     public Expenses() {
         // Default constructor
     }
 
-    public Expenses(int id, String expenseName, double amount, String category, Date date) {
+    public Expenses(int id, int userId, String expenseName, double amount, String category, Date date) {
         setId(id);
+        setUserId(userId);
         setExpenseName(expenseName);
         setAmount(amount);
         setCategory(category);
@@ -38,6 +40,18 @@ public class Expenses {
         }
         this.id = id;
     }
+
+    public int getUserId() { // New getter for userId
+        return userId;
+    }
+
+    public void setUserId(int user) { // New setter for userId
+        if (user < 0) {
+            throw new IllegalArgumentException("UserID cannot be negative.");
+        }
+        this.userId = user;
+    }
+
 
     public String getExpenseName() {
         return expenseName;
@@ -76,11 +90,11 @@ public class Expenses {
         return date;
     }
 
-    public void setDate(Date date) {
-        if (date == null) {
+    public void setDate(Date date2) {
+        if (date2 == null) {
             throw new IllegalArgumentException("Date cannot be null.");
         }
-        this.date = date;
+        this.date = date2;
     }
 
     // Utility method to validate category
@@ -91,6 +105,11 @@ public class Expenses {
             }
         }
         return false;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(this.date);
     }
 
     @Override
