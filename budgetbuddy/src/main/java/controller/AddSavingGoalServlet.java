@@ -47,7 +47,7 @@ public class AddSavingGoalServlet extends HttpServlet {
                 GoalsManager.createGoal(newGoal);
         
                 // Redirect back to the original page
-                response.sendRedirect("LoadGoalsAndSavingsServlet");
+                response.sendRedirect("GoalsAndSavings");
 
             } else {
                 // Handle if there is no user logged-in 

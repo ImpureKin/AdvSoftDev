@@ -30,7 +30,7 @@ public class UpdateGoalServlet extends HttpServlet {
                 GoalsManager.updateGoal(goalId, goalName, goalDescription, goalAmount);
     
                 // Redirects back to the goal detail page
-                response.sendRedirect("GetGoalDetailServlet?goalId=" + goalId);
+                response.sendRedirect("GoalDetails?goalId=" + goalId);
            
         } catch (Exception e) {
             // Handle any excpetions and prints the trace

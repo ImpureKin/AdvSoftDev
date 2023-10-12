@@ -18,7 +18,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         }
 
         .container {
-            background-color: #fff;
             /*border: 1px solid #ccc;*/
             border-radius: 5px;
             padding: 20px;
@@ -98,11 +97,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             background-color: rgba(255, 213, 0, 0.71);
         }
     </style>
-    <title>BudgetBuddy - WIP Page</title>
+    <title>BudgetBuddy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <div class="container">
        <h1>Money Savings Information</h1>
     <form action="save_money_saving_check.jsp" id="money-savings-form">

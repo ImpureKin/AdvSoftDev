@@ -13,7 +13,7 @@ import model.User;
 import database.*;
 
 //This servlet loads all the users financial data to be visualised
-@WebServlet("/GetFinancialDataServlet")
+@WebServlet("/Trends")
 public class GetFinancialDataServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

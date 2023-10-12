@@ -48,9 +48,9 @@
     <!-- Action Buttons for the user to choose-->
     <div class="row justify-content-center mt-4 p-5">
       <div class="col-md-6">
-        <a href="GetGoalForEditServlet?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a>
+        <a href="GoalForEdit?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a>
         <a href="#" onclick="confirmDelete()" class="btn btn-danger mr-2">Delete Goal</a>
-        <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Go Back</a>
+        <a href="GoalsAndSavings" class="btn btn-secondary">Go Back</a>
       </div>
     </div>
   </div>

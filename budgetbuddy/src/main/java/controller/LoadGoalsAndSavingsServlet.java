@@ -13,7 +13,7 @@ import model.*;
 import database.*;
 
 //This Servlet retrives the users savings and goals 
-@WebServlet("/LoadGoalsAndSavingsServlet")
+@WebServlet("/GoalsAndSavings")
 public class LoadGoalsAndSavingsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

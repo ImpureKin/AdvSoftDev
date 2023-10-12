@@ -22,7 +22,7 @@
 <head>
     <title>Budget Buddy - Expenses</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <h2>Expenses Feature</h2>
 
     <!-- Form to Add New Expenses -->

@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile</title>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <div class="container">
 
             <form action="edit_user.jsp" method="POST">

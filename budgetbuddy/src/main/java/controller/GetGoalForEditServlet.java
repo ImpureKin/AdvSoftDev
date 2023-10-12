@@ -10,7 +10,7 @@ import model.*;
 import database.*;
 
 //This is Servlet retrives the goal for the purpose of editing 
-@WebServlet("/GetGoalForEditServlet")
+@WebServlet("/GoalForEdit")
 public class GetGoalForEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

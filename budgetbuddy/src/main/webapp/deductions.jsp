@@ -3,7 +3,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <script>
     $( function() {
     $( "#date, #invoice_date" ).datepicker({
@@ -44,22 +45,7 @@
         }
     </style>
 </head>
-<body>
-    <div class="center-container">
-        <div class="topnav">
-            <a href="home.jsp">Home</a>
-            <a href="income.jsp">Income</a>
-            <a href="Expenses">Expenses</a>
-            <a href="Deductions">Deductions</a>
-            <a href="saving_goals.jsp">Savings</a>
-            <a href="trends.jsp">Trends</a>
-            <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-            <a href="payment.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="index.jsp">Logout</a>
-        </div>
-        </div>
-
+<body class="d-flex flex-column h-100">
         <h2>Deductions Feature</h2>
 
         <h3>Add New Deduction</h3>
@@ -125,6 +111,8 @@
 
     
         <!-- Optionally, you can add JavaScript to make the form and table dynamic -->
+    <%@include file="sections/foot.jsp" %>
+    <%@include file="sections/footer.jsp" %>
     </body>
     
     </html>

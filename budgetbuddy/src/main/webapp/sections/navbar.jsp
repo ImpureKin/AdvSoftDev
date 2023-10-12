@@ -16,13 +16,13 @@
                         <a class="nav-link" href="Expenses">Expenses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="wip.jsp">Deductions</a>
+                        <a class="nav-link" href="Deductions">Deductions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="LoadGoalsAndSavingsServlet">Savings</a>
+                        <a class="nav-link" href="GoalsAndSavings">Savings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="GetFinancialDataServlet">Trends</a>
+                        <a class="nav-link" href="Trends">Trends</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="tips_and_knowledge.jsp">Tips & Knowledge</a>

@@ -10,7 +10,7 @@ import model.*;
 import database.*;
 
 //This servlet retrives the specific goal details 
-@WebServlet("/GetGoalDetailServlet")
+@WebServlet("/GoalDetails")
 public class GetGoalDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

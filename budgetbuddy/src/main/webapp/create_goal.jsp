@@ -43,7 +43,7 @@
 
                     <div class="form-group mt-4 text-center">
                         <button type="submit" class="btn btn-primary">Create Goal</button>
-                        <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Cancel</a>
+                        <a href="GoalsAndSavings" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
             </div>

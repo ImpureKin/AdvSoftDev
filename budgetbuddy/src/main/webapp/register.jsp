@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BudgetBuddy Register</title>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <div class="container">
             <div class="text-center">
                 <h1>Register an Account</h1><br><br><br><br><br>

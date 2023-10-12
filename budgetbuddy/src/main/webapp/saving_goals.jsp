@@ -113,7 +113,7 @@
                                 <a href="GetGoalDetailServlet?goalId=${goal.id}" class="btn btn-info btn-sm float-right mr-2">Details</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="GetGoalDetailServlet?goalId=${goal.id}" class="btn btn-primary btn-sm float-right">Details</a>
+                                <a href="GoalDetails?goalId=${goal.id}" class="btn btn-primary btn-sm float-right">Details</a>
                             </c:otherwise>
                         </c:choose>
                         

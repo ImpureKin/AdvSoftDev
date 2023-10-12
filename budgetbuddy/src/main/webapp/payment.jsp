@@ -124,7 +124,7 @@
         }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <div class="page-header">
     <h1>Payment Management System</h1>
 </div>
