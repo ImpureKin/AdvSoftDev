@@ -1,21 +1,21 @@
 package controller;
 
-import model.Expenses;
-import database.ExpenseManager;
-import database.ConnectionManager;
+import java.io.IOException;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
+import database.ConnectionManager;
+import database.ExpenseManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import model.Expenses;
+import model.User;
 
 @WebServlet("/Expenses")
 public class ExpensesController extends HttpServlet {
@@ -23,12 +23,11 @@ public class ExpensesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Integer userId = (Integer) session.getAttribute("userId");
+        User user = (User) session.getAttribute("User");
+        String userId = user.getId();
 
         if (userId == null) {
-            userId = 1; // For testing purposes
-            //resp.sendRedirect("index.jsp"); // Redirect to login page if user is not authenticated
-            //return;
+            resp.sendRedirect("index.jsp");
         }
         
         
@@ -52,15 +51,12 @@ public class ExpensesController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
-            
             HttpSession session = req.getSession();
-            Integer userId = (Integer) session.getAttribute("userId");
-
-            // TODO: Implement proper user session handling
-            if(userId == null) {
-                userId = 1; // For testing purposes
-                //resp.sendRedirect("index.jsp");
-                //return;
+            User user = (User) session.getAttribute("User");
+            String userId = user.getId();
+            int userId2 = Integer.valueOf(userId);
+            if (userId == null) {
+                resp.sendRedirect("index.jsp");
             }
             
             String expenseName = req.getParameter("expenseName");
@@ -70,13 +66,13 @@ public class ExpensesController extends HttpServlet {
             Date date = sdf.parse(req.getParameter("date"));
 
             Expenses newExpense = new Expenses();
-            newExpense.setUserId(userId);
+            newExpense.setUserId(userId2);
             newExpense.setExpenseName(expenseName);
             newExpense.setAmount(amount);
             newExpense.setCategory(category);
             newExpense.setDate(date);
 
-            ExpenseManager.addExpense(connection, newExpense, userId);
+            ExpenseManager.addExpense(connection, newExpense, userId2);
 
             resp.sendRedirect("Expenses");
         } catch (Exception e) {

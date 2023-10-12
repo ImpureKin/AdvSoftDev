@@ -45,11 +45,11 @@ public class Expenses {
         return userId;
     }
 
-    public void setUserId(int userId) { // New setter for userId
-        if (userId < 0) {
+    public void setUserId(int user) { // New setter for userId
+        if (user < 0) {
             throw new IllegalArgumentException("UserID cannot be negative.");
         }
-        this.userId = userId;
+        this.userId = user;
     }
 
 
