@@ -1,5 +1,8 @@
 <%@ page import="model.MoneySavings" %>
 <%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,27 +16,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             padding: 0px;
             margin: 0px;
         }
-
-        .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .topnav input[type=text] {
-            padding: 6px;
-            border: none;
-            margin-top: 8px;
-            font-size: 17px;
-            background-color: #e9e9e9;
-        }
-
-        /* Style the links inside the navigation bar */
-        .topnav a {
-            text-align: center;
-            padding: 10px 15px;
-        }
-
 
         .container {
             background-color: #fff;
@@ -121,20 +103,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div class="center-container">
-    <div class="topnav">
-        <a href="home.jsp">Home</a>
-        <a href="income.jsp">Income</a>
-        <a href="expenses.jsp">Expenses</a>
-        <a href="wip.jsp">Deductions</a>
-        <a href="saving_goals.jsp">Savings</a>
-        <a href="trends.jsp">Trends</a>
-        <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-        <a href="payment.jsp">Bill Reminders</a>
-        <a href="wip.jsp">Financial Support</a>
-        <a href="index.jsp">Logout</a>
-    </div>
-</div>
 <div class="container">
        <h1>Money Savings Information</h1>
     <form action="save_money_saving_check.jsp" id="money-savings-form">
@@ -223,5 +191,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </form>
     </div>
 </div>
+<%@include file="sections/foot.jsp" %>
 </body>
+<%@include file="sections/footer.jsp" %>
 </html>

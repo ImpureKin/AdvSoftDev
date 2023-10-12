@@ -1,4 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
+
+<%@ page import="java.sql.*" %>
+<%@ page import="controller.*" %>
+<%@ page import="model.*" %>
+<%@ page import="java.util.List" %>
+
+<%
+    session.setAttribute("payments", new PaymentController().getListPayments());
+    System.out.println("Email = " + session.getAttribute("currentEmail"));
+%>
 <html>
 <head>
     <title>Payment</title>
@@ -112,21 +125,6 @@
     </style>
 </head>
 <body>
-<!-- NavBar-->
-<div class="center-container">
-    <div class="topnav">
-        <a href="home.jsp">Home</a>
-        <a href="income.jsp">Income</a>
-        <a href="expenses.jsp">Expenses</a>
-        <a href="wip.jsp">Deductions</a>
-        <a href="saving_goals.jsp">Savings</a>
-        <a href="trends.jsp">Trends</a>
-        <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-        <a href="payment.jsp">Bill Reminders</a>
-        <a href="wip.jsp">Financial Support</a>
-        <a href="index.jsp">Logout</a>
-    </div>
-</div>
 <div class="page-header">
     <h1>Payment Management System</h1>
 </div>
@@ -179,18 +177,7 @@
 
     </table>
 </div>
+<%@include file="sections/foot.jsp" %>
 </body>
+<%@include file="sections/footer.jsp" %>
 </html>
-<<<<<<< HEAD
-=======
-
-<%@ page import="java.sql.*" %>
-<%@ page import="controller.*" %>
-<%@ page import="model.*" %>
-<%@ page import="java.util.List" %>
-
-<%
-    session.setAttribute("payments", new PaymentController().getListPayments());
-    System.out.println("Email = " + session.getAttribute("currentEmail"));
-%>
->>>>>>> 66247292b521efaa5b8c462a0b93863a72d02841

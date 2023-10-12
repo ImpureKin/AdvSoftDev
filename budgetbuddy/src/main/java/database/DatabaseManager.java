@@ -220,22 +220,22 @@ public class DatabaseManager {
                 "description TEXT NOT NULL\n" +
                 ");");
 
-        createTableQueries.put("Payments", "CREATE TABLE Payments (\n" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-            "name TEXT NOT NULL,\n" +
-            "amount TEXT NOT NULL,\n" +
-            "dob TEXT NOT NULL\n" +
-            ");");
+        // createTableQueries.put("Payments", "CREATE TABLE Payments (\n" +
+        //     "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        //     "name TEXT NOT NULL,\n" +
+        //     "amount TEXT NOT NULL,\n" +
+        //     "dob TEXT NOT NULL\n" +
+        //     ");");
 
-        createTableQueries.put("MoneySavings", "CREATE TABLE MoneySavings (\n" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-            "name TEXT NOT NULL,\n" +
-            "totalAmount TEXT NOT NULL,\n" +
-            "interest TEXT NOT NULL,\n" +
-            "totalMonth TEXT NOT NULL,\n" +
-            "createdDate TEXT NOT NULL,\n" +
-            "userId TEXT NOT NULL\n" +
-            ");");
+        // createTableQueries.put("MoneySavings", "CREATE TABLE MoneySavings (\n" +
+        //     "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        //     "name TEXT NOT NULL,\n" +
+        //     "totalAmount TEXT NOT NULL,\n" +
+        //     "interest TEXT NOT NULL,\n" +
+        //     "totalMonth TEXT NOT NULL,\n" +
+        //     "createdDate TEXT NOT NULL,\n" +
+        //     "userId TEXT NOT NULL\n" +
+        //     ");");
 
         return createTableQueries;
     }
