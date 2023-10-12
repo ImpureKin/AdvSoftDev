@@ -12,25 +12,24 @@
     <!-- Adding a new saving goal-->
     <div class="container-fluid mt-5 flex-grow-1">
         <h1 class="text-center"> Create a Saving Goal </h1>
-        <p class="text-center"></p>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="AddingSavingGoalServlet" method="post">
-                    <div class="form-group mb-5">
+                    <div class="form-group mb-4"> <!-- Reduced margin for better spacing -->
                         <label for="goalName"><strong>Goal Name:</strong></label>
                         <input type="text" name="goalName" class="form-control" required>
                     </div>
-                    <div class="form-group mb-5">
+                    <div class="form-group mb-4">
                         <label for="goalDescription"><strong>Goal Description:</strong></label>
                         <input type="text" name="goalDescription" class="form-control" required>
                     </div>
                     
-                    <div class="form-group mb-5">
+                    <div class="form-group mb-4">
                         <label for="category"><strong>Goal Category:</strong></label>
                         <input type="text" name="category" class="form-control" required>
                     </div>
                     
-                    <div class="form-group mb-5">
+                    <div class="form-group mb-4">
                         <label for="goalAmount"><strong>Goal Amount:</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -38,18 +37,19 @@
                             </div>
                             <input type="number" name="goalAmount" class="form-control" required step="1">
                         </div>
-                    </diV>
+                    </div>
 
                     <input type="hidden" name="dateCreated" value="">
 
-                    <div class ="form-group mt-5 text-center">
+                    <div class="form-group mt-4 text-center">
                         <button type="submit" class="btn btn-primary">Create Goal</button>
                         <a href="LoadGoalsAndSavingsServlet" class="btn btn-secondary">Cancel</a>
-                    <div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+
 
      <!-- Making date the correct fomatt for the goal to be stored -->
     <script>

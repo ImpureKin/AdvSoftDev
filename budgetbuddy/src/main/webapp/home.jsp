@@ -14,9 +14,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BudgetBuddy Welcome</title>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <div class="container">
-            <div class="textcenter">
+            <div class="text-center">
                 <h1>Welcome!</h1><br><br><br>
             </div>
         </div>

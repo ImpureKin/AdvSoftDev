@@ -9,7 +9,7 @@
 <title>Financial Trends Page </title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 
     <!-- Trends page -->
     <div class="container mt-5">

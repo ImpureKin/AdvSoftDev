@@ -11,10 +11,10 @@
     </head>
     <body>
         <div class="container">
-            <div class="titlecenter">
+            <div class="text-center">
                 <h1>Register an Account</h1><br><br><br><br><br>
             </div>
-            <div class="textcenter">
+            <div class="text-center">
                 <form action="register_check.jsp">
                     <label for="email">Email:</label><br><br>
                     <input type="email" id="email" name="email" required value="${sessionScope.registrationEmail}"><br><br>

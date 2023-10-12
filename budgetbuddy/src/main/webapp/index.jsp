@@ -11,12 +11,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
     <div class="container">
-        <div class="titlecenter">
+        <div class="text-center">
               <h1>Welcome to BudgetBuddy!</h1><br><br><br><br><br>
         </div>
-        <div class="textcenter">
+        <div class="text-center">
             <form action="login_check.jsp" method="post">
                 <label for="email">Email:</label><br><br>
                 <input type="email" id="email" name="email" required><br><br>
@@ -25,10 +25,10 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
-        <div class="notecenter">
+        <div class="text-center">
             <h3>Don't have an account yet?</h3>
         </div>
-        <div class="buttoncenter">
+        <div class="text-center">
             <button type="button" style="height:40px;width:100px" onClick="location.href='register.jsp'">Register</button><br><br><br><br><br><br><br><br>
         </div>
     </div>

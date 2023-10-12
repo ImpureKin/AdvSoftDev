@@ -19,13 +19,13 @@
         <form action="UpdateGoalServlet" method="post">
             <input type="hidden" name="goalId" value="<c:out value='${goal.id}'/>">
 
-            <div class="form-group">
-                <label for="goalName">Goal Name:</label>
+            <div class="form-group mb-5">
+                <label for="goalName"><strong>Goal Name:</strong></label>
                 <input type="text" class="form-control" id="goalName" name="goalName" value="<c:out value='${goal.name}'/>"required>
             </div>
 
-            <div class="form-group">
-                <label for="goalDescription">Goal Description:</label>
+            <div class="form-group mb-5">
+                <label for="goalDescription"><strong>Goal Description:</strong></label>
                 <input type="text" class="form-control" id="goalDescription" name="goalDescription" value="<c:out value='${goal.description}'/>" >
             </div>
 
