@@ -1,6 +1,3 @@
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
@@ -8,11 +5,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.Deductions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import controller.DeductionsController;
-import database.DeductionManager;
 import database.ConnectionManager;
 import database.DatabaseManager;
+import database.DeductionManager;
+import model.Deductions;
 
 public class TestDeductions {
 
@@ -50,12 +51,13 @@ public class TestDeductions {
     public void addDeductionTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: addDeductionTest.");
+            conn = ConnectionManager.getConnection();
             
             Deductions newDeduction = new Deductions();
             newDeduction.setUserId(1); // This is for testing, assuming there's a user with ID=1
             newDeduction.setname("Food");
             newDeduction.setAmount(50.0);
-            newDeduction.setCategory("Test Category");
+            newDeduction.setCategory("Other");
             newDeduction.setFrequency("Monthly");
             java.util.Date date = new java.util.Date();
             newDeduction.setDate(date);
@@ -65,7 +67,7 @@ public class TestDeductions {
             
             // Check if the deduction was added
             List<Deductions> deductionsList = DeductionManager.getAllDeductions(conn);
-            boolean foundDeduction = deductionsList.stream().anyMatch(ded -> ded.getname().equals("Test Deduction"));
+            boolean foundDeduction = deductionsList.stream().anyMatch(ded -> ded.getname().equals("Food"));
             
             assertTrue(foundDeduction);
             

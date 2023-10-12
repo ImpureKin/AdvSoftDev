@@ -1,6 +1,7 @@
 package controller;
 
 import model.Deductions;
+import model.User;
 import database.DeductionManager;
 import database.ConnectionManager;
 
@@ -23,14 +24,13 @@ public class DeductionsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Integer userId = (Integer) session.getAttribute("userId");
+        User user = (User) session.getAttribute("User");
+        String userId = user.getId();
 
         if (userId == null) {
-            userId = 1; // For testing purposes
-            //resp.sendRedirect("index.jsp"); // Redirect to login page if user is not authenticated
-            //return;
+            resp.sendRedirect("index.jsp");
         }
-        
+
         try (Connection connection = ConnectionManager.getConnection()) {
             //Delete feature
             String action = req.getParameter("action");
@@ -51,16 +51,12 @@ public class DeductionsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = ConnectionManager.getConnection()) {
-
             HttpSession session = req.getSession();
-            Integer userId = (Integer) session.getAttribute("userId");
-
-            if(userId == null) {
-                userId = 1; // for testing purposes only, change later
-                // Handle error. E.g., redirect to login page.
-                
-                //resp.sendRedirect("index.jsp");
-                //return;
+            User user = (User) session.getAttribute("User");
+            String userId = user.getId();
+            int userId2 = Integer.valueOf(userId);
+            if (userId == null) {
+                resp.sendRedirect("index.jsp");
             }
 
             String name = req.getParameter("name");
@@ -71,7 +67,7 @@ public class DeductionsController extends HttpServlet {
             String invoiceDate = req.getParameter("invoice_date");  // capture invoice_date from request
 
             Deductions newDeduction = new Deductions();
-            newDeduction.setUserId(userId);  // set the userId
+            newDeduction.setUserId(userId2);  // set the userId
             newDeduction.setname(name);
             newDeduction.setAmount(amount);
             newDeduction.setCategory(category);
@@ -80,7 +76,7 @@ public class DeductionsController extends HttpServlet {
             newDeduction.setInvoiceDate(invoiceDate);  // set the invoice date. Make sure to add this method in Deductions model.
 
 
-            DeductionManager.addDeduction(connection, newDeduction, userId);
+            DeductionManager.addDeduction(connection, newDeduction, userId2);
 
             resp.sendRedirect("Deductions");
         } catch (Exception e) {
