@@ -1,4 +1,6 @@
 <html>
+<taglib prefix="c" uri="https://jakarta.apache.org/taglibs/standard_2_0-rt/core"></taglib>
+
 <head>
     <title>Budget Buddy - Expenses</title>
     <style>
@@ -46,7 +48,7 @@
 
     <!-- Form to Add New Expenses -->
     <h3>Add New Expense</h3>
-    <form id="addExpenseForm">
+    <form id="addExpenseForm" method="post" action="/app/ExpensesController">
         <label for="expenseName">Expense Name:</label>
         <input type="text" id="expenseName" name="expenseName" required>
         
@@ -82,7 +84,23 @@
         <tbody id="expenseTableBody">
             <!-- Dynamic rows go here -->
         </tbody>
+
+        <tbody id="expenseTableBody">
+            <c:forEach items="${expensesList}" var="expense">
+                <tr>
+                    <td>${expense.expenseName}</td>
+                    <td>${expense.amount}</td>
+                    <td>${expense.category}</td>
+                    <td>${expense.date}</td>
+                    <td>...Actions...</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+
     </table>
+
+
+
 
     <!-- Optionally, you can add JavaScript to make the form and table dynamic -->
 </body>

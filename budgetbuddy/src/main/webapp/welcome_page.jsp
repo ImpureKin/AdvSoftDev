@@ -60,7 +60,7 @@
             <a href="wip.jsp">Deductions</a>
             <a href="wip.jsp">Savings & Goals</a>
             <a href="income.jsp">Income</a>
-            <a href="welcome_page.jsp">Home</a>
+            <a href="home.jsp">Home</a>
             <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
             <a href="wip.jsp">Bill Reminders</a>
             <a href="wip.jsp">Financial Support</a>
