@@ -13,7 +13,7 @@ public class LoginController {
         }
         conn = ConnectionManager.getConnection();
         try {
-            if (!UserManager.authenticateUser(conn, email, password)) {
+            if (!UserManager.authenticateUser(email, password)) {
                 ConnectionManager.closeConnection(conn);
                 return "User does not exist.";
             }
