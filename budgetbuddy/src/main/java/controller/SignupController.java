@@ -5,16 +5,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import database.*;
-import java.sql.*;
 
 public class SignupController {
 
-    Connection conn;
-
     public List<String> isValidSignup(String email, String password, String confirmPassword, String firstName,
             String lastName, String phone, String dob, String gender) throws Exception {
-
-        conn = ConnectionManager.getConnection();
 
         List<String> signupStatus = new ArrayList<>();;
         // Check for empty fields
@@ -25,7 +20,7 @@ public class SignupController {
         }
 
         // Check email format
-        String emailStatus = isValidEmail(email, conn);
+        String emailStatus = isValidEmail(email);
         if (emailStatus != null) {
             signupStatus.add(emailStatus);
             return signupStatus;
@@ -44,7 +39,7 @@ public class SignupController {
             return signupStatus;
         }
 
-        String phoneStatus = isValidPhone(phone, conn);
+        String phoneStatus = isValidPhone(phone);
         if (phoneStatus != null) {
             signupStatus.add(phoneStatus);
             return signupStatus;
@@ -52,14 +47,12 @@ public class SignupController {
 
         // Register user in Database
         try {
-            UserManager.registerUser(conn, firstName, lastName, email, password, phone, dob, gender);
+            UserManager.registerUser(firstName, lastName, email, password, phone, dob, gender);
         } catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
-            System.out.println("Connection Failed: " + e);
+            System.out.println("Failed to register user: " + e);
             throw e;
         }
         // If all checks pass, return null (indicating successful validation)
-        ConnectionManager.closeConnection(conn);
         return null;
     }
 
@@ -67,24 +60,24 @@ public class SignupController {
         return phone.length() == 10;
     }
 
-    public boolean phoneAlreadyExists(String phone, Connection connection) {
+    public boolean phoneAlreadyExists(String phone) {
         try {
-            if (UserManager.getUser(connection, "phone", phone) != null) {
+            if (UserManager.getUser("phone", phone) != null) {
                 return true;
             } 
         } catch (Exception e) {
-            System.out.println("Connection Failed: " + e);
+            System.out.println("Failed to get user by phone: " + e);
             return false;
         }
         return false;
     }
 
-    public String isValidPhone(String phone, Connection connection) {
+    public String isValidPhone(String phone) {
         if (!phoneIsValidLength(phone)) {
             return "Phone number is invalid. It needs to have 10 digits.";
         }
 
-        if (phoneAlreadyExists(phone, connection)) {
+        if (phoneAlreadyExists(phone)) {
             return "Phone number is already in use.";
         }
         return null;
@@ -98,26 +91,26 @@ public class SignupController {
         return email.matches(".+@.+\\..+");
     }
 
-    public boolean emailAlreadyExists(String email, Connection connection) {
+    public boolean emailAlreadyExists(String email) {
         try {
-            if (UserManager.getUser(connection, "email", email) != null) {
+            if (UserManager.getUser("email", email) != null) {
                 return true;
             } 
         } catch (Exception e) {
-            System.out.println("Connection Failed: " + e);
+            System.out.println("Failed to get user with email: " + e);
             return false;
         }
         return false;
     }
 
-    public String isValidEmail(String email, Connection connection) {
+    public String isValidEmail(String email) {
         // Validate email format using regex
         if (!emailMatchesFormat(email)) {
             return "Email format is invalid.";
         }
 
         // Check if email is registered already
-        if (emailAlreadyExists(email, connection)) {
+        if (emailAlreadyExists(email)) {
             return "Email already exists.";
         }
         return null;

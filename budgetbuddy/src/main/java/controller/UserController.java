@@ -14,7 +14,7 @@ public class UserController {
     public User getUser(String email) {
         try {
             conn = ConnectionManager.getConnection();
-            User user = UserManager.getUser(conn, "email", email);
+            User user = UserManager.getUser("email", email);
             if (user != null) {
                 ConnectionManager.closeConnection(conn);
                 return user;
@@ -30,7 +30,7 @@ public class UserController {
     public String editUser(String field, String value, String userId) {
         try {
             conn = ConnectionManager.getConnection();
-            if (UserManager.updateUserDetail(conn, field, value, userId) == null) {
+            if (UserManager.updateUserDetail(field, value, userId) == null) {
                 ConnectionManager.closeConnection(conn);
                 return null;
             } else {
@@ -66,7 +66,7 @@ public class UserController {
     public String deleteUser(String userId) {
         try {
             conn = ConnectionManager.getConnection();
-            UserManager.deleteAccount(conn, userId);
+            UserManager.deleteAccount(userId);
             ConnectionManager.closeConnection(conn);
             return null;
         } catch (Exception e) {

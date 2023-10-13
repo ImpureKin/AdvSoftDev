@@ -134,7 +134,7 @@ public class TestUser {
             conn = ConnectionManager.getConnection();
             User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
             String newEmail = "eren,atilganTest@student.uts.edu.au";
-            String emailStatus = sc.isValidEmail(newEmail, conn);
+            String emailStatus = sc.isValidEmail(newEmail);
 
             if (emailStatus == null) {
                 testUser.setEmail(newEmail);

@@ -74,76 +74,15 @@ if (!newDob.isEmpty()) {
 }
 
 %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .container {
-          height: 700px;
-          position: relative;
-          border: 3px solid black;
-        }
-
-        .titlecenter {
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        
-        .textcenter {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-          top: 30%;
-          left: 50%;
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-        }
-        .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .center {
-                text-align: center;
-            }
-
-        .topnav input[type=text] {
-                padding: 6px;
-                border: none;
-                margin-top: 8px;
-                font-size: 17px;
-                background-color: #e9e9e9;
-              }
-        /* Style the links inside the navigation bar */
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-        </style>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Profile</title>
 </head>
 <body>
-    <div class="center-container">
-        <div class="topnav">
-        <a href="home.jsp">Home</a>
-            <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
-            <a href="saving_goals.jsp">Savings</a>
-            <a href="trends.jsp">Trends</a>
-            <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-            <a href="payment.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="profile.jsp">Profile</a>
-            <a href="index.jsp">Logout</a>
-        </div>
-    </div>
     <% if (!validationMessages.isEmpty()) { %>
         <h1>Error: Unable to update your details!</h1>
         <div>
@@ -159,6 +98,7 @@ if (!newDob.isEmpty()) {
             <h1>Details Updated Successfully!</h1>
         </div>
     <% } %>
-
-</body>
+    <%@include file="sections/foot.jsp" %>
+    </body>
+<%@include file="sections/footer.jsp" %>
 </html>
