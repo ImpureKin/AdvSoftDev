@@ -1,80 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html> 
 <head>
 <title>Goal Details</title>
-<style>
-     .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .center {
-                text-align: center;
-            }
-
-        .topnav input[type=text] {
-                padding: 6px;
-                border: none;
-                margin-top: 8px;
-                font-size: 17px;
-                background-color: #e9e9e9;
-              }
-        /* Style the links inside the navigation bar */
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-</style>
 </head>
- 
-<body>
-     <!-- NavBar-->
-    <div class="center-container">
-        <div class="topnav">
-            <a href="home.jsp">Home</a>
-            <a href="income.jsp">Income</a>
-            <a href="expenses.jsp">Expenses</a>
-            <a href="wip.jsp">Deductions</a>
-            <a href="saving_goals.jsp">Savings</a>
-            <a href="trends.jsp">Trends</a>
-            <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-            <a href="payment.jsp">Bill Reminders</a>
-            <a href="wip.jsp">Financial Support</a>
-            <a href="index.jsp">Logout</a>
-        </div>
+<body class="d-flex flex-column h-100">
+
+  <!-- Goal Details -->
+  <div class="container-fluid text-center mt-5 mb-5">
+    <h1><c:out value="${goal.name}" /> Details</h1>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <label for="goalName"><strong>Goal Name:</strong></label>
+        <span id="goalName"><c:out value="${goal.name}" /></span><br>
+
+        <label for="goalDescription"><strong>Goal Description: </strong></label>
+        <span id="goalDescription"><c:out value="${goal.description}" /></span><br>
+
+        <label for="goalAmount"><strong>Goal Amount:</strong></label>
+        <span id="goalAmount"><c:out value="${currencyFormatter.format(goal.goalAmount)}"/> </span><br>
+
+        <label for="dateCreated"><strong>Date Created:</strong></label>
+        <span id="dateCreated"><c:out value="${goal.date}" /></span><br>
+
+        <label for="category"><strong>Category:</strong></label>
+        <span id="category"><c:out value="${goal.category}" /></span><br>
+      </div>
     </div>
 
-    <h1>Saving Goal Detail</h1>
-     <!-- Shows details for the goal -->
-    <label for="goalName">Goal Name:</label>
-    <span id="goalName">New Computer</span><br>
+    <!-- Goal Progress and Progrees Bar -->
+    <div class="row justify-content-center mt-4 p-5">
+      <div class="col-md-6">
+        <h3>Goal Progress:</h3>
+        <p>You've saved <c:out value="${currencyFormatter.format(goal.savedAmount)}"/> out of <c:out value="${currencyFormatter.format(goal.goalAmount)}"/> so far.</p>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: ${percentage}%;" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">
+            ${percentage}%
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <label for="goalDescription">Goal Description:</label>
-    <span id="goalDescription">Because I want it</span><br>
+    <!-- Action Buttons for the user to choose-->
+    <div class="row justify-content-center mt-4 p-5">
+      <div class="col-md-6">
+        <a href="GoalForEdit?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a>
+        <a href="#" onclick="confirmDelete()" class="btn btn-danger mr-2">Delete Goal</a>
+        <a href="GoalsAndSavings" class="btn btn-secondary">Go Back</a>
+      </div>
+    </div>
+  </div>
 
-    <label for="goalAmount">Goal Amount:</label>
-    <span id="goalAmount">$1000</span><br>
+  <!-- Script to confirm and delete -->
+  <script>
+    function confirmDelete() {
+      var confirmDelete = confirm("Are you sure you want to delete this goal?");
+      if (confirmDelete) {
+        // will be added later. Not adding now as it will error for R2
+      }
+    }
+  </script>
 
-    <label for="dateCreated">Date Created:</label>
-    <span id="dateCreated">2023-09-05</span><br>
-
-     <!-- links to either allow the user to edit or remove a goal -->
-    <a href="edit_goal.jsp">Edit Goal</a> 
-    <a href="#" onclick="confirmDelete()">Delete Goal</a>
-    <a href="saving_goals.jsp">Cancel</a>
-
-     <!-- Script that will allow the users to go back and message to confirm a delete -->
-    <script>
-        function confirmDelete() {
-            var confirmDelete = confirm("Are you sure you want to delete this goal?");
-            if (confirmDelete) {
-                // Add later the logic to delete a goal. Not adding now as it will error 
-            }
-        }
-    </script>
-    
-</body>
-
+  <%@include file="sections/foot.jsp" %>
+  <%@include file="sections/footer.jsp" %>
+</body>  
 </html>
