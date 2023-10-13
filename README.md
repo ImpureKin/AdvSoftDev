@@ -17,8 +17,8 @@ Development / Feature Branches:
 - haigh
 
 General guide to who is responsible for work code:
-Login, Signup, User, DatabaseManager, ConnectionManager, Database (Used by all but main POC) - Eren
-Savings, Trends, Goals, Bootstrap/CSS (Used by all but main POC) - Alyssa
-Expenses, Deductions - Haigh
-Bill Payments, Financial Support - Trevor
-Income, Tips - Denni
+- Login, Signup, User, DatabaseManager, ConnectionManager, Database (Used by all but main POC) - Eren
+- Savings, Trends, Goals, Bootstrap/CSS (Used by all but main POC) - Alyssa
+- Expenses, Deductions - Haigh
+- Bill Payments, Financial Support - Trevor
+- Income, Tips - Denni
