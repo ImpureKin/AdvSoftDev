@@ -17,17 +17,39 @@ public class MoneySavingController {
     return MoneySavingManager.getListMoneySaving(conn, userId);
   }
 
+  public List<String> validMoneySaving(String name, String totalAmount, String interest, String totalMonth) {
+    List<String> statusMessage = new ArrayList<>();
+    if (isEmpty(name)) {
+      statusMessage.add("Please fill name");
+    }
+    if (isEmpty(totalAmount)) {
+      statusMessage.add("Please fill totalAmount");
+    }
+    if (isEmpty(interest)) {
+      statusMessage.add("Please fill interest");
+    }
+    if (isEmpty(totalMonth)) {
+      statusMessage.add("Please fill totalMonth.");
+    }
+    if (isEmpty(totalAmount)) {
+      statusMessage.add("Please enter a valid totalAmount.");
+    }
+    if (isEmpty(totalMonth)) {
+      statusMessage.add("Please enter a valid totalMonth.");
+    }
+
+    return statusMessage;
+  }
+
   public List<String> saveMoneySaving(String name, String totalAmount, String interest, String totalMonth,
                                       String userId) throws Exception {
     conn = ConnectionManager.getConnection();
-    List<String> statusMessage = new ArrayList<>();
-    System.out.println(name + " " + totalAmount + " " + interest);
-    if (isEmpty(name) || isEmpty(totalAmount) || isEmpty(interest) || isEmpty(totalMonth)) {
-      statusMessage.add("Please fill in all fields.");
+    List<String> statusMessage = validMoneySaving(name, totalAmount, interest, totalMonth);
+
+    if (!statusMessage.isEmpty()) {
       return statusMessage;
     }
 
-    // Save payment in Database
     try {
       MoneySavingManager.saveMoneySavings(conn, name, totalAmount, interest, totalMonth, userId);
     } catch (Exception e) {
@@ -51,5 +73,9 @@ public class MoneySavingController {
     } catch (Exception e) {
       System.out.println("Connection Failed: " + e);
     }
+  }
+
+  public Boolean isNumber(String input) {
+    return input.matches("[^0-9]");
   }
 }

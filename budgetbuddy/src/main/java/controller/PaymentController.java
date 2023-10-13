@@ -17,22 +17,31 @@ public class PaymentController {
     return PaymentManager.getListPayments(conn);
   }
 
-  public List<String> savePayment(String name, String amount, String dob) throws Exception {
-    conn = ConnectionManager.getConnection();
+  public List<String> isValidPayment(String name, String amount, String dob) {
     List<String> statusMessage = new ArrayList<>();
-    System.out.println(name + " " + amount + " " + dob);
-    if (isEmpty(name) || isEmpty(amount) || isEmpty(dob)) {
-      statusMessage.add("Please fill in all fields.");
-      return statusMessage;
+    if (isEmpty(name)) {
+      statusMessage.add("Please fill name");
     }
-
-    // Check if amount is valid
+    if (isEmpty(amount)) {
+      statusMessage.add("Please fill amount");
+    }
+    if (isEmpty(dob)) {
+      statusMessage.add("Please fill dob");
+    }
     if (isValidAmount(amount)) {
       statusMessage.add("Please enter a valid amount.");
+    }
+    return statusMessage;
+  }
+
+  public List<String> savePayment(String name, String amount, String dob) throws Exception {
+    conn = ConnectionManager.getConnection();
+    List<String> statusMessage = isValidPayment(name, amount, dob);
+
+    if (!statusMessage.isEmpty()) {
       return statusMessage;
     }
 
-    // Save payment in Database
     try {
       PaymentManager.savePayment(conn, name, amount, dob);
     } catch (Exception e) {
@@ -45,7 +54,7 @@ public class PaymentController {
     return statusMessage;
   }
 
-  private Boolean isValidAmount(String amount) {
+  public Boolean isValidAmount(String amount) {
     return amount.matches("[^0-9]");
   }
 
