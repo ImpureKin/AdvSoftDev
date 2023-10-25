@@ -26,7 +26,7 @@ public class DatabaseManager {
             System.out.println("Successfully reset Database...");
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e + "Test");
             return false;
         }
     }
