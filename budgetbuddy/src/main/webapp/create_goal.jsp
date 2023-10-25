@@ -1,69 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="sections/navbar.jsp" %>
+<%@include file="sections/head.jsp" %>
 <!DOCTYPE html>
 <html> 
 <head>
 <title>Create Saving Goal Page </title>
-<style>
-     .center-container {
-          display: flex;
-           justify-content: center;
-          align-items: center;
-        }
-
-        .center {
-                text-align: center;
-            }
-
-        .topnav input[type=text] {
-                padding: 6px;
-                border: none;
-                margin-top: 8px;
-                font-size: 17px;
-                background-color: #e9e9e9;
-              }
-        /* Style the links inside the navigation bar */
-        .topnav a {
-          text-align: center;
-          padding: 10px 15px;
-        }
-</style>
 </head>
- 
-<body>
+<body class="d-flex flex-column h-100">
+  
+    <!-- Adding a new saving goal-->
+    <div class="container-fluid mt-5 flex-grow-1">
+        <h1 class="text-center"> Create a Saving Goal </h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="AddingSavingGoalServlet" method="post">
+                    <div class="form-group mb-4"> <!-- Reduced margin for better spacing -->
+                        <label for="goalName"><strong>Goal Name:</strong></label>
+                        <input type="text" name="goalName" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="goalDescription"><strong>Goal Description:</strong></label>
+                        <input type="text" name="goalDescription" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label for="category"><strong>Goal Category:</strong></label>
+                        <input type="text" name="category" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label for="goalAmount"><strong>Goal Amount:</strong></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" name="goalAmount" class="form-control" required step="1">
+                        </div>
+                    </div>
 
- <!-- NavBar-->
-<div class="center-container">
-      <div class="topnav">
-      <a href="home.jsp">Home</a>
-          <a href="income.jsp">Income</a>
-          <a href="expenses.jsp">Expenses</a>
-          <a href="wip.jsp">Deductions</a>
-          <a href="saving_goals.jsp">Savings</a>
-          <a href="trends.jsp">Trends</a>
-          <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
-          <a href="payment.jsp">Bill Reminders</a>
-          <a href="wip.jsp">Financial Support</a>
-          <a href="index.jsp">Logout</a>
-      </div>
-  </div>
+                    <input type="hidden" name="dateCreated" value="">
 
-<h1> Create Saving goals </h1>
- <!-- Adding a saving goal-->
-<form action="" method="post">
-        Goal Name: <input type="text" name="goalName" required><br>
-        Goal Description: <input type="text" name="goalDescriptin" reuqired><br>
-        Goal Amount: <input type="number" name="goalAmount" required><br>
-        <input type="hidden" name="dateCreated" value=""><br>
-        <input type="submit" value="Create Goal">
-        <a href="saving_goals.jsp">Cancel</a>
-    </form>
+                    <div class="form-group mt-4 text-center">
+                        <button type="submit" class="btn btn-primary">Create Goal</button>
+                        <a href="GoalsAndSavings" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <!-- Dating for the goal to be stored -->
-     <script>
-        var currentDate = new Date();
-        var formattedDate = currentDate.toISOString().slice(0,10);
-        document.querySelector('input[name="date_created"]').value = formattedDate;
+
+     <!-- Making date the correct fomatt for the goal to be stored -->
+    <script>
+    var currentDate = new Date();
+
+    var day = String(currentDate.getDate()).padStart(2, '0');
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var year = currentDate.getFullYear();
+
+    var formattedDate = day + '/' + month + '/' + year;
+    document.querySelector('input[name="date_created"]').value = formattedDate;
     </script>
-
-    </body>
- </html>
+    
+    <%@include file="sections/foot.jsp" %>
+    <%@include file="sections/footer.jsp" %>
+</body>
+</html>
