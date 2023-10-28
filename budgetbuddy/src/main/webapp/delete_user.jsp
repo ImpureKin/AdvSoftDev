@@ -3,7 +3,6 @@
 <%@ page import="controller.*" %>
 <%@ page import="database.*" %>
 <%@ page import="model.*" %>
-<%@ page import="java.sql.*" %>
 
 
 <%
