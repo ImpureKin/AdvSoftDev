@@ -37,7 +37,7 @@ public class GetFinancialDataServlet extends HttpServlet {
             Finances finances = FinancesManager.getFinancesByUserId(connection, userId);
 
             // closes connection 
-            connection.close();
+            ConnectionManager.closeConnection(connection);
 
             // if finnance is not null
             if (finances != null) {

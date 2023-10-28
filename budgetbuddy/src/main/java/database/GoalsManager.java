@@ -41,14 +41,11 @@ public class GoalsManager {
     }
 
     // Get a SPECIFIC goals details by its goal id
-    public static Goals getGoalById(int goalId) {
+    public static Goals getGoalById(Connection connection, int goalId) {
 
         Goals goal = null;
 
         try {
-            
-            Connection connection = ConnectionManager.getConnection();
-            
             //Query DB
             String query = "SELECT * FROM Goals WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -66,8 +63,6 @@ public class GoalsManager {
     
                 goal = new Goals(goalId, userId, name, goalAmount, savedAmount, category, description, date);
             }
-    
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,10 +70,8 @@ public class GoalsManager {
     }
 
     // Update the saved amount of a specific goal
-    public static void updateSavedAmount(int goalId, int savedAmount) {
+    public static void updateSavedAmount(Connection connection, int goalId, int savedAmount) {
         try {
-
-            Connection connection = ConnectionManager.getConnection();
             System.out.println("Got connection");
 
             //Query DB
@@ -88,22 +81,17 @@ public class GoalsManager {
             pstmt.setInt(2, goalId);
     
             int rowsAffected = pstmt.executeUpdate();
+
             System.out.println(rowsAffected + " row(s) affected");
-    
             System.out.println("Updating goalId: " + goalId + ", savedAmount: " + savedAmount);
-    
-            connection.close();
-            System.out.println("Connection closed");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     // CREATE a new saving goal
-    public static void createGoal(Goals goal) throws Exception {
+    public static void createGoal(Connection connection, Goals goal) throws Exception {
         try {
-            Connection connection = ConnectionManager.getConnection();
-
             //Query DB
             String query = "INSERT INTO Goals (userId, name, goal_amount, saved_amount, category, description, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -122,17 +110,14 @@ public class GoalsManager {
             pstmt.setString(7, formattedDate);
     
             pstmt.executeUpdate();
-    
-            connection.close();
-    
         } catch (SQLException e) {
             System.out.println("Error inserting goal: " + e);
         }
     }
     
     // Update a saving goal 
-    public static void updateGoal(int goalId, String goalName, String goalDescription, int goalAmount) throws Exception {
-        try (Connection connection = ConnectionManager.getConnection()) {
+    public static void updateGoal(Connection connection, int goalId, String goalName, String goalDescription, int goalAmount) throws Exception {
+        try {
 
             //Query DB
             String query = "UPDATE Goals SET name=?, description=?, goal_amount=? WHERE id=?";

@@ -51,7 +51,7 @@ public class LoadGoalsAndSavingsServlet extends HttpServlet {
                 }
 
                 // closes connection 
-                connection.close();
+                ConnectionManager.closeConnection(connection);
 
                 //sends retrieved data to the saving goals.jsp
                 request.setAttribute("userGoals", userGoals);

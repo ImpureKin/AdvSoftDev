@@ -19,6 +19,8 @@ import model.User;
 
 @WebServlet("/Expenses")
 public class ExpensesController extends HttpServlet {
+
+    Connection connection;
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +33,9 @@ public class ExpensesController extends HttpServlet {
         }
         
         
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            connection = ConnectionManager.getConnection();
+
             //'Delete' feature
             String deleteId = req.getParameter("deleteId");
             if (deleteId != null) {
@@ -39,6 +43,10 @@ public class ExpensesController extends HttpServlet {
             }
             ExpenseManager.initializeDatabase(connection);
             List<Expenses> expensesList = ExpenseManager.getAllExpenses(connection);
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
+
             req.setAttribute("expensesList", expensesList);
             req.getRequestDispatcher("expenses.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -50,7 +58,9 @@ public class ExpensesController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            connection = ConnectionManager.getConnection();
+
             HttpSession session = req.getSession();
             User user = (User) session.getAttribute("User");
             String userId = user.getId();
@@ -73,6 +83,9 @@ public class ExpensesController extends HttpServlet {
             newExpense.setDate(date);
 
             ExpenseManager.addExpense(connection, newExpense, userId2);
+            
+            // Close connection
+            ConnectionManager.closeConnection(connection);
 
             resp.sendRedirect("Expenses");
         } catch (Exception e) {

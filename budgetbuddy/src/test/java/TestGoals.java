@@ -17,15 +17,18 @@ import database.*;
 // Used to tets the Goals Manager to make sure the queries are working correctly 
 class TestGoals {
 
-    Connection connection;
     private int initialSavedAmount;
     static DatabaseManager dm = new DatabaseManager();
     static Logger logger = Logger.getLogger(TestGoals.class.getName());
 
+    static Connection connection;
+
     @BeforeAll
     public static void initialiseDatabase() {
         try {
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -34,20 +37,16 @@ class TestGoals {
 
     @BeforeEach
     public void setUp() {
-        // Retrives the amount after the databas is made. This is for a specific test
+        // Retrieves the amount after the database is made. This is for a specific test
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement initialPstmt = connection.prepareStatement("SELECT saved_amount FROM Goals WHERE id = ?");
             initialPstmt.setInt(1, 1);
             ResultSet initialResult = initialPstmt.executeQuery();
             initialResult.next();
             initialSavedAmount = initialResult.getInt("saved_amount");
-            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
-            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
@@ -55,8 +54,9 @@ class TestGoals {
     @AfterEach
     public void resetDatabase() {
         try {
-            ConnectionManager.closeConnection(connection);
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -67,23 +67,13 @@ class TestGoals {
     @Test
     void testGetGoalsByUserId() {
         try {
-            // Creates a connection
-            connection = ConnectionManager.getConnection();
-
             // Tests the method
             List<Goals> goals = GoalsManager.getGoalsByUserId(connection, 1);
 
             // Verifies the result
             assertNotNull(goals);
             assertEquals(2, goals.size()); 
-
-            // Closes the connection
-            ConnectionManager.closeConnection(connection);
-        } catch (SQLException e) {
-            ConnectionManager.closeConnection(connection);
-            fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
-            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
@@ -92,11 +82,8 @@ class TestGoals {
     @Test
     void testUpdateSavedAmount() {
         try {
-            // Creates a connection
-            connection = ConnectionManager.getConnection();
-
             // Updates the saved amount
-            GoalsManager.updateSavedAmount(1, 100);
+            GoalsManager.updateSavedAmount(connection, 1, 100);
 
             // Gets the updated saved amount
             PreparedStatement updatedPstmt = connection.prepareStatement("SELECT * FROM Goals WHERE id = ?");
@@ -110,14 +97,9 @@ class TestGoals {
 
             // Verifies the result
             assertEquals(initialSavedAmount + 100, updatedSavedAmount);
-
-            // Closes the connection
-            ConnectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            ConnectionManager.closeConnection(connection);
             fail("SQL Exception thrown: " + e.getMessage());
         } catch (Exception e) {
-            ConnectionManager.closeConnection(connection);
             fail("Exception thrown: " + e.getMessage());
         }
     }
@@ -127,7 +109,7 @@ class TestGoals {
     void testGetGoalById() {
         try {
             // Tests the method
-            Goals goal = GoalsManager.getGoalById(1);
+            Goals goal = GoalsManager.getGoalById(connection, 1);
 
             // Verifies the result
             assertNotNull(goal);
@@ -143,10 +125,10 @@ class TestGoals {
     void testUpdateGoal() {
         try {
             // Tests the method
-            GoalsManager.updateGoal(1, "New Goal Name", "New Goal Description", 5000);
+            GoalsManager.updateGoal(connection, 1, "New Goal Name", "New Goal Description", 5000);
 
             // Verifies the result by retrieving the updated goal
-            Goals updatedGoal = GoalsManager.getGoalById(1);
+            Goals updatedGoal = GoalsManager.getGoalById(connection, 1);
 
             assertNotNull(updatedGoal);
             assertEquals("New Goal Name", updatedGoal.getName());

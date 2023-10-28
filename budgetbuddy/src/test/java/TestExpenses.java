@@ -20,12 +20,14 @@ public class TestExpenses {
 
     static Logger logger = Logger.getLogger(TestExpenses.class.getName());
 
- Connection conn;
+    static Connection connection;
 
     @BeforeAll
     public static void initialiseDatabase() {
         try {
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -35,8 +37,9 @@ public class TestExpenses {
     @AfterEach
     public void resetDatabase() {
         try {
-            ConnectionManager.closeConnection(conn);
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -47,7 +50,6 @@ public class TestExpenses {
     public void addExpenseTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: addExpenseTest.");
-            conn = ConnectionManager.getConnection();
             
             Expenses newExpense = new Expenses();
             newExpense.setUserId(1); // This is for testing, assuming there's a user with ID=1
@@ -57,10 +59,10 @@ public class TestExpenses {
             java.util.Date date = new java.util.Date();
             newExpense.setDate(date);
 
-            database.ExpenseManager.addExpense(conn, newExpense, 1);
+            database.ExpenseManager.addExpense(connection, newExpense, 1);
             
             // Check if the expense was added
-            List<Expenses> expensesList = database.ExpenseManager.getAllExpenses(conn);
+            List<Expenses> expensesList = database.ExpenseManager.getAllExpenses(connection);
             boolean foundExpense = expensesList.stream().anyMatch(exp -> exp.getExpenseName().equals("Test Expense"));
             
             assertTrue(foundExpense);
@@ -75,9 +77,8 @@ public class TestExpenses {
     public void retrieveAllExpensesTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: retrieveAllExpensesTest.");
-            conn = ConnectionManager.getConnection();
 
-            List<Expenses> expensesList = database.ExpenseManager.getAllExpenses(conn);
+            List<Expenses> expensesList = database.ExpenseManager.getAllExpenses(connection);
             
             assertNotNull(expensesList);
             assertTrue(!expensesList.isEmpty());
