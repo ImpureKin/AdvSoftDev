@@ -1,5 +1,7 @@
 package controller;
 import java.io.IOException;
+import java.sql.Connection;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,20 +14,28 @@ import database.*;
 //This servlet retrives the specific goal details 
 @WebServlet("/GoalDetails")
 public class GetGoalDetailServlet extends HttpServlet {
+
+    Connection connection;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+
+            connection = ConnectionManager.getConnection();
 
             // Retrives the goalid from the webpage button press
             int goalId = Integer.parseInt(request.getParameter("goalId"));
 
             // Retrieve the goal by goalid
-            Goals goal = GoalsManager.getGoalById(goalId);
+            Goals goal = GoalsManager.getGoalById(connection, goalId);
 
             // Retrive these amounts to create the percentage of the goal completion 
             int savedAmount = goal.getSavedAmount();
             int goalAmount = goal.getGoalAmount();
             int percentage = (int)((savedAmount * 100.0) / goalAmount);
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
 
             // Sends the goal details as well as the calculated percentage to the goal details page
             request.setAttribute("goal", goal);

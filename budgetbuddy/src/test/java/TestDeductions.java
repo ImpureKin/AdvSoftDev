@@ -24,12 +24,14 @@ public class TestDeductions {
     static Logger logger = Logger.getLogger(TestDeductions.class.getName());
 
 
-    Connection conn;
+    static Connection connection;
 
     @BeforeAll
     public static void initialiseDatabase() {
         try {
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -39,8 +41,9 @@ public class TestDeductions {
     @AfterEach
     public void resetDatabase() {
         try {
-            ConnectionManager.closeConnection(conn);
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -51,7 +54,6 @@ public class TestDeductions {
     public void addDeductionTest() {
         try {
             logger.log(Level.INFO, "Beginning Test: addDeductionTest.");
-            conn = ConnectionManager.getConnection();
             
             Deductions newDeduction = new Deductions();
             newDeduction.setUserId(1); // This is for testing, assuming there's a user with ID=1
@@ -63,10 +65,10 @@ public class TestDeductions {
             newDeduction.setDate(date);
             newDeduction.setInvoiceDate("10-10-2023"); // Assuming a random date here
 
-            DeductionManager.addDeduction(conn, newDeduction, 1);
+            DeductionManager.addDeduction(connection, newDeduction, 1);
             
             // Check if the deduction was added
-            List<Deductions> deductionsList = DeductionManager.getAllDeductions(conn);
+            List<Deductions> deductionsList = DeductionManager.getAllDeductions(connection);
             boolean foundDeduction = deductionsList.stream().anyMatch(ded -> ded.getname().equals("Food"));
             
             assertTrue(foundDeduction);

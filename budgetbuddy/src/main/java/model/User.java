@@ -1,5 +1,7 @@
 // User.java
 package model;
+import java.sql.Connection;
+
 import controller.UserController;
 
 public class User {
@@ -40,8 +42,8 @@ public class User {
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws Exception {
-        uc.editUser("first_name", firstName, this.id);
+    public void setFirstName(Connection connection, String firstName) throws Exception {
+        uc.editUser(connection, "first_name", firstName, this.id);
         this.firstName = firstName;
     }
 
@@ -50,8 +52,8 @@ public class User {
         return lastName;
     }
 
-    public void setLastName(String lastName) throws Exception {
-        uc.editUser("last_name", lastName, this.id);
+    public void setLastName(Connection connection, String lastName) throws Exception {
+        uc.editUser(connection, "last_name", lastName, this.id);
         this.lastName = lastName;
     }
 
@@ -60,8 +62,8 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) throws Exception {
-        uc.editUser("email", email, this.id);
+    public void setEmail(Connection connection, String email) throws Exception {
+        uc.editUser(connection, "email", email, this.id);
         this.email = email;
     }
 
@@ -70,8 +72,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) throws Exception {
-        uc.editUser("password", password, this.id);
+    public void setPassword(Connection connection, String password) throws Exception {
+        uc.editUser(connection, "password", password, this.id);
         this.password = password;
     }
 
@@ -80,8 +82,8 @@ public class User {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) throws Exception {
-        uc.editUser("phone", phoneNumber, this.id);
+    public void setPhoneNumber(Connection connection, String phoneNumber) throws Exception {
+        uc.editUser(connection, "phone", phoneNumber, this.id);
         this.phoneNumber = phoneNumber;
     }
 
@@ -90,8 +92,8 @@ public class User {
         return dob;
     }
 
-    public void setDob(String dob) throws Exception {
-        uc.editUser("dob", dob, this.id);
+    public void setDob(Connection connection, String dob) throws Exception {
+        uc.editUser(connection, "dob", dob, this.id);
         this.dob = dob;
     }
 
@@ -100,8 +102,8 @@ public class User {
         return gender;
     }
 
-    public void setGender(String gender) throws Exception {
-        uc.editUser("gender", gender, this.id);
+    public void setGender(Connection connection, String gender) throws Exception {
+        uc.editUser(connection, "gender", gender, this.id);
         this.gender = gender;
     }
 }
