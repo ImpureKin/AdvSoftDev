@@ -20,6 +20,8 @@ import java.util.List;
 
 @WebServlet("/Deductions")
 public class DeductionsController extends HttpServlet {
+
+    Connection connection;
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +33,9 @@ public class DeductionsController extends HttpServlet {
             resp.sendRedirect("index.jsp");
         }
 
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            connection = ConnectionManager.getConnection();
+
             //Delete feature
             String action = req.getParameter("action");
             if ("delete".equals(action)) {
@@ -41,6 +45,10 @@ public class DeductionsController extends HttpServlet {
             
             DeductionManager.initializeDatabase(connection);
             List<Deductions> deductionsList = DeductionManager.getAllDeductions(connection);
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
+            
             req.setAttribute("deductionsList", deductionsList);
             req.getRequestDispatcher("deductions.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -50,7 +58,7 @@ public class DeductionsController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
             HttpSession session = req.getSession();
             User user = (User) session.getAttribute("User");
             String userId = user.getId();
