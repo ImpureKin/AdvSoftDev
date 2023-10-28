@@ -9,36 +9,26 @@ import java.sql.*;
 
 public class UserController {
 
-    Connection conn;
-
-    public User getUser(String email) {
+    public User getUser(Connection connection, String email) {
         try {
-            conn = ConnectionManager.getConnection();
-            User user = UserManager.getUser("email", email);
+            User user = UserManager.getUser(connection, "email", email);
             if (user != null) {
-                ConnectionManager.closeConnection(conn);
                 return user;
             }
-            ConnectionManager.closeConnection(conn);
             return null;
         } catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             return null;
         }
     }
 
-    public String editUser(String field, String value, String userId) {
+    public String editUser(Connection connection, String field, String value, String userId) {
         try {
-            conn = ConnectionManager.getConnection();
-            if (UserManager.updateUserDetail(field, value, userId) == null) {
-                ConnectionManager.closeConnection(conn);
+            if (UserManager.updateUserDetail(connection, field, value, userId) == null) {
                 return null;
             } else {
-                ConnectionManager.closeConnection(conn);
                 return "Error updating user details.";
             }
         } catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             return "Error updating user details: " + e;
         }
     }
@@ -63,14 +53,11 @@ public class UserController {
         }
     }
 
-    public String deleteUser(String userId) {
+    public String deleteUser(Connection connection, String userId) {
         try {
-            conn = ConnectionManager.getConnection();
-            UserManager.deleteAccount(userId);
-            ConnectionManager.closeConnection(conn);
+            UserManager.deleteAccount(connection, userId);
             return null;
         } catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             return "Error deleting account: " + e;
         }
     }

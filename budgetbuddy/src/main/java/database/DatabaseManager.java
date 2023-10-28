@@ -10,19 +10,16 @@ import java.util.Map;
 
 public class DatabaseManager {
 
-    private static Connection conn;
     static ArrayList<String> tables = new ArrayList<>(Arrays.asList("Users", "Incomes", "Expenses", "Deductions", "Goals", "Bills", "Tips"));
     static ArrayList<String> views = new ArrayList<>(Arrays.asList("Finances", "TotalUserSavings "));
     
-    public boolean resetDatabase() {
+    public boolean resetDatabase(Connection conn) {
         try {
             System.out.println("Now resetting Database...");
-            conn = ConnectionManager.getConnection();
             Statement foreignKeyStatement = conn.createStatement(); foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = OFF; ");
             deleteDatabase(conn);
             createDatabase(conn);
             foreignKeyStatement = conn.createStatement(); foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = ON; ");
-            closeConnection();
             System.out.println("Successfully reset Database...");
             return true;
         } catch (Exception e) {
@@ -341,17 +338,5 @@ public class DatabaseManager {
                 "('Budgeting Is Important', 'Budgeting is always a great way to manage your finances and to allocate funds to what really matters!');");
 
         return tableDataQueries;
-    }
-
-    public static void closeConnection() {
-        try {
-            System.out.println("Closing connection...");
-            if (conn != null) {
-                conn.close();
-            }
-            System.out.println("Successfully closed connection.");
-        } catch (Exception e) {
-            System.out.println("Failed to close connection: " + e);
-        }
     }
 }

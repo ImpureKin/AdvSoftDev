@@ -1,5 +1,4 @@
 import controller.MoneySavingController;
-import controller.PaymentController;
 import database.ConnectionManager;
 import database.DatabaseManager;
 import database.MoneySavingManager;
@@ -18,25 +17,30 @@ public class TestMoneySavings {
   static MoneySavingController moneySavingController = new MoneySavingController();
   static Logger logger = Logger.getLogger(TestMoneySavings.class.getName());
 
-  Connection conn;
+  static Connection connection;
 
   @BeforeAll
   public static void initialiseDatabase() {
-    try {
-      dm.resetDatabase();
-    } catch (Exception e) {
-      logger.log(Level.SEVERE, "Failed resetting Database: ", e);
-    }
+      try {
+          connection = ConnectionManager.resetTestConnection(connection);
+          dm.resetDatabase(connection);
+          connection = ConnectionManager.resetTestConnection(connection);
+      }
+      catch (Exception e) {
+          logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+      }
   }
 
   @AfterEach
   public void resetDatabase() {
-    try {
-      ConnectionManager.closeConnection(conn);
-      dm.resetDatabase();
-    } catch (Exception e) {
-      logger.log(Level.SEVERE, "Failed resetting Database: ", e);
-    }
+      try {
+          connection = ConnectionManager.resetTestConnection(connection);
+          dm.resetDatabase(connection);
+          connection = ConnectionManager.resetTestConnection(connection);
+      }
+      catch (Exception e) {
+          logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+      }
   }
 
   @Test
@@ -54,9 +58,7 @@ public class TestMoneySavings {
       } else {
         logger.log(Level.INFO, "Failed paymentValidSaveWithTotalAmountInvalid test.");
       }
-      ConnectionManager.closeConnection(conn);
     } catch (Exception e) {
-      ConnectionManager.closeConnection(conn);
       logger.log(Level.SEVERE, "Failed paymentValidSaveWithTotalAmountInvalid test: ", e);
     }
   }
@@ -76,9 +78,7 @@ public class TestMoneySavings {
       } else {
         logger.log(Level.INFO, "Failed paymentValidSaveWithTotalMonthInvalid test.");
       }
-      ConnectionManager.closeConnection(conn);
     } catch (Exception e) {
-      ConnectionManager.closeConnection(conn);
       logger.log(Level.SEVERE, "Failed paymentValidSaveWithTotalMonthInvalid test: ", e);
     }
   }
@@ -98,9 +98,7 @@ public class TestMoneySavings {
       } else {
         logger.log(Level.INFO, "Failed paymentValidSaveWithNameInvalid test.");
       }
-      ConnectionManager.closeConnection(conn);
     } catch (Exception e) {
-      ConnectionManager.closeConnection(conn);
       logger.log(Level.SEVERE, "Failed paymentValidSaveWithNameInvalid test: ", e);
     }
   }
@@ -117,9 +115,7 @@ public class TestMoneySavings {
       } else {
         logger.log(Level.INFO, "Failed deleteMoneySavingsInValid test.");
       }
-
-      conn = ConnectionManager.getConnection();
-      MoneySavingManager.deleteAll(conn, email);
+      MoneySavingManager.deleteAll(connection, email);
 
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Failed deleteMoneySavingsInValid test: ", e);
