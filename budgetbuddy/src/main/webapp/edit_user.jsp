@@ -6,6 +6,7 @@
 <%
 // Retrieve the user's session
 User user = (User) session.getAttribute("User");
+UserController uc = user.getUserController(); 
 
 // Get the submitted form data
 String newEmail = request.getParameter("email");
@@ -15,6 +16,7 @@ String newPassword = request.getParameter("password");
 String newConfirmPassword = request.getParameter("confirmPassword");
 String newPhone = request.getParameter("phone");
 String newDob = request.getParameter("dob");
+String newMfa = request.getParameter("mfa");
 
 // Initialize a list to store validation messages
 List<String> validationMessages = new ArrayList<>();
@@ -75,6 +77,10 @@ if (!newPhone.isEmpty()) {
 
 if (!newDob.isEmpty()) {
     user.setDob(connection, newDob);
+}
+
+if (!(uc.getValue(user, "mfa")).equals(newMfa)) {
+    user.setMfa(connection, newMfa);
 }
 
 ConnectionManager.closeConnection(connection);

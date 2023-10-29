@@ -16,13 +16,21 @@ Connection connection = ConnectionManager.getConnection();
 if (lc.isValidLogin(connection, email, password) == null) {
     // Save user details in session
     User user = uc.getUser(connection, email);
-    System.out.println("Save email details in session in login, "+ email);
     session.setAttribute("currentEmail", email);
-    session.setAttribute("User", user);
+    System.out.println("Save email details in session in login, "+ email);
+    String mfa_status = uc.getValue(user, "mfa");
     ConnectionManager.closeConnection(connection);
-    response.sendRedirect("home.jsp");
+
+    if (mfa_status.equals("Disabled")) {
+        session.setAttribute("User", user);
+        response.sendRedirect("home.jsp");
+    }
+    else {
+        response.sendRedirect("send_mfa.jsp");
+    }
 }
 else {
+    ConnectionManager.closeConnection(connection);
     response.sendRedirect("login_fail.jsp");
 }
 %>

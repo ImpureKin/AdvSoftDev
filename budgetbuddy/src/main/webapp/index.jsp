@@ -25,6 +25,14 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
+
+        <div class="text-center">
+            <h3>Forgot your password?</h3>
+        </div>
+        <div class="text-center">
+            <button type="button" style="height:40px;width:100px" onClick="location.href='forgot_password.jsp'">Recover Password</button><br><br><br><br><br><br><br><br>
+        </div>
+
         <div class="text-center">
             <h3>Don't have an account yet?</h3>
         </div>

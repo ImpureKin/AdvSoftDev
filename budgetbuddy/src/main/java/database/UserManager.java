@@ -43,10 +43,11 @@ public class UserManager {
             String phoneNumber = rs.getString("phone");
             String dob = rs.getString("dob");
             String gender = rs.getString("gender");
+            String mfa = rs.getString("mfa");
 
             // Create User using details from DB
             UserController uc = new UserController();
-            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, uc);
+            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, mfa, uc);
             return user;
         } catch (Exception e) {
             System.out.println("Error getting User: " + e);

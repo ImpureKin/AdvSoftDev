@@ -33,44 +33,59 @@
               <p>Date of Birth: <%= uc.getValue(user, "dob") %></p>
               <p>Gender: <%= uc.getValue(user, "gender") %></p>
 
+              <% 
+              String mfa_status = uc.getValue(user, "mfa");
+              %>
+              <p>MFA Status: <%= mfa_status %></p>
+
 
               <br>
               <h3> Edit your account details below: </h3>
               <table>
-                  <tr>
-                          <td><label for="email">Email:</label></td>
-                          <td><input type="email" name="email"></td>
-                  </tr>
-                  <tr>
-                          <td><label for="firstName">First Name:</label></td>
-                          <td><input type="text" name="firstName"></td>
-                  </tr>
-                  <tr>
-                          <td><label for="lastName">Last Name:</label></td>
-                          <td><input type="text" name="lastName"></td>
-                  </tr>
-                  <tr>
-                          <td><label for="password">Password:</label></td>
-                          <td><input type="password" name="password"></td>
-                  </tr>
-                  <tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="firstName">First Name:</label></td>
+                    <td><input type="text" name="firstName"></td>
+                </tr>
+                <tr>
+                    <td><label for="lastName">Last Name:</label></td>
+                    <td><input type="text" name="lastName"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
                     <td><label for="confirmPassword">Confirm Password:</label></td>
                     <td><input type="password" name="confirmPassword"></td>
-                  </tr>
-                  <tr>
-                          <td><label for="phone">Phone Number:</label></td>
-                          <td><input type="text" name="phone"></td>
-                  </tr>
-                  <tr>
-                          <td><label for="dob">Date of Birth:</label></td>
-                          <td><input type="date" name="dob"></td>
-                  </tr>
-              </table>
-              <br>
-              <input type="submit" value="Save">
-              <button type="button" style="height:20px;width:75px" onClick="location.href='home.jsp'">Cancel</button>
-              <input type="hidden" name="submitted" value="yes">
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone Number:</label></td>
+                    <td><input type="text" name="phone"></td>
+                </tr>
+                <tr>
+                    <td><label for="dob">Date of Birth:</label></td>
+                    <td><input type="date" name="dob"></td>
+                </tr>
+                <tr>
+                <td><label for="mfa">MFA:</label></td>
+                        <td>
+                                <select name="mfa">
+                                <option value="Enabled" <%= mfa_status.equals("Enabled") ? "selected" : "" %>>Enabled</option>
+                                <option value="Disabled" <%= mfa_status.equals("Disabled") ? "selected" : "" %>>Disabled</option>
+                                </select>
+                        </td>
+                </tr>                    
+            </table>
+            <br>
+            <input type="submit" value="Save">
+            <button type="button" style="height:20px;width:75px" onClick="location.href='home.jsp'">Cancel</button>
+            <input type="hidden" name="submitted" value="yes">
             </form>
+            
             <form action="delete_user.jsp" method="POST">
               <h2>Delete your account?</h2>
               <p> WARNING! This will remove your account entirely. This cannot be undone!</p> 

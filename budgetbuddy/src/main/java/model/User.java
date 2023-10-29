@@ -13,9 +13,10 @@ public class User {
     private String phoneNumber;
     private String dob;
     private String gender;
+    private String mfa;
     private UserController uc;
 
-    public User(String id, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender, UserController uc) {
+    public User(String id, String firstName, String lastName, String email, String password, String phoneNumber, String dob, String gender, String mfa, UserController uc) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +25,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.dob = dob;
         this.gender = gender;
+        this.mfa = mfa;
         this.uc = uc;
     }
 
@@ -105,5 +107,15 @@ public class User {
     public void setGender(Connection connection, String gender) throws Exception {
         uc.editUser(connection, "gender", gender, this.id);
         this.gender = gender;
+    }
+
+    // Getters and Setters for mfa status
+    public String getMfa() {
+        return mfa;
+    }
+
+    public void setMfa(Connection connection, String mfa) throws Exception {
+        uc.editUser(connection, "mfa", mfa, this.id);
+        this.mfa = mfa;
     }
 }

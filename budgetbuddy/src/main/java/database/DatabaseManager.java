@@ -11,15 +11,17 @@ import java.util.Map;
 public class DatabaseManager {
 
     static ArrayList<String> tables = new ArrayList<>(Arrays.asList("Users", "Incomes", "Expenses", "Deductions", "Goals", "Bills", "Tips"));
-    static ArrayList<String> views = new ArrayList<>(Arrays.asList("Finances", "TotalUserSavings "));
-    
+    static ArrayList<String> views = new ArrayList<>(Arrays.asList("Finances", "TotalUserSavings"));
+
     public boolean resetDatabase(Connection conn) {
-        try {
+    try {
             System.out.println("Now resetting Database...");
-            Statement foreignKeyStatement = conn.createStatement(); foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = OFF; ");
+            Statement foreignKeyStatement = conn.createStatement();
+            foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = OFF; ");
             deleteDatabase(conn);
             createDatabase(conn);
-            foreignKeyStatement = conn.createStatement(); foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = ON; ");
+            foreignKeyStatement = conn.createStatement();
+            foreignKeyStatement.executeUpdate("PRAGMA foreign_keys = ON; ");
             System.out.println("Successfully reset Database...");
             return true;
         } catch (Exception e) {
@@ -91,17 +93,17 @@ public class DatabaseManager {
             for (Map.Entry<String, String> entry : tableQueries.entrySet()) {
                 String tableName = entry.getKey();
                 String createQuery = entry.getValue();
-                
+    
                 Statement stmt = connection.createStatement();
-                stmt.execute(createQuery);
-                
+                stmt.execute(createQuery); // Removed the parentheses here
+    
                 System.out.println("Created Table: " + tableName);
             }
             System.out.println("Successfully created Database tables.");
         } catch (Exception e) {
             System.out.println("Failed to create Database tables: " + e);
         }
-    }
+    }    
 
     public static void createViews(Connection connection) {
         try {
@@ -152,7 +154,8 @@ public class DatabaseManager {
                 "last_name TEXT NOT NULL,\n" +
                 "phone INTEGER UNIQUE,\n" +
                 "dob TEXT NOT NULL,\n" +
-                "gender TEXT NOT NULL\n" +
+                "gender TEXT NOT NULL,\n" +
+                "mfa TEXT DEFAULT 'Disabled'\n" +
                 ");");
 
         createTableQueries.put("Incomes", "CREATE TABLE Incomes (\n" +
@@ -217,23 +220,6 @@ public class DatabaseManager {
                 "description TEXT NOT NULL\n" +
                 ");");
 
-        // createTableQueries.put("Payments", "CREATE TABLE Payments (\n" +
-        //     "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-        //     "name TEXT NOT NULL,\n" +
-        //     "amount TEXT NOT NULL,\n" +
-        //     "dob TEXT NOT NULL\n" +
-        //     ");");
-
-        // createTableQueries.put("MoneySavings", "CREATE TABLE MoneySavings (\n" +
-        //     "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-        //     "name TEXT NOT NULL,\n" +
-        //     "totalAmount TEXT NOT NULL,\n" +
-        //     "interest TEXT NOT NULL,\n" +
-        //     "totalMonth TEXT NOT NULL,\n" +
-        //     "createdDate TEXT NOT NULL,\n" +
-        //     "userId TEXT NOT NULL\n" +
-        //     ");");
-
         return createTableQueries;
     }
 
@@ -293,13 +279,13 @@ public class DatabaseManager {
     public static Map<String, String> createTableDataQueries() {
         Map<String, String> tableDataQueries = new HashMap<>();
 
-        tableDataQueries.put("Users", "INSERT INTO Users (email, password, first_name, last_name, phone, dob, gender) VALUES\n" +
-                "('eren.atilgan@student.uts.edu.au', 'password', 'Eren', 'Atilgan', '1234567891', '01/01/2002', 'Male'),\n" +
-                "('alyssa.j.rodriguez@student.uts.edu.au', 'password', 'Alyssa', 'Rodriguez', '1234567892', '01/01/2002', 'Female'),\n" +
-                "('haigh.minassian@student.uts.edu.au', 'password', 'Haigh', 'Minassian', '1234567893', '01/01/2002', 'Male'),\n" +
-                "('tuan.n.le-1@student.uts.edu.au', 'password', 'Tuan', 'Le', '1234567894', '01/01/2002', 'Male'),\n" +
-                "('Sejin.Um-1@student.uts.edu.au', 'password', 'Sejin', 'Um', '1234567895', '01/01/2002', 'Female'),\n" +
-                "('eren.atilgan2@student.uts.edu.au', 'password', 'Eren', 'Atilgan', '1234567896', '01/01/2002', 'Male');");
+        tableDataQueries.put("Users", "INSERT INTO Users (email, password, first_name, last_name, phone, dob, gender, mfa) VALUES\n" +
+                "('eren.atilgan@student.uts.edu.au', 'password', 'Eren', 'Atilgan', '1234567891', '01/01/2002', 'Male', 'Enabled'),\n" +
+                "('alyssa.j.rodriguez@student.uts.edu.au', 'password', 'Alyssa', 'Rodriguez', '1234567892', '01/01/2002', 'Female', 'Disabled'),\n" +
+                "('haigh.minassian@student.uts.edu.au', 'password', 'Haigh', 'Minassian', '1234567893', '01/01/2002', 'Male', 'Disabled'),\n" +
+                "('tuan.n.le-1@student.uts.edu.au', 'password', 'Tuan', 'Le', '1234567894', '01/01/2002', 'Male', 'Disabled'),\n" +
+                "('Sejin.Um-1@student.uts.edu.au', 'password', 'Sejin', 'Um', '1234567895', '01/01/2002', 'Female', 'Disabled'),\n" +
+                "('eren.atilgan2@student.uts.edu.au', 'password', 'Eren', 'Atilgan', '1234567896', '01/01/2002', 'Male', 'Disabled');");
 
         tableDataQueries.put("Incomes", "INSERT INTO Incomes (userId, name, amount, category, date, frequency) VALUES\n" +
                 "(1, 'Shoes', 100, 'Cash Sale', '01/01/23', 'one-off'),\n" +
@@ -314,11 +300,11 @@ public class DatabaseManager {
                 "(2, 'Shoes', 808, 'Other', '01/01/23'),\n" +
                 "(2, 'Drugs (Legal)', 9000, 'Other', '01/01/23');");
 
-        tableDataQueries.put("Deductions", "INSERT INTO Deductions (userId, name, amount, category, date, frequency) VALUES\n" +
-                "(1, 'Work Shoes', 50, 'Work Related Purchase', '01/01/23', 'one-off'),\n" +
-                "(1, 'Work Shoes', 80, 'Work Related Purchase', '01/01/23', 'one-off'),\n" +
-                "(2, 'Work Shoes', 100, 'Work Related Purchase', '01/01/23', 'one-off'),\n" +
-                "(2, 'Work Shoes', 110, 'Work Related Purchase', '01/01/23', 'one-off');");
+        tableDataQueries.put("Deductions", "INSERT INTO Deductions (userId, name, amount, category, date, frequency, invoice_date) VALUES\n" +
+                "(1, 'Work Shoes', 50, 'Work Related Purchase', '01/01/23', 'one-off', null),\n" +
+                "(1, 'Work Shoes', 80, 'Work Related Purchase', '01/01/23', 'one-off', null),\n" +
+                "(2, 'Work Shoes', 100, 'Work Related Purchase', '01/01/23', 'one-off', null),\n" +
+                "(2, 'Work Shoes', 110, 'Work Related Purchase', '01/01/23', 'one-off', null);");
 
         tableDataQueries.put("Goals", "INSERT INTO Goals (userId, name, goal_amount, saved_amount, category, description, date) VALUES\n" +
                 "(1, 'Hawaii Trip', 20000, 15000, 'Holiday', 'Hawaii Holiday with the family.', '10/10/2023'),\n" +
@@ -334,9 +320,10 @@ public class DatabaseManager {
                 "(4, 110, 'Car Registration', '01/01/23', 'Yearly');");
 
         tableDataQueries.put("Tips", "INSERT INTO Tips (name, description) VALUES\n" +
-                "('Stock Diversity', 'You should always try to avoid investing into only one stock option. Instead, opt for investing into multiple stocks to lower risk and to raise gain.'),\n" +
-                "('Budgeting Is Important', 'Budgeting is always a great way to manage your finances and to allocate funds to what really matters!');");
+                "('Stock Diversity', 'You should always try to avoid investing in only one stock option. Instead, opt for investing in multiple stocks to lower risk and raise gains.'),\n" +
+                "('Budgeting Is Important', 'Budgeting is always a great way to manage your finances and allocate funds to what really matters!');");
 
         return tableDataQueries;
     }
 }
+
