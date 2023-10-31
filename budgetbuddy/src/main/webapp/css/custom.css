@@ -9,4 +9,9 @@
     --bs-gutter-x: 0; /* Set gutter-x to 0 to remove horizontal gutters */
     --bs-gutter-y: 0; /* Set gutter-y to 0 to remove vertical gutters */
 }
-    
+.height-custom{
+    height: 100vh !important;
+}
+
+
+
