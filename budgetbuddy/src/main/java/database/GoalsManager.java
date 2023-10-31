@@ -140,6 +140,32 @@ public class GoalsManager {
         }
     }
     
-    // DELETE WILL BE DONE IN R2
+    public static boolean deleteGoalById(int goalId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "DELETE FROM Goals WHERE id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, goalId);
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+
+            // If rowsDeleted is greater than 0, it means a goal was deleted
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
 }

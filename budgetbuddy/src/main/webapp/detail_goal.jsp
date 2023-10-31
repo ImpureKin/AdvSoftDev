@@ -49,7 +49,7 @@
     <div class="row justify-content-center mt-4 p-5">
       <div class="col-md-6">
         <a href="GoalForEdit?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a>
-        <a href="#" onclick="confirmDelete()" class="btn btn-danger mr-2">Delete Goal</a>
+        <button onclick="confirmDelete(${goal.id})" class="btn btn-danger">Delete</button>
         <a href="GoalsAndSavings" class="btn btn-secondary">Go Back</a>
       </div>
     </div>
@@ -57,13 +57,54 @@
 
   <!-- Script to confirm and delete -->
   <script>
-    function confirmDelete() {
-      var confirmDelete = confirm("Are you sure you want to delete this goal?");
-      if (confirmDelete) {
-        // will be added later. Not adding now as it will error for R2
+  function confirmDelete(goalId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteGoal(goalId);
       }
-    }
-  </script>
+    });
+  }
+
+  function deleteGoal(goalId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'DeleteGoal', true); // Assuming your servlet is mapped to 'DeleteGoalServlet'
+
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 400) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: xhr.responseText,
+          showCancelButton: false,
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = 'GoalsAndSavings'; // Redirect to GoalsAndSavings page
+          }
+        });
+      } else {
+        console.error('Error:', xhr.responseText);
+      }
+    };
+
+    xhr.onerror = function () {
+      console.error('Network error');
+    };
+
+    var params = 'goalId=' + encodeURIComponent(goalId);
+    xhr.send(params);
+  }
+</script>
 
   <%@include file="sections/foot.jsp" %>
   <%@include file="sections/footer.jsp" %>
