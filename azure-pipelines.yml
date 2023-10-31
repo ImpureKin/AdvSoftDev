@@ -15,7 +15,7 @@ variables:
   webAppName: 'BudgetBuddyUTS'
 
   # Environment name
-  # environmentName: 'BudgetBuddy'
+  environmentName: 'BudgetBuddy'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -52,7 +52,7 @@ stages:
   jobs:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
-    # environment: $(environmentName)
+    environment: $(environmentName)
     pool:
       vmImage: $(vmImageName)
     strategy:
