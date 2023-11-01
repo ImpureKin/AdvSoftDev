@@ -10,15 +10,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Failed</title>
     </head>
-    <body>
-        <div class="container">
-            <div class="textcenter">
-                <h1>Login Failed! Please create an account or use the correct login details.</h1><br><br><br>
-                <h2>
-                    <a href="index.jsp">Return to Login/Register</a>
-                </h2>
-            </div>
-        </div>
+    <body class="d-flex flex-column h-100">
+    <div class="container text-center mt-5 mb-5">
+        <br><br><br><br>
+        <h1>Login Failed! Please create an account or use the correct login details.</h1><br><br><br>
+        <button class="btn btn-secondary mb-5" href="index.jsp">Return to Login/Register</a>
+    </div>
     <%@include file="sections/foot.jsp" %>
     </body>
 <%@include file="sections/footer.jsp" %>

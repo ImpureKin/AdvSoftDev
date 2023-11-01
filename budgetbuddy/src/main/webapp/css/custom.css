@@ -13,5 +13,9 @@
     height: 100vh !important;
 }
 
+.custom-input {
+    max-width: 400px; /* Adjust the width as per your preference */
+}
+
 
 

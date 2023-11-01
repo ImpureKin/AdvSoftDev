@@ -13,14 +13,18 @@
     </head>
     <body class="d-flex flex-column h-100">
     <div class="container">
-        <div class="text-center">
+        <div class="text-center mt-5">
               <h1>Recover Password</h1><br><br><br><br><br>
         </div>
         <div class="text-center">
             <form action="send_password_recovery.jsp" method="post">
-                <label for="email">Account Email:</label><br><br>
-                <input type="email" id="email" name="email" required><br><br>
-                <input type="submit" value="Submit">
+                <div class="form-group">
+                    <label class ="mb-2" for="email"><strong>Account Email:</strong></label><br>
+                    <div class="d-flex justify-content-center"> 
+                        <input type="email" id="email" name="email" class="form-control custom-input" required>
+                    </div>
+                </div><br>
+                <input type="submit" class="btn btn-primary" value="Submit">
             </form>
         </div>
     </div>

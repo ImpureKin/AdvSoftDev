@@ -26,14 +26,19 @@ if (enteredMFA != null && enteredMFA.equals(expectedMfa)) {
         <meta charset="UTF-8">
         <title>MFA Verification</title>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
+       <div class="container text-center mt-5">
         <h1>MFA Verification</h1>
         <p>MFA code is incorrect. Please try again.</p>
         <form action="mfa_check.jsp" method="post">
-            Enter your MFA code: <input type="text" name="mfaCode">
-            <input type="submit" value="Submit">
+            <div class="form-group">
+                <label for="mfaCode">Enter your MFA code:</label>
+                <input type="text" class="form-control" id="mfaCode" name="mfaCode" required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Submit">
             <input type="hidden" name="expectedMfa" value="<%= expectedMfa %>">
         </form>
+    </div>
     <%@include file="sections/foot.jsp" %>
     </body>
     <%@include file="sections/footer.jsp" %>
