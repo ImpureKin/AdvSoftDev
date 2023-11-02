@@ -18,19 +18,20 @@ import database.*;
 public class TestUser {
 
     static DatabaseManager dm = new DatabaseManager();
-
     static UserController uc = new UserController();
     static SignupController sc = new SignupController();
     static LoginController lc = new LoginController();
 
     static Logger logger = Logger.getLogger(TestUser.class.getName());
 
-    Connection conn;
+    static Connection connection;
 
     @BeforeAll
     public static void initialiseDatabase() {
         try {
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -40,8 +41,9 @@ public class TestUser {
     @AfterEach
     public void resetDatabase() {
         try {
-            ConnectionManager.closeConnection(conn);
-            dm.resetDatabase();
+            connection = ConnectionManager.resetTestConnection(connection);
+            dm.resetDatabase(connection);
+            connection = ConnectionManager.resetTestConnection(connection);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed resetting Database: ", e);
@@ -62,13 +64,11 @@ public class TestUser {
             String gender = "Male";
 
             // Check for valid sign up and if it's valid, register user
-            List<String> status_message = sc.isValidSignup(email, password, confirmPassword, firstName, lastName, phone, dob, gender);
-            ConnectionManager.closeConnection(conn);
+            List<String> status_message = sc.isValidSignup(connection, email, password, confirmPassword, firstName, lastName, phone, dob, gender);
             assertNull(status_message);
             logger.log(Level.INFO, "Successfully Performed Test: userValidRegistration.");
         }
         catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             logger.log(Level.SEVERE, "Failed Test: userValidRegistration", e);
         }
     }
@@ -79,12 +79,10 @@ public class TestUser {
             logger.log(Level.INFO, "Beginning Test: userValidLogin.");
             String email = "eren.atilgan@student.uts.edu.au";
             String password = "password";
-            ConnectionManager.closeConnection(conn);
-            assertNull(lc.isValidLogin(email, password));
+            assertNull(lc.isValidLogin(connection, email, password));
             logger.log(Level.INFO, "Successfully Performed Test: userValidLogin."); 
         }
         catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             logger.log(Level.SEVERE, "Failed Test: userValidLogin", e);
         }
     }
@@ -95,10 +93,10 @@ public class TestUser {
             logger.log(Level.INFO, "Beginning Test: userDelete.");
             User testUser;
 
-            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
-            uc.deleteUser(uc.getValue(testUser, "id"));
+            testUser = uc.getUser(connection, "eren.atilgan@student.uts.edu.au");
+            uc.deleteUser(connection, uc.getValue(testUser, "id"));
 
-            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            testUser = uc.getUser(connection, "eren.atilgan@student.uts.edu.au");
             assertNull(testUser);
         }
         catch (Exception e) {
@@ -110,15 +108,15 @@ public class TestUser {
     public void userValidModifyPassword() {
         try {
             logger.log(Level.INFO, "Beginning Test: userValidModifyPassword.");
-            User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            User testUser = uc.getUser(connection, "eren.atilgan@student.uts.edu.au");
             String newPassword = "@Password1";
             List<String> passwordStatus = sc.isValidPassword(newPassword);
 
             if (passwordStatus.isEmpty()) {
-                testUser.setPassword(newPassword);
+                testUser.setPassword(connection, newPassword);
             }
 
-            testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            testUser = uc.getUser(connection, "eren.atilgan@student.uts.edu.au");
             String password = uc.getValue(testUser, "password");
             assertEquals(password, newPassword);
         }
@@ -131,26 +129,23 @@ public class TestUser {
     public void userValidModifyEmail() {
         try {
             logger.log(Level.INFO, "Beginning Test: userValidModifyEmail");
-            conn = ConnectionManager.getConnection();
-            User testUser = uc.getUser("eren.atilgan@student.uts.edu.au");
+            User testUser = uc.getUser(connection, "eren.atilgan@student.uts.edu.au");
             String newEmail = "eren,atilganTest@student.uts.edu.au";
-            String emailStatus = sc.isValidEmail(newEmail, conn);
+            String emailStatus = sc.isValidEmail(connection, newEmail);
 
             if (emailStatus == null) {
-                testUser.setEmail(newEmail);
+                testUser.setEmail(connection, newEmail);
             }
 
             Boolean status = false;
-            testUser = uc.getUser("eren.atilganTest@student.uts.edu.au");
+            testUser = uc.getUser(connection, "eren.atilganTest@student.uts.edu.au");
             if (testUser == null) {
                 status = true;
             }
-            ConnectionManager.closeConnection(conn);
             assertTrue(status);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "Failed Test: userValidModifyEmail", e); 
-            ConnectionManager.closeConnection(conn);
         }
     }
 }

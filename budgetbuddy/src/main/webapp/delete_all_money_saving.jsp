@@ -7,5 +7,5 @@
 
     session.setAttribute("moneySavings", null);
 
-    response.sendRedirect("wip.jsp");
+    response.sendRedirect("financial_support.jsp");
 %>

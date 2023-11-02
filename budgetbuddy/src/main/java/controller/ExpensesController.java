@@ -19,6 +19,8 @@ import model.User;
 
 @WebServlet("/Expenses")
 public class ExpensesController extends HttpServlet {
+
+    Connection connection;
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,14 +33,27 @@ public class ExpensesController extends HttpServlet {
         }
         
         
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            connection = ConnectionManager.getConnection();
+
             //'Delete' feature
             String deleteId = req.getParameter("deleteId");
             if (deleteId != null) {
               ExpenseManager.deleteExpense(connection, Integer.parseInt(deleteId));
             }
+
+            //'Edit" feature'
+            String editId = req.getParameter("editId");
+            if (editId != null) {
+                Expenses expenseToEdit = ExpenseManager.getExpenseById(connection, Integer.parseInt(editId));
+                req.setAttribute("expenseToEdit", expenseToEdit);
+}
             ExpenseManager.initializeDatabase(connection);
             List<Expenses> expensesList = ExpenseManager.getAllExpenses(connection);
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
+
             req.setAttribute("expensesList", expensesList);
             req.getRequestDispatcher("expenses.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -50,7 +65,9 @@ public class ExpensesController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            connection = ConnectionManager.getConnection();
+
             HttpSession session = req.getSession();
             User user = (User) session.getAttribute("User");
             String userId = user.getId();
@@ -62,7 +79,7 @@ public class ExpensesController extends HttpServlet {
             String expenseName = req.getParameter("expenseName");
             double amount = Double.parseDouble(req.getParameter("amount"));
             String category = req.getParameter("category");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(req.getParameter("date"));
 
             Expenses newExpense = new Expenses();
@@ -71,8 +88,20 @@ public class ExpensesController extends HttpServlet {
             newExpense.setAmount(amount);
             newExpense.setCategory(category);
             newExpense.setDate(date);
+            
+            //'Edit' feature
+            String expenseId = req.getParameter("expenseId");
 
-            ExpenseManager.addExpense(connection, newExpense, userId2);
+            if (expenseId == null || expenseId.isEmpty()) {
+                // This is an add operation
+                ExpenseManager.addExpense(connection, newExpense, userId2);
+            } else {
+                // This is an update operation
+                newExpense.setId(Integer.parseInt(expenseId));
+                ExpenseManager.updateExpense(connection, newExpense);
+            }
+            // Close connection
+            ConnectionManager.closeConnection(connection);
 
             resp.sendRedirect("Expenses");
         } catch (Exception e) {

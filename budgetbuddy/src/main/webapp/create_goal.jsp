@@ -7,7 +7,7 @@
 <head>
 <title>Create Saving Goal Page </title>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 height-custom">
   
     <!-- Adding a new saving goal-->
     <div class="container-fluid mt-5 flex-grow-1">
@@ -41,8 +41,8 @@
 
                     <input type="hidden" name="dateCreated" value="">
 
-                    <div class="form-group mt-4 text-center">
-                        <button type="submit" class="btn btn-primary">Create Goal</button>
+                    <div class="form-group mt-5 mb-4 text-center">
+                        <button type="submit" id="submit-button" class="btn btn-success-custom">Create Goal</button>
                         <a href="GoalsAndSavings" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
@@ -50,9 +50,27 @@
         </div>
     </div>
 
-
      <!-- Making date the correct fomatt for the goal to be stored -->
     <script>
+
+    document.getElementById('submit-button').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the form from submitting (so we can display the alert first)
+
+        Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Goal successfully created!',
+        showCloseButton: false,
+        showConfirmButton: true,
+        heightAuto: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.form.submit(); // Submit the form when the close button is clicked
+            }
+        });
+    });
+
+
     var currentDate = new Date();
 
     var day = String(currentDate.getDate()).padStart(2, '0');
@@ -60,10 +78,10 @@
     var year = currentDate.getFullYear();
 
     var formattedDate = day + '/' + month + '/' + year;
-    document.querySelector('input[name="date_created"]').value = formattedDate;
+    document.querySelector('input[name="dateCreated"]').value = formattedDate;
     </script>
     
-    <%@include file="sections/foot.jsp" %>
-    <%@include file="sections/footer.jsp" %>
 </body>
 </html>
+    <%@include file="sections/foot.jsp" %>
+    <%@include file="sections/footer.jsp" %>

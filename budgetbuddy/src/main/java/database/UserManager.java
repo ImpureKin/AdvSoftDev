@@ -11,6 +11,8 @@ public class UserManager {
     // #################################### ERENS FUNCTIONS BELOW ######################################### //
     // #################################################################################################### //
 
+    public static Connection connection;
+
     // Authenticate a user's login details and return result
     public static boolean authenticateUser(Connection connection, String email, String password) {
         try {
@@ -18,7 +20,7 @@ public class UserManager {
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             return (rs.next()); 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Authentication error: " + e);
             return false;
         }
@@ -41,12 +43,13 @@ public class UserManager {
             String phoneNumber = rs.getString("phone");
             String dob = rs.getString("dob");
             String gender = rs.getString("gender");
+            String mfa = rs.getString("mfa");
 
             // Create User using details from DB
             UserController uc = new UserController();
-            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, uc);
+            User user = new User(id, firstName, lastName, email, password, phoneNumber, dob, gender, mfa, uc);
             return user;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error getting User: " + e);
             return null;
         }
@@ -67,7 +70,7 @@ public class UserManager {
             pstmt.executeUpdate();
             System.out.println("Successfully registered user: " + firstName + " " + lastName);
             return "Success";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("User Registration error: " + e);
             return "Failed. " + e;
         }
@@ -75,8 +78,8 @@ public class UserManager {
     
     // Update a user's details
     public static String updateUserDetail(Connection connection, String field, String value, String userId) {
-        String query = "UPDATE Users SET " + field + " = '" + value + "' WHERE id = " + userId;
         try {
+            String query = "UPDATE Users SET " + field + " = '" + value + "' WHERE id = " + userId;
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.executeUpdate();
             System.out.println("Updated user details - " + field + ".");
@@ -90,10 +93,10 @@ public class UserManager {
     
     // Delete user account
     public static void deleteAccount(Connection connection, String userID) {
-        String deleteAccountQuery = "DELETE FROM Users WHERE id = " + userID;
-        System.out.println(deleteAccountQuery);
         try {
             // Delete user account.
+            String deleteAccountQuery = "DELETE FROM Users WHERE id = " + userID;
+            System.out.println(deleteAccountQuery);
             PreparedStatement pstmt = connection.prepareStatement(deleteAccountQuery);
             pstmt.executeUpdate();
             System.out.println("Deleted user account.");

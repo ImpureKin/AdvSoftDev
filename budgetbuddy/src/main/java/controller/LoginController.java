@@ -7,22 +7,18 @@ public class LoginController {
     
     Connection conn;
 
-    public String isValidLogin(String email, String password) throws Exception {
+    public String isValidLogin(Connection connection, String email, String password) throws Exception {
         if (isEmpty(email) || isEmpty(password)) {
             return "Both email and password are required.";
         }
-        conn = ConnectionManager.getConnection();
         try {
-            if (!UserManager.authenticateUser(conn, email, password)) {
-                ConnectionManager.closeConnection(conn);
+            if (!UserManager.authenticateUser(connection, email, password)) {
                 return "User does not exist.";
             }
         } catch (Exception e) {
-            ConnectionManager.closeConnection(conn);
             System.out.println("Connection Failed: " + e);
             throw e;
         }
-        ConnectionManager.closeConnection(conn);
         return null;
     }
 

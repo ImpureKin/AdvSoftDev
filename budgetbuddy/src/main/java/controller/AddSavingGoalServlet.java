@@ -2,6 +2,7 @@ package controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +15,9 @@ import database.*;
 // This servlet is used to create a new saving goal 
 @WebServlet("/AddingSavingGoalServlet")
 public class AddSavingGoalServlet extends HttpServlet {
+
+    Connection connection;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
 
@@ -23,6 +27,12 @@ public class AddSavingGoalServlet extends HttpServlet {
             
             // Checks to make sure is not null 
             if (user != null) {
+
+                try {
+                    connection = ConnectionManager.getConnection();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 // Converts the user id value 
                 String userIdString = user.getId();
@@ -44,7 +54,10 @@ public class AddSavingGoalServlet extends HttpServlet {
                 Goals newGoal = new Goals(0, userId, goalName, goalAmount, savedAmount, category, goalDescription, dateCreated);
         
                 // Insert the new Goal into the database 
-                GoalsManager.createGoal(newGoal);
+                GoalsManager.createGoal(connection, newGoal);
+
+                // Close connection
+                ConnectionManager.closeConnection(connection);
         
                 // Redirect back to the original page
                 response.sendRedirect("GoalsAndSavings");

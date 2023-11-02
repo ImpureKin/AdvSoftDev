@@ -31,7 +31,7 @@
                         <a class="nav-link" href="payment.jsp">Bill Reminders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="wip.jsp">Financial Support</a>
+                        <a class="nav-link" href="financial_support.jsp">Financial Support</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="profile.jsp">Profile</a>

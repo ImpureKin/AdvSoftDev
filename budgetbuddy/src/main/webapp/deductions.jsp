@@ -8,7 +8,7 @@
 <script>
     $( function() {
     $( "#date, #invoice_date" ).datepicker({
-        dateFormat: "dd-mm-yy"
+        dateFormat: "dd/mm/yyyy"
     });
     } );
 
@@ -67,14 +67,14 @@
                 </select>
         
             <label for="date">Date:</label>
-            <input type="text" id="date" name="date" required>
+            <input type="date" id="date" name="date" required>
         
    
             <label for="frequency">Frequency:</label>
             <input type="text" id="frequency" name="frequency" required>
 
             <label for="invoice_date">Invoice Date:</label>
-            <input type="text" id="invoice_date" name="invoice_date" class="datepicker">
+            <input type="date" id="invoice_date" name="invoice_date" class="datepicker">
         
             <input type="submit" value="Add Deduction">
         </form>

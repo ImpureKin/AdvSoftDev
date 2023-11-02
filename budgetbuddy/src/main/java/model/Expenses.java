@@ -108,13 +108,13 @@ public class Expenses {
     }
 
     public String getFormattedDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(this.date);
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return "Expense [id=" + id + ", expenseName=" + expenseName + ", amount=" + amount + ", category=" + category
                 + ", date=" + sdf.format(date) + "]";
     }
