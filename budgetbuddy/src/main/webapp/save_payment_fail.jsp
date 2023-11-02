@@ -57,7 +57,7 @@
                 <a href="trends.jsp">Trends</a>
                 <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
                 <a href="payment.jsp">Bill Reminders</a>
-                <a href="wip.jsp">Financial Support</a>
+                <a href="financial_support.jsp">Financial Support</a>
                 <a href="profile.jsp">Profile</a>
                 <a href="index.jsp">Logout</a>
             </div>

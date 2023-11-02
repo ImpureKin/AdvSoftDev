@@ -14,7 +14,7 @@
     <div class="container text-center mt-5 mb-5">
         <br><br><br><br>
         <h1>Login Failed! Please create an account or use the correct login details.</h1><br><br><br>
-        <button class="btn btn-secondary mb-5" href="index.jsp">Return to Login/Register</a>
+        <button class="btn btn-secondary mb-5" onclick="location.href='index.jsp'">Return to Login/Register</button>
     </div>
     <%@include file="sections/foot.jsp" %>
     </body>
