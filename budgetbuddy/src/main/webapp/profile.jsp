@@ -98,8 +98,8 @@
                     <div class="mb-3">
                         <label class="form-label"><strong>MFA:</strong></label>
                         <select class="form-select" id="mfa" name="mfa">
-                            <option value="Enabled">Enabled</option>
-                            <option value="Disabled">Disabled</option>
+                            <option value="Enabled" <%= mfa_status.equals("Enabled") ? "selected" : "" %>>Enabled</option>
+                            <option value="Disabled" <%= mfa_status.equals("Disabled") ? "selected" : "" %>>Disabled</option>
                         </select>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">

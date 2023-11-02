@@ -94,6 +94,7 @@ ConnectionManager.closeConnection(connection);
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Profile</title>
 </head>
+        <% if (!validationMessages.isEmpty()) { %>
               <h2>Validation Errors:</h2>
                 <ul class="list-unstyled">
                     <% for (String message : validationMessages) { %>
