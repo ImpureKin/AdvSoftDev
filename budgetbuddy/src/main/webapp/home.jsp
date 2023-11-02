@@ -27,7 +27,7 @@
 
         </div>
     </div>
-   <div class="d-flex flex-column mh-100" style="padding: 370px;">
+   <div class="d-flex flex-column mh-100" style="padding: 350px;">
        
     </div>
 </div>
