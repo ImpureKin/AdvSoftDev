@@ -57,7 +57,7 @@
                 <a href="trends.jsp">Trends</a>
                 <a href="tips_and_knowledge.jsp">Tips & Knowledge</a>
                 <a href="payment.jsp">Bill Reminders</a>
-                <a href="wip.jsp">Financial Support</a>
+                <a href="financial_support.jsp">Financial Support</a>
                 <a href="profile.jsp">Profile</a>
                 <a href="index.jsp">Logout</a>
             </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="textcenter">
                 <h2>
-                    <a href="wip.jsp">Return to Payment</a>
+                    <a href="financial_support.jsp">Return to Payment</a>
                 </h2>
             </div>
         </div>

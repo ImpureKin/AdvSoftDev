@@ -16,25 +16,30 @@ public class TestPayment {
   static PaymentController paymentController = new PaymentController();
   static Logger logger = Logger.getLogger(TestPayment.class.getName());
 
-  Connection conn;
+  static Connection connection;
 
   @BeforeAll
   public static void initialiseDatabase() {
-    try {
-      dm.resetDatabase();
-    } catch (Exception e) {
-      logger.log(Level.SEVERE, "Failed resetting Database: ", e);
-    }
+      try {
+          connection = ConnectionManager.resetTestConnection(connection);
+          dm.resetDatabase(connection);
+          connection = ConnectionManager.resetTestConnection(connection);
+      }
+      catch (Exception e) {
+          logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+      }
   }
 
   @AfterEach
   public void resetDatabase() {
-    try {
-      ConnectionManager.closeConnection(conn);
-      dm.resetDatabase();
-    } catch (Exception e) {
-      logger.log(Level.SEVERE, "Failed resetting Database: ", e);
-    }
+      try {
+          connection = ConnectionManager.resetTestConnection(connection);
+          dm.resetDatabase(connection);
+          connection = ConnectionManager.resetTestConnection(connection);
+      }
+      catch (Exception e) {
+          logger.log(Level.SEVERE, "Failed resetting Database: ", e);
+      }
   }
 
   @Test
@@ -51,9 +56,7 @@ public class TestPayment {
       } else {
         logger.log(Level.INFO, "Failed paymentValidSaveWithAmountInvalid test.");
       }
-      ConnectionManager.closeConnection(conn);
     } catch (Exception e) {
-      ConnectionManager.closeConnection(conn);
       logger.log(Level.SEVERE, "Failed paymentValidSaveWithAmountInvalid test: ", e);
     }
   }
@@ -72,9 +75,7 @@ public class TestPayment {
       } else {
         logger.log(Level.INFO, "Failed paymentValidSaveWithNameInvalid test.");
       }
-      ConnectionManager.closeConnection(conn);
     } catch (Exception e) {
-      ConnectionManager.closeConnection(conn);
       logger.log(Level.SEVERE, "Failed paymentValidSaveWithNameInvalid test: ", e);
     }
   }

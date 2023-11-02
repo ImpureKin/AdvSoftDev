@@ -1,5 +1,6 @@
 package controller;
 import java.io.IOException;
+import java.sql.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,11 +13,20 @@ import jakarta.servlet.annotation.WebServlet;
 //This Servlet adds money to an existing goal
 @WebServlet("/AddMoneytoGoalServlet")
 public class AddMoneytoGoalServlet extends HttpServlet {
+
+    Connection connection;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //Retrive the goal id and amount from the webpage.
         String goalIdParameter = request.getParameter("goalId");
         String amountParameter = request.getParameter("amount");
+
+        try {
+            connection = ConnectionManager.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //checks to make sure is not null 
         if (goalIdParameter != null && amountParameter != null) {
@@ -26,7 +36,7 @@ public class AddMoneytoGoalServlet extends HttpServlet {
             int amountToAdd = Integer.parseInt(amountParameter);
 
             // Retrieve the goal and its associated saved amount
-            Goals goal = GoalsManager.getGoalById(goalId);
+            Goals goal = GoalsManager.getGoalById(connection, goalId);
             int savedAmount = goal.getSavedAmount();
             int goalAmount = goal.getGoalAmount();
 
@@ -40,9 +50,12 @@ public class AddMoneytoGoalServlet extends HttpServlet {
             } else {
 
                 // Add the money to the goal
-                GoalsManager.updateSavedAmount(goalId, amountToAdd);
+                GoalsManager.updateSavedAmount(connection, goalId, amountToAdd);
                 message = "Money successfully added to goal!";
             }
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
 
             //setting up for the notification and the reload of page 
             response.setContentType("text/plain");

@@ -78,7 +78,7 @@
                                 </div>
                                 
                                 <!-- Submit Button that will be disabled when there are no saving  --> 
-                                <button type="submit" class="btn btn-primary mt-4" <c:if test="${totalSaved == 0}">disabled</c:if>>Add Money</button>
+                                <button type="submit" class="btn btn-orange-custom mt-4" <c:if test="${totalSaved == 0}">disabled</c:if>>Add Money</button>
 
                             </form>
 
@@ -110,10 +110,10 @@
                         <c:choose>
                             <c:when test="${goal.savedAmount eq goal.goalAmount}">
                                 <span class="badge badge-custom-success float-right">Goal Complete</span>
-                                <a href="GetGoalDetailServlet?goalId=${goal.id}" class="btn btn-info btn-sm float-right mr-2">Details</a>
+                                <a href="GoalDetails?goalId=${goal.id}" class="btn btn-orange-custom btn-sm float-right mr-2">Details</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="GoalDetails?goalId=${goal.id}" class="btn btn-primary btn-sm float-right">Details</a>
+                                <a href="GoalDetails?goalId=${goal.id}" class="btn btn-orange-custom btn-sm float-right">Details</a>
                             </c:otherwise>
                         </c:choose>
                         
@@ -128,7 +128,7 @@
         </c:if>
 
         <!-- Button for user to be redirected to the create goal page -->
-        <a href="create_goal.jsp" class="btn btn-success btn-lg mt-3 col-12">Create Goal</a>
+        <a href="create_goal.jsp" class="btn btn-success-custom btn-lg mt-3 col-12">Create Goal</a>
     </div>
 
     <!-- Script to display the Notifcation popup after adding money to a goal-->

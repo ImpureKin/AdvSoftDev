@@ -1,10 +1,12 @@
 <!-- edit_user.jsp -->
-<%@ page import="model.*, controller.*" %>
+<%@ page import="model.*, controller.*, database.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.*" %>
 <%
 // Retrieve the user's session
 User user = (User) session.getAttribute("User");
+UserController uc = user.getUserController(); 
 
 // Get the submitted form data
 String newEmail = request.getParameter("email");
@@ -14,9 +16,13 @@ String newPassword = request.getParameter("password");
 String newConfirmPassword = request.getParameter("confirmPassword");
 String newPhone = request.getParameter("phone");
 String newDob = request.getParameter("dob");
+String newMfa = request.getParameter("mfa");
 
 // Initialize a list to store validation messages
 List<String> validationMessages = new ArrayList<>();
+
+// Get a DB connection
+Connection connection = ConnectionManager.getConnection();
 
 SignupController sc = new SignupController();
 
@@ -24,20 +30,20 @@ SignupController sc = new SignupController();
 // If a field is empty, keep the existing value; otherwise, validate and update
 if (!newEmail.isEmpty()) {
     // Check email format and uniqueness
-    String emailStatus = sc.isValidEmail(newEmail);
+    String emailStatus = sc.isValidEmail(connection, newEmail);
     if (emailStatus != null) {
         validationMessages.add(emailStatus);
     } else {
-        user.setEmail(newEmail);
+        user.setEmail(connection, newEmail);
     }
 }
 
 if (!newFirstName.isEmpty()) {
-    user.setFirstName(newFirstName);
+    user.setFirstName(connection, newFirstName);
 }
 
 if (!newLastName.isEmpty()) {
-    user.setLastName(newLastName);
+    user.setLastName(connection, newLastName);
 }
 
 if ((newPassword.isEmpty() && !newConfirmPassword.isEmpty()) || (!newPassword.isEmpty() && newConfirmPassword.isEmpty())) {
@@ -54,24 +60,30 @@ if (!newPassword.isEmpty() && !newConfirmPassword.isEmpty()) {
         if (!newPassword.equals(newConfirmPassword)) {
             validationMessages.add("Passwords do not match.");
         } else {
-            user.setPassword(newPassword);
+            user.setPassword(connection, newPassword);
         }
     }
 }
 
 if (!newPhone.isEmpty()) {
     // Check phone format and uniqueness
-    String phoneStatus = sc.isValidPhone(newPhone);
+    String phoneStatus = sc.isValidPhone(connection, newPhone);
     if (phoneStatus != null) {
         validationMessages.add(phoneStatus);
     } else {
-        user.setPhoneNumber(newPhone);
+        user.setPhoneNumber(connection, newPhone);
     }
 }
 
 if (!newDob.isEmpty()) {
-    user.setDob(newDob);
+    user.setDob(connection, newDob);
 }
+
+if (!(uc.getValue(user, "mfa")).equals(newMfa)) {
+    user.setMfa(connection, newMfa);
+}
+
+ConnectionManager.closeConnection(connection);
 
 %>
 <%@include file="sections/navbar.jsp" %>
@@ -82,23 +94,21 @@ if (!newDob.isEmpty()) {
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Profile</title>
 </head>
-<body>
-    <% if (!validationMessages.isEmpty()) { %>
-        <h1>Error: Unable to update your details!</h1>
-        <div>
-            <h2>Validation Errors:</h2>
-            <ul>
-                <% for (String message : validationMessages) { %>
-                    <li><%= message %></li>
-                <% } %>
-            </ul>
-        </div>
-    <% } else { %>
-        <div>
-            <h1>Details Updated Successfully!</h1>
-        </div>
-    <% } %>
+        <% if (!validationMessages.isEmpty()) { %>
+              <h2>Validation Errors:</h2>
+                <ul class="list-unstyled">
+                    <% for (String message : validationMessages) { %>
+                        <li><%= message %></li>
+                    <% } %>
+                </ul>
+            </div>
+        <% } else { %>
+            <div class="text-center">
+                <h1>Details Updated Successfully!</h1>
+            </div>
+        <% } %>
+    </div>
     <%@include file="sections/foot.jsp" %>
-    </body>
+</body>
 <%@include file="sections/footer.jsp" %>
 </html>

@@ -22,7 +22,7 @@
     } else {
         status_message = moneySavingController.saveMoneySaving(name, totalAmount, interestRate, totalMonth, userId);
         if (status_message == null || status_message.isEmpty()) {
-            response.sendRedirect("wip.jsp");
+            response.sendRedirect("financial_support.jsp");
         } else {
             session.setAttribute("name", name);
             session.setAttribute("totalAmount", totalAmount);

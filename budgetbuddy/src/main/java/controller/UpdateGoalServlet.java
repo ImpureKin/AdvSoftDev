@@ -1,5 +1,6 @@
 package controller;
 import java.io.IOException;
+import java.sql.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,8 +11,13 @@ import database.*;
 // This Servlet updates the goal teh user is editing 
 @WebServlet("/UpdateGoalServlet")
 public class UpdateGoalServlet extends HttpServlet {
+
+    Connection connection;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+
+            connection = ConnectionManager.getConnection();
 
             // Retreives the datat from the webpage  
             int goalId = Integer.parseInt(request.getParameter("goalId"));
@@ -26,11 +32,14 @@ public class UpdateGoalServlet extends HttpServlet {
             System.out.println("goalAmountString: " + goalAmount);
     
         
-                // Send attributes to updateGoal fucntion in the database so the goal will be updated 
-                GoalsManager.updateGoal(goalId, goalName, goalDescription, goalAmount);
-    
-                // Redirects back to the goal detail page
-                response.sendRedirect("GoalDetails?goalId=" + goalId);
+            // Send attributes to updateGoal fucntion in the database so the goal will be updated 
+            GoalsManager.updateGoal(connection, goalId, goalName, goalDescription, goalAmount);
+
+            // Close connection
+            ConnectionManager.closeConnection(connection);
+
+            // Redirects back to the goal detail page
+            response.sendRedirect("GoalDetails?goalId=" + goalId);
            
         } catch (Exception e) {
             // Handle any excpetions and prints the trace
