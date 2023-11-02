@@ -10,24 +10,78 @@
 
 <%
     session.setAttribute("payments", new PaymentController().getListPayments());
-    System.out.println("Email = " + session.getAttribute("currentEmail"));
+//    System.out.println("Email = " + session.getAttribute("currentEmail"));
 %>
 <html>
 <head>
     <title>Payment</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .page {
+            border: 2px #b461cb solid;
+            border-radius: 40px;
+            margin: 20px 40px;
+            max-height: fit-content;
         }
 
         .page-header {
             text-align: center;
-            background: linear-gradient(to right, #ffae00, #80b300);
-            color: #fff;
+            background: linear-gradient(to right, #ebd0f1, #e084db);
+            color: #000000;
             font-size: 24px;
+            font-family: 'Lora', serif;
+            border-radius: 40px 40px 0px 0px;
+
+            /*border: 2px #b461cb solid;*/
+            margin-bottom: 20px;
         }
+        .box {
+            margin: 0px 450px;
+            position: absolute;
+            width: 45%;
+            height: 330px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 45%;
+            height: 130%;
+            background-color: white;
+            box-shadow: 0 0 20px rgb(162, 22, 201);
+            animation: animate 5s linear infinite;
+        }
+        .box::after {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            background-color: #ffffff;
+            border-radius: 16px;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .box .container-wip{
+            position: absolute;
+        }
+
 
 
         .topnav input[type=text] {
@@ -50,18 +104,27 @@
             width: 100%;
         }
 
+
         td, th {
             border: 1px solid #dddddd;
             text-align: center;
             padding: 8px;
+            font-size: 20px;
+            font-family: 'Lora', serif;
+
+        }
+        th {
+            background-color: #e084db;
+            font-style: oblique;
+
         }
 
         td:hover {
-            background-color: rgba(255, 213, 0, 0.91);
+            background-color: rgb(224, 132, 219);
         }
 
-        tr:nth-child(even) {
-            background-color: rgba(255, 213, 0, 0.71);
+        tr:nth-child(odd) {
+            background-color: rgb(224, 198, 231);
         }
 
         h2 {
@@ -75,7 +138,7 @@
 
         .form-group {
             width: 100%;
-            margin-bottom: 15px;
+            /*margin-bottom: 15px;*/
         }
 
         label {
@@ -96,86 +159,127 @@
 
         .button-container {
             text-align: center; /* Canh giữa nút */
+            margin-top: 20px;
+        }
+
+        @keyframes color-change {
+            0% {
+                background: linear-gradient(to right, #ff59f6, #d29fde);
+            }
+            50% {
+                background: linear-gradient(to right, #d29fde, #ff59f6);
+            }
+            100% {
+                background: linear-gradient(to right, #ff59f6, #d29fde);
+            }
         }
 
         button[type="submit"] {
             width: 60%;
-            background-color: #007BFF;
-            color: #fff;
+            color: #000000;
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
             cursor: pointer;
-            background: linear-gradient(to left, #ffd500, #252510);
-            transition: ease-in-out 2s;
+            background: linear-gradient(to right, #ff59f6, #d29fde);
+            transition: background-color ease-in-out 2s;
+            font-size: 20px;
+            font-family: 'Lora', serif;
+            font-style: initial;
+            font-weight: bold;
+            animation: color-change 2s infinite alternate;
         }
 
         button[type="submit"]:hover {
             /*background-color: #0056b3;*/
-            background: linear-gradient(to right, #ffd500, #252510);
+            background: linear-gradient(to right, #ebd0f1, #c978e0);
             transition: 2s ease-in-out;
         }
 
+
+
         .form-box {
+            position: relative;
             padding: 15px;
-            border: 1px solid #ffd500;
-            border-radius: 5px;
-            box-shadow: 5px 5px 10px #ffd500;
+            border: 2px solid #c978e0;
+            box-shadow: 5px 5px 10px #d29fde;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 20px;
         }
+
+
+        h1 {
+            background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hhe 5s ease-in-out infinite;
+            /*text-align: center;*/
+            /*line-height: 0.9;*/
+        }
+
+
     </style>
 </head>
 <body class="d-flex flex-column h-100">
-<div class="page-header">
-    <h1>Payment Management System</h1>
-</div>
+<div class="page">
+    <div class="page-header">
+        <h1 class=" w3-container w3-center w3-animate-top" style="font-weight: bold; margin-top: 0; padding-bottom: 15px">Payment Management System</h1>
+    </div>
 
-<div style="width: 100%; margin: auto; margin-bottom: 20px  ">
-    <form action="save_payment_check.jsp" class="form-box">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="${sessionScope.paymentName}" required>
-        </div>
-        <div class="form-group">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" value="${sessionScope.paymentAmount}" required>
-        </div>
-        <div class="form-group">
-            <label for="dob">Date:</label>
-            <input type="date" id="dob" name="dob" value="${sessionScope.paymentDob}" required>
-        </div>
-        <div class="button-container">
-            <button type="submit">Submit</button>
-        </div>
-    </form>
-</div>
+    <div class="box">
 
-<div class="table_box" style="margin: auto; width: 100%">
-    <table style="width: 90%; margin: auto; border: 3px solid #ffd500; box-shadow: 3px 5px 7px #838383">
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Date</th>
-        </tr>
+    </div>
+    <div style="width: 100%; margin: auto; margin-bottom: 20px" class="form-container">
+        <form action="save_payment_check.jsp" class="form-box">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="${sessionScope.paymentName}" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" value="${sessionScope.paymentAmount}" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date:</label>
+                <input type="date" id="dob" name="dob" value="${sessionScope.paymentDob}" required>
+            </div>
+            <div class="button-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
-        <%
-            List<Payment> payments = (List<Payment>) session.getAttribute("payments");
-            if (payments != null) {
-                for (Payment payment : payments) {
-        %>
-        <tr>
-            <td><%= payment.getName() %>
-            </td>
-            <td><%= payment.getAmount() %>
-            </td>
-            <td><%= payment.getDob() %>
-            </td>
-        </tr>
-        <%
+    <div class="table_box" style="margin: 20px auto; width: 70%; border-radius: 20px;  border:2px solid #b461cb">
+        <table style="width: 100%; margin: auto; box-shadow: 3px 5px 7px #838383; border-radius: 20px; overflow: hidden">
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+
+            <%
+                List<Payment> payments = (List<Payment>) session.getAttribute("payments");
+                if (payments != null) {
+                    for (Payment payment : payments) {
+            %>
+            <tr>
+                <td><%= payment.getName() %>
+                </td>
+                <td><%= payment.getAmount() %>
+                </td>
+                <td><%= payment.getDob() %>
+                </td>
+            </tr>
+            <%
+                    }
                 }
-            }
-        %>
+            %>
 
-    </table>
+        </table>
+    </div>
 </div>
 <%@include file="sections/foot.jsp" %>
 </body>
