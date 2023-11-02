@@ -63,6 +63,41 @@ public class ExpenseManager {
         return expensesList;
     }
 
+    public static Expenses getExpenseById(Connection connection, int id) throws SQLException, ParseException {
+        String sql = "SELECT * FROM Expenses WHERE id = ?";
+        Expenses expense = new Expenses(); 
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                expense.setId(rs.getInt("id"));
+                expense.setUserId(rs.getInt("userId"));
+                expense.setExpenseName(rs.getString("expenseName"));
+                expense.setAmount(rs.getDouble("amount"));
+                expense.setCategory(rs.getString("category"));
+                
+                long timestamp = rs.getLong("date");
+                Date date = new Date(timestamp);
+                expense.setDate(date);
+            }
+        }
+        return expense;
+    }
+
+    public static void updateExpense(Connection connection, Expenses expense) throws SQLException {
+        String sql = "UPDATE Expenses SET expenseName = ?, amount = ?, category = ?, date = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, expense.getExpenseName());
+            pstmt.setDouble(2, expense.getAmount());
+            pstmt.setString(3, expense.getCategory());
+            pstmt.setDate(4, new java.sql.Date(expense.getDate().getTime()));
+            pstmt.setInt(5, expense.getId());
+            pstmt.executeUpdate();
+        }
+    }
+
+
+
     // ... [other CRUD operations like delete, update, etc.] ...
 
     public static void deleteExpense(Connection connection, int id) throws SQLException {
