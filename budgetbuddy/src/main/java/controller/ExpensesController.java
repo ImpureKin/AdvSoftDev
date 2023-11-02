@@ -41,6 +41,13 @@ public class ExpensesController extends HttpServlet {
             if (deleteId != null) {
               ExpenseManager.deleteExpense(connection, Integer.parseInt(deleteId));
             }
+
+            //'Edit" feature'
+            String editId = req.getParameter("editId");
+            if (editId != null) {
+                Expenses expenseToEdit = ExpenseManager.getExpenseById(connection, Integer.parseInt(editId));
+                req.setAttribute("expenseToEdit", expenseToEdit);
+}
             ExpenseManager.initializeDatabase(connection);
             List<Expenses> expensesList = ExpenseManager.getAllExpenses(connection);
 
@@ -72,7 +79,7 @@ public class ExpensesController extends HttpServlet {
             String expenseName = req.getParameter("expenseName");
             double amount = Double.parseDouble(req.getParameter("amount"));
             String category = req.getParameter("category");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(req.getParameter("date"));
 
             Expenses newExpense = new Expenses();
@@ -81,9 +88,18 @@ public class ExpensesController extends HttpServlet {
             newExpense.setAmount(amount);
             newExpense.setCategory(category);
             newExpense.setDate(date);
-
-            ExpenseManager.addExpense(connection, newExpense, userId2);
             
+            //'Edit' feature
+            String expenseId = req.getParameter("expenseId");
+
+            if (expenseId == null || expenseId.isEmpty()) {
+                // This is an add operation
+                ExpenseManager.addExpense(connection, newExpense, userId2);
+            } else {
+                // This is an update operation
+                newExpense.setId(Integer.parseInt(expenseId));
+                ExpenseManager.updateExpense(connection, newExpense);
+            }
             // Close connection
             ConnectionManager.closeConnection(connection);
 
