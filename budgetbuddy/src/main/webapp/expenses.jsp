@@ -78,22 +78,24 @@
                 </tr>
             </c:forEach>
 
-            <c:choose>
-    <c:when test="${not empty expenseToEdit}">
-        <!-- Edit Expense Form -->
-        <form id="editExpenseForm" method="post" action="/app/Expenses">
-            <input type="hidden" name="expenseId" value="${expenseToEdit.id}"/>
-            Expense Name: <input type="text" name="expenseName" value="${expenseToEdit.expenseName}" required><br>
-            Amount: <input type="number" name="amount" step="0.01" value="${expenseToEdit.amount}" required><br>
-            Category: <input type="text" name="category" value="${expenseToEdit.category}" required><br>
-            Date: <input type="date" name="date" value="${expenseToEdit.formattedDate}" required><br>
-            <input type="submit" value="Update Expense">
-        </form>
-    </c:when>
-    </c:choose>
+   
         </tbody>
 
     </table>
+    <br>
+    <c:choose>
+        <c:when test="${not empty expenseToEdit}">
+            <!-- Edit Expense Form -->
+            <form id="editExpenseForm" method="post" action="/app/Expenses">
+                <input type="hidden" name="expenseId" value="${expenseToEdit.id}"/>
+                Expense Name: <input type="text" name="expenseName" value="${expenseToEdit.expenseName}" required><br>
+                Amount: <input type="number" name="amount" step="0.01" value="${expenseToEdit.amount}" required><br>
+                Category: <input type="text" name="category" value="${expenseToEdit.category}" required><br>
+                Date: <input type="date" name="date" value="${expenseToEdit.formattedDate}" required><br>
+                <input type="submit" value="Update Expense">
+            </form>
+        </c:when>
+        </c:choose>
 
 
 

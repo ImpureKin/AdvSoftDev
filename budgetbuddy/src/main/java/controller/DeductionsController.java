@@ -83,14 +83,13 @@ public class DeductionsController extends HttpServlet {
             newDeduction.setFrequency(frequency);  // set the frequency. Make sure to add this method in Deductions model.
             newDeduction.setInvoiceDate(invoiceDate);  // set the invoice date. Make sure to add this method in Deductions model.
 
-
+            connection = ConnectionManager.getConnection();
             DeductionManager.addDeduction(connection, newDeduction, userId2);
 
-            resp.sendRedirect("Deductions");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        resp.sendRedirect("Deductions");
     }
 
-    // Additional methods for DELETE, UPDATE operations can be added here if needed.
 }
