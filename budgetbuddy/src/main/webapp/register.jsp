@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <input type="submit" id="submit" class="btn btn-primary mb-2" value="Submit">
+        <input type="submit" id="submit" class="btn btn-success-custom mb-2" value="Submit">
         </form>
     </div>
 

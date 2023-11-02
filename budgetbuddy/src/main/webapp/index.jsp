@@ -14,7 +14,7 @@
     <body class="d-flex flex-column h-100">
      <div class="container">
         <div class="text-center mt-5">
-            <h1>Welcome to BudgetBuddy!</h1><br>
+            <h1 class="h1-title">Welcome to BudgetBuddy!</h1><br>
         </div>
        <div class="container">
             <div class="row justify-content-center">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <br>
-                        <button class="btn btn-primary" type="submit">Submit</button> <br>
+                        <button class="btn btn-orange-custom" type="submit">Submit</button> <br>
                     </form>
                 </div>
             </div>
