@@ -70,7 +70,7 @@ public class DeductionsController extends HttpServlet {
             String name = req.getParameter("name");
             double amount = Double.parseDouble(req.getParameter("amount"));
             String category = req.getParameter("category");
-            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(req.getParameter("date"));
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date"));
             String frequency = req.getParameter("frequency");  // capture frequency from request
             String invoiceDate = req.getParameter("invoice_date");  // capture invoice_date from request
 
