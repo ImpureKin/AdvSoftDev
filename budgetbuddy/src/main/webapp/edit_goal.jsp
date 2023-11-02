@@ -40,8 +40,8 @@
             </diV>
 
             <div class="text-center mt-4 p-5">
-                <button type="submit" id="submit-button" class="btn btn-primary">Save Changes</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" id="submit-button" class="btn btn-success">Save Changes</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
                 <a href="GoalDetails?goalId=${goal.id}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>

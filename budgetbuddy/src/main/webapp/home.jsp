@@ -20,14 +20,14 @@
              User user = (User) session.getAttribute("User");
              UserController uc = user.getUserController(); 
      %>
-<body class="d-flex flex-column h-100" background="images/final.png" style="background-image: url('images/final.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+<body class="d-flex flex-column h-100" background="images/final2.png" style="background-image: url('images/final2.png'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100% 100%;">
    <div class="container-xxl mb-5">
         <div class="text-white mt-5">
-                <h1>Welcome, <%= uc.getValue(user, "firstName") %>!</h1>
+                <h1 class="h1-title-1">Welcome, <%= uc.getValue(user, "firstName") %>!</h1>
 
         </div>
     </div>
-   <div class="d-flex flex-column mh-100" style="padding: 330px;">
+   <div class="d-flex flex-column mh-100" style="padding: 370px;">
        
     </div>
 </div>

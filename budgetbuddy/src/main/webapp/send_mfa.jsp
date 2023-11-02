@@ -33,7 +33,7 @@
                 </div>
             </div>
             <br>
-            <input type="submit" class="btn " value="Submit">
+            <input type="submit" class="btn btn-orange-custom" value="Submit">
             <input type="hidden" name="expectedMfa" value="<%= expectedMfa %>">
         </form>
     </div>

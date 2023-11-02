@@ -48,8 +48,8 @@
     <!-- Action Buttons for the user to choose-->
     <div class="row justify-content-center mt-4 p-5">
       <div class="col-md-6">
-        <a href="GoalForEdit?goalId=${goal.id}" class="btn btn-primary mr-2">Edit Goal</a>
-        <button onclick="confirmDelete(${goal.id})" class="btn btn-danger">Delete</button>
+        <a href="GoalForEdit?goalId=${goal.id}" class="btn btn-orange-custom mr-2">Edit Goal</a>
+        <button onclick="confirmDelete(${goal.id})" class="btn btn-danger-custom">Delete</button>
         <a href="GoalsAndSavings" class="btn btn-secondary">Go Back</a>
       </div>
     </div>

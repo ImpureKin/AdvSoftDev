@@ -42,7 +42,7 @@
                     <input type="hidden" name="dateCreated" value="">
 
                     <div class="form-group mt-5 mb-4 text-center">
-                        <button type="submit" id="submit-button" class="btn btn-primary">Create Goal</button>
+                        <button type="submit" id="submit-button" class="btn btn-success-custom">Create Goal</button>
                         <a href="GoalsAndSavings" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>

@@ -103,7 +103,7 @@
                         </select>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mx-2">Save</button>
+                        <button type="submit" class="btn btn-orange-custom mx-2">Save</button>
                         <button type="button" class="btn btn-secondary mx-2" onClick="location.href='home.jsp'">Cancel</button>
                         <input type="hidden" name="submitted" value="yes">
                     </div>
@@ -115,7 +115,7 @@
             <form class="mt-3 d-inline-block" action="delete_user.jsp" method="POST">
                 <h2>Delete your account?</h2>
                 <p> WARNING! This will remove your account entirely. This cannot be undone!</p> 
-                <button type="submit" class="btn btn-danger">Delete Account</button>
+                <button type="submit" class="btn btn-danger-custom">Delete Account</button>
             </form>
         </div>
     </div>
