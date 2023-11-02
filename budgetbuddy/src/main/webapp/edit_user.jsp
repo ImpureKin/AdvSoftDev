@@ -94,23 +94,20 @@ ConnectionManager.closeConnection(connection);
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Profile</title>
 </head>
-<body>
-    <% if (!validationMessages.isEmpty()) { %>
-        <h1>Error: Unable to update your details!</h1>
-        <div>
-            <h2>Validation Errors:</h2>
-            <ul>
-                <% for (String message : validationMessages) { %>
-                    <li><%= message %></li>
-                <% } %>
-            </ul>
-        </div>
-    <% } else { %>
-        <div>
-            <h1>Details Updated Successfully!</h1>
-        </div>
-    <% } %>
+              <h2>Validation Errors:</h2>
+                <ul class="list-unstyled">
+                    <% for (String message : validationMessages) { %>
+                        <li><%= message %></li>
+                    <% } %>
+                </ul>
+            </div>
+        <% } else { %>
+            <div class="text-center">
+                <h1>Details Updated Successfully!</h1>
+            </div>
+        <% } %>
+    </div>
     <%@include file="sections/foot.jsp" %>
-    </body>
+</body>
 <%@include file="sections/footer.jsp" %>
 </html>
