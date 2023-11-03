@@ -14,7 +14,7 @@
     <body class="d-flex flex-column h-100">
      <div class="container">
         <div class="text-center mt-5">
-            <h1 class="h1-title">Welcome to BudgetBuddy!</h1><br>
+            <h1 class="h1-title">Welcome to BudgetBuddy! Hello Mom :D </h1><br>
         </div>
        <div class="container">
             <div class="row justify-content-center">
